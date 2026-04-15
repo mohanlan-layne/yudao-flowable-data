@@ -1,0 +1,12 @@
+{
+  "key": "pdp_plan_common_review",
+  "name": "通用审核",
+  "category": "PDP流程",
+  "modelType": 10,
+  "type": 10,
+  "formType": 20,
+  "visible": true,
+  "managerUserIds": [1],
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false
+}

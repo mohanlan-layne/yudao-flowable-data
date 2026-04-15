@@ -1,0 +1,42 @@
+{
+  "description": "",
+  "formType": 20,
+  "formCustomCreatePath": "/crm/fea/create",
+  "formCustomViewPath": "/crm/fea/get",
+  "visible": true,
+  "startUserIds": [],
+  "startDeptIds": [],
+  "managerUserIds": [
+    1506,
+    1243,
+    1242,
+    1241,
+    1240,
+    1239,
+    1237,
+    1108
+  ],
+  "sort": 1776148182203,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 2,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "name": "计划通用流程",
+  "key": "pdp_plan_common",
+  "category": "PDP流程",
+  "modelType": 10
+}

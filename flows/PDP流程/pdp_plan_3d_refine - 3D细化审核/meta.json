@@ -1,0 +1,12 @@
+{
+  "key": "pdp_plan_3d_refine",
+  "name": "3D细化审核",
+  "category": "PDP流程",
+  "modelType": 10,
+  "type": 10,
+  "formType": 20,
+  "visible": true,
+  "managerUserIds": [1],
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false
+}
