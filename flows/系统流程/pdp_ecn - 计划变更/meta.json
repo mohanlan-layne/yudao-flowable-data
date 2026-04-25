@@ -1,8 +1,8 @@
 {
   "description": "",
   "formType": 20,
-  "formCustomCreatePath": "/crm/feasibility/create",
-  "formCustomViewPath": "/crm/feasibility/detail/index",
+  "formCustomCreatePath": "/pdp/plantemplate/detail/change/index",
+  "formCustomViewPath": "/pdp/plantemplate/detail/change/index",
   "visible": true,
   "h5Visible": true,
   "startUserIds": [],
@@ -10,7 +10,7 @@
   "managerUserIds": [
     1
   ],
-  "sort": 1773712388508,
+  "sort": 1776238364274,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {
@@ -30,8 +30,8 @@
     "summary": []
   },
   "version": 2,
-  "name": "可行性评估终审",
-  "key": "crm-fea-final-audit",
-  "category": "CRM流程",
+  "name": "计划变更",
+  "key": "pdp_ecn",
+  "category": "PDP流程",
   "modelType": 10
 }

@@ -6,21 +6,6 @@
       <extensionElements>
         <flowable:candidateStrategy><![CDATA[60]]></flowable:candidateStrategy>
         <flowable:candidateParam><![CDATA[${executorUserId}]]></flowable:candidateParam>
-        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
-        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
-        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
-        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
-        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
-        <flowable:approveType><![CDATA[1]]></flowable:approveType>
-        <flowable:buttonsSetting id="1" enable="true" displayName="通过"></flowable:buttonsSetting>
-        <flowable:buttonsSetting id="2" enable="false" displayName="拒绝"></flowable:buttonsSetting>
-        <flowable:buttonsSetting id="3" enable="true" displayName="转办"></flowable:buttonsSetting>
-        <flowable:buttonsSetting id="4" enable="true" displayName="委派"></flowable:buttonsSetting>
-        <flowable:buttonsSetting id="5" enable="true" displayName="加签"></flowable:buttonsSetting>
-        <flowable:buttonsSetting id="6" enable="false" displayName="退回"></flowable:buttonsSetting>
-        <flowable:buttonsSetting id="7" enable="true" displayName="抄送"></flowable:buttonsSetting>
-        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
-        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
       </extensionElements>
     </userTask>
     <sequenceFlow id="Flow_0wucqjo" sourceRef="Event_1t78d04" targetRef="Activity_0tu9t8n"></sequenceFlow>

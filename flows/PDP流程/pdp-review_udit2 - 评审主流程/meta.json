@@ -10,7 +10,7 @@
   "managerUserIds": [
     1
   ],
-  "sort": 1777016895036,
+  "sort": 1774600197871,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {
@@ -22,16 +22,16 @@
   },
   "autoApprovalType": 0,
   "titleSetting": {
-    "enable": true,
-    "title": "评审 - {executorNickname}-{PROCESS_START_TIME}"
+    "enable": false,
+    "title": ""
   },
   "summarySetting": {
     "enable": false,
     "summary": []
   },
-  "version": 3,
+  "version": 16,
   "name": "评审主流程",
   "key": "pdp-review_udit2",
-  "category": "hidden",
+  "category": "PDP流程",
   "modelType": 10
 }

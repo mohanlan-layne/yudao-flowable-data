@@ -3,14 +3,14 @@
   "formType": 20,
   "formCustomCreatePath": "/crm/feasibility/create",
   "formCustomViewPath": "/crm/feasibility/detail/index",
-  "visible": false,
+  "visible": true,
   "h5Visible": true,
   "startUserIds": [],
   "startDeptIds": [],
   "managerUserIds": [
     1
   ],
-  "sort": 1773816099150,
+  "sort": 1773624663764,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {
@@ -29,9 +29,13 @@
     "enable": false,
     "summary": []
   },
-  "version": 5,
+  "printTemplateSetting": {
+    "enable": false,
+    "template": ""
+  },
+  "version": 12,
   "name": "可行性评估审批",
   "key": "crm-fea-audit",
-  "category": "hidden",
+  "category": "CRM流程",
   "modelType": 10
 }
