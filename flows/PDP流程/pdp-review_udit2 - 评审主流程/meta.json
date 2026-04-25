@@ -4,14 +4,13 @@
   "formCustomCreatePath": "/pdp/review/create",
   "formCustomViewPath": "/pdp/review/detail/index",
   "visible": true,
+  "h5Visible": true,
   "startUserIds": [],
   "startDeptIds": [],
   "managerUserIds": [
-    1242,
-    1237,
-    1108
+    1
   ],
-  "sort": 1774600197871,
+  "sort": 1777016895036,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {
@@ -23,15 +22,16 @@
   },
   "autoApprovalType": 0,
   "titleSetting": {
-    "enable": false,
-    "title": ""
+    "enable": true,
+    "title": "评审 - {executorNickname}-{PROCESS_START_TIME}"
   },
   "summarySetting": {
     "enable": false,
     "summary": []
   },
+  "version": 3,
   "name": "评审主流程",
   "key": "pdp-review_udit2",
-  "category": "PDP流程",
+  "category": "hidden",
   "modelType": 10
 }

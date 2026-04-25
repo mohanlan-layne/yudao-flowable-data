@@ -1,16 +1,15 @@
 {
   "description": "",
   "formType": 20,
-  "formCustomCreatePath": "/crm/feasibility/create",
-  "formCustomViewPath": "/crm/feasibility/detail/index",
-  "visible": false,
-  "h5Visible": true,
+  "formCustomCreatePath": "/crm/fea/create",
+  "formCustomViewPath": "/crm/fea/get",
+  "visible": true,
   "startUserIds": [],
   "startDeptIds": [],
   "managerUserIds": [
     1
   ],
-  "sort": 1773816099150,
+  "sort": 1776148182204,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {
@@ -20,18 +19,18 @@
     "postfix": "",
     "length": 5
   },
-  "autoApprovalType": 0,
+  "autoApprovalType": 2,
   "titleSetting": {
-    "enable": true,
-    "title": "可行性评估 - {feaName}"
+    "enable": false,
+    "title": ""
   },
   "summarySetting": {
     "enable": false,
     "summary": []
   },
-  "version": 5,
-  "name": "可行性评估审批",
-  "key": "crm-fea-audit",
-  "category": "hidden",
-  "modelType": 10
+  "name": "通用文档审批",
+  "key": "pdp_plan_doc_common",
+  "category": "PDP流程",
+  "modelType": 10,
+  "h5Visible": true
 }

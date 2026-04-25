@@ -1,41 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/bpmn" id="diagram_crm-fea-final-audit">
   <process id="crm-fea-final-audit" name="可行性评估终审" isExecutable="true">
-    <startEvent id="Event_19eouux" name="开始"></startEvent>
+    <startEvent id="Event_09b9p2g" name="开始"></startEvent>
     <userTask id="Activity_04f719l" name="终审审批">
       <extensionElements>
         <flowable:candidateStrategy><![CDATA[35]]></flowable:candidateStrategy>
         <flowable:candidateParam></flowable:candidateParam>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[1]]></flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="通过"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="2" enable="false" displayName="拒绝"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="3" enable="true" displayName="转办"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="4" enable="true" displayName="委派"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="5" enable="true" displayName="加签"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="6" enable="false" displayName="退回"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送"></flowable:buttonsSetting>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="Flow_144lr6x" sourceRef="Event_19eouux" targetRef="Activity_04f719l"></sequenceFlow>
-    <endEvent id="Event_14lqs2s" name="结束"></endEvent>
-    <sequenceFlow id="Flow_047emck" sourceRef="Activity_04f719l" targetRef="Event_14lqs2s"></sequenceFlow>
+    <sequenceFlow id="Flow_13nw9vq" sourceRef="Event_09b9p2g" targetRef="Activity_04f719l"></sequenceFlow>
+    <endEvent id="Event_1rdx5no" name="结束"></endEvent>
+    <sequenceFlow id="Flow_13gtqnw" sourceRef="Activity_04f719l" targetRef="Event_1rdx5no"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_crm-fea-final-audit">
     <bpmndi:BPMNPlane bpmnElement="crm-fea-final-audit" id="BPMNPlane_crm-fea-final-audit">
-      <bpmndi:BPMNShape bpmnElement="Event_19eouux" id="BPMNShape_Event_19eouux">
-        <omgdc:Bounds height="36.0" width="36.0" x="312.0" y="202.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="Event_09b9p2g" id="BPMNShape_Event_09b9p2g">
+        <omgdc:Bounds height="36.0" width="36.0" x="322.0" y="222.0"></omgdc:Bounds>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="22.0" x="319.0" y="245.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="23.0" x="329.0" y="265.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="Activity_04f719l" id="BPMNShape_Activity_04f719l">
-        <omgdc:Bounds height="80.0" width="100.0" x="400.0" y="180.0"></omgdc:Bounds>
+        <omgdc:Bounds height="80.0" width="100.0" x="410.0" y="200.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="Event_14lqs2s" id="BPMNShape_Event_14lqs2s">
-        <omgdc:Bounds height="36.0" width="36.0" x="552.0" y="202.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="Event_1rdx5no" id="BPMNShape_Event_1rdx5no">
+        <omgdc:Bounds height="36.0" width="36.0" x="562.0" y="222.0"></omgdc:Bounds>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="22.0" x="559.0" y="245.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="23.0" x="569.0" y="265.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="Flow_144lr6x" id="BPMNEdge_Flow_144lr6x">
-        <omgdi:waypoint x="348.0" y="220.0"></omgdi:waypoint>
-        <omgdi:waypoint x="400.0" y="220.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="Flow_13nw9vq" id="BPMNEdge_Flow_13nw9vq">
+        <omgdi:waypoint x="358.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="410.0" y="240.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="Flow_047emck" id="BPMNEdge_Flow_047emck">
-        <omgdi:waypoint x="500.0" y="220.0"></omgdi:waypoint>
-        <omgdi:waypoint x="552.0" y="220.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="Flow_13gtqnw" id="BPMNEdge_Flow_13gtqnw">
+        <omgdi:waypoint x="510.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="562.0" y="240.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
