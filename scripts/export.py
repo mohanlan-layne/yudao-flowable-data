@@ -37,7 +37,7 @@ def get_local_flow_dirs() -> dict:
 def prompt_merge() -> bool:
     print('\n拉取模式：')
     print('  1) 全量覆盖（完全以服务端为准）')
-    print('  2) 合并更新（只覆盖本地已有流程，不新增不删除）')
+    print('  2) 合并更新（新增+修改，本地独有的流程保留不删）')
     while True:
         raw = input('请输入序号 [2]: ').strip() or '2'
         if raw == '1':
@@ -56,7 +56,7 @@ def run(env: str, merge: bool):
 
     local_dirs = get_local_flow_dirs()
     if merge:
-        print(f'[export] 合并模式：本地共 {len(local_dirs)} 个流程，只更新已有的')
+        print(f'[export] 合并模式：新增+修改，本地独有流程保留不删（当前本地 {len(local_dirs)} 个）')
 
     print('[export] 获取流程分类...')
     cat_resp = api_request(base_url, '/admin-api/bpm/category/simple-list', token=token, tenant_id=tenant_id)
@@ -68,11 +68,6 @@ def run(env: str, merge: bool):
 
     total = skipped = 0
     for key in all_keys:
-        if merge and key not in local_dirs:
-            print(f'[export] 跳过 {key}：本地不存在（合并模式）')
-            skipped += 1
-            continue
-
         print(f'[export] 处理流程: {key}')
         def_resp = api_request(base_url, f'/admin-api/bpm/process-definition/get?key={key}',
                                token=token, tenant_id=tenant_id)
@@ -82,9 +77,11 @@ def run(env: str, merge: bool):
             skipped += 1
             continue
 
-        if merge:
+        if merge and key in local_dirs:
+            # 已有流程：写入本地原有目录，保留本地目录结构
             target_dir = local_dirs[key]
         else:
+            # 新增流程（或全量模式）：按服务端分类创建目录
             cat_code = data.get('category') or ''
             cat_name = category_map.get(cat_code, cat_code) or '未分类'
             safe_cat = cat_name.replace('/', '-').replace(' ', '_')
