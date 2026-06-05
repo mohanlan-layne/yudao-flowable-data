@@ -1,0 +1,37 @@
+{
+  "description": "",
+  "type": 10,
+  "formType": 10,
+  "formId": 39,
+  "formCustomCreatePath": "bpm/oa/leave/create.vue",
+  "formCustomViewPath": "bpm/oa/leave/detail.vue",
+  "visible": true,
+  "h5Visible": true,
+  "startUserIds": [],
+  "startDeptIds": [],
+  "managerUserIds": [
+    1
+  ],
+  "sort": 1769585805571,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "key": "bpm_oa_leave",
+  "name": "请假业务流程",
+  "category": "test"
+}
