@@ -1,118 +1,240 @@
 #!/usr/bin/env python3
 """
-将本地 flows/ 目录下的流程推送到 BPM（智能比对，无变化则跳过）
+将本地 <env>/<key> - <name>/now/ 回推到 BPM（不发布）
 
 直接运行进入交互模式：
-  ./import.sh
+  ./import.py
 
 带参数直接执行（适合自动化）：
-  ./import.sh --env prod pdp_plan_doc_common pdp_plan_doc_dfm
+  ./import.py --env dev pdp-review_udit2
+  ./import.py --env dev --dry-run pdp-review_udit2
 """
 
 import argparse
-import glob
 import json
 import os
-import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from bpm_common import (FLOWS_DIR, api_request, get_config, is_interactive,
-                        list_local_flows, login, prompt_env, prompt_flows)
+from bpm_common import (
+    api_request, env_dir, get_category_map, get_config, is_interactive,
+    list_local_flows, login, prompt_env, prompt_flows, resolve_model_id,
+)
 
 
-def normalize_xml(xml: str) -> str:
-    return re.sub(r'\s+', ' ', xml).strip()
+def _read_now(flow_dir, key):
+    """读取 now/ 目录下的 model.json、bpmn、form.json(可选)。
+    返回 (model_dict, bpmn_str, form_dict_or_None)
+    """
+    now_dir = os.path.join(flow_dir, 'now')
+    model_path = os.path.join(now_dir, 'model.json')
+    bpmn_path = os.path.join(now_dir, f'{key}.bpmn')
+
+    if not os.path.isfile(model_path):
+        raise FileNotFoundError(f'缺少 model.json: {model_path}')
+    if not os.path.isfile(bpmn_path):
+        raise FileNotFoundError(f'缺少 bpmn 文件: {bpmn_path}')
+
+    with open(model_path, encoding='utf-8') as f:
+        model = json.load(f)
+
+    with open(bpmn_path, encoding='utf-8') as f:
+        bpmn = f.read()
+
+    form = None
+    form_path = os.path.join(now_dir, 'form.json')
+    if os.path.isfile(form_path):
+        with open(form_path, encoding='utf-8') as f:
+            form = json.load(f)
+
+    return model, bpmn, form
 
 
-def run(env: str, filter_keys: set):
+def _prompt_category(current_category, category_map):
+    """交互式让用户选择分类。返回最终 category code。
+    category_map: {code: name}
+    """
+    print(f'\n  当前分类: {current_category or "(空)"}')
+    codes = sorted(category_map.keys())
+    if codes:
+        print('  可选分类（回车保持当前）：')
+        for i, code in enumerate(codes, 1):
+            marker = ' *' if code == current_category else ''
+            print(f'    {i}) {code} ({category_map[code]}){marker}')
+    else:
+        print('  目标环境暂无分类，回车保持当前')
+
+    while True:
+        raw = input('  请输入序号或分类 code [回车保持]: ').strip()
+        if not raw:
+            return current_category
+        if raw in category_map:
+            return raw
+        if raw.isdigit():
+            idx = int(raw) - 1
+            if 0 <= idx < len(codes):
+                return codes[idx]
+        print(f'    无效输入，请重试')
+
+
+def _build_body(model, bpmn, category, model_id=None):
+    """构造 update/create 的 body。透传 model.json 字段，补上 bpmnXml/category，update 时加 id。"""
+    body = dict(model)
+    body['bpmnXml'] = bpmn
+    body['category'] = category
+    if model_id:
+        body['id'] = model_id
+    return body
+
+
+def _dry_run_summary(key, name, category, form_id, bpmn_len, is_update):
+    action = 'update' if is_update else 'create'
+    form_info = f', formId={form_id}' if form_id else ''
+    print(f'  [dry-run] {action}: key={key}, name={name}, category={category}{form_info}, bpmnXml={bpmn_len} chars')
+
+
+def _import_flow(base_url, token, tenant_id, key, name, flow_dir,
+                 category_map, dry_run=False, interactive=False):
+    """处理单个流程：读本地 now/ → 判断 update/create → 推送（或 dry-run 打印）。"""
+    model, bpmn, form = _read_now(flow_dir, key)
+
+    # 当前 model.json 里的分类
+    current_category = model.get('category') or ''
+
+    # 分类选择
+    if interactive and category_map is not None:
+        final_category = _prompt_category(current_category, category_map)
+    else:
+        final_category = current_category
+
+    # 判断 update 还是 create
+    model_id = resolve_model_id(base_url, token, tenant_id, key)
+    is_update = model_id is not None
+
+    # formId：动态表单(formType==10) 且本地有 form.json 时，model.json 里应已有 formId（来自 export）
+    # 这里不做额外处理，透传即可
+    form_id = model.get('formId')
+
+    body = _build_body(model, bpmn, final_category, model_id)
+
+    if dry_run:
+        _dry_run_summary(key, name, final_category, form_id, len(bpmn), is_update)
+        return True
+
+    # 真正发请求
+    if is_update:
+        resp = api_request(base_url, '/admin-api/bpm/model/update',
+                           token=token, tenant_id=tenant_id, method='PUT', body=body)
+        action = '更新'
+    else:
+        resp = api_request(base_url, '/admin-api/bpm/model/create',
+                           token=token, tenant_id=tenant_id, method='POST', body=body)
+        action = '新建'
+
+    if resp.get('code') == 0:
+        print(f'  -> {action}成功')
+        return True
+    else:
+        print(f'  -> {action}失败: {resp.get("msg", "unknown")}', file=sys.stderr)
+        return False
+
+
+def run(env: str, filter_keys: set, dry_run=False):
     cfg = get_config(env)
     base_url, tenant_id = cfg['url'], cfg['tenant_id']
     token = login(base_url, tenant_id, cfg['username'], cfg['password'])
 
-    existing_resp = api_request(base_url, '/admin-api/bpm/model/list', token=token, tenant_id=tenant_id)
-    existing = {item['key']: item for item in existing_resp.get('data', [])}
+    # 获取目标环境分类映射（用于交互式切换）
+    category_map = get_category_map(base_url, token, tenant_id)
 
-    imported = skipped = failed = 0
+    # 扫描本地含 now/ 的流程
+    flows = list_local_flows(env)
+    if not flows:
+        print('[import] 本地无可用流程（缺少 now/ 目录）')
+        return
 
-    for meta_file in sorted(glob.glob(os.path.join(FLOWS_DIR, '*', '*', 'meta.json'))):
-        flow_dir = os.path.dirname(meta_file)
-        key = os.path.basename(flow_dir).split(' - ')[0]
-        bpmn_file = os.path.join(flow_dir, f'{key}.bpmn')
+    # 过滤
+    if filter_keys:
+        flows = [(k, n, d) for k, n, d in flows if k in filter_keys]
+        missing = filter_keys - {k for k, _, _ in flows}
+        for k in missing:
+            print(f'[import] 警告: 本地不存在流程 {k}')
 
-        if filter_keys and key not in filter_keys:
-            continue
-        if not os.path.exists(bpmn_file):
-            print(f'[import] 跳过 {key}：缺少 bpmn 文件')
-            skipped += 1
-            continue
+    if not flows:
+        print('[import] 无匹配流程')
+        return
 
-        print(f'[import] 处理流程: {key}')
-
-        with open(meta_file, encoding='utf-8') as f:
-            meta = json.load(f)
-        with open(bpmn_file, encoding='utf-8') as f:
-            local_bpmn = f.read()
-
-        meta = dict(meta)
-        meta['bpmnXml'] = local_bpmn
-        meta['key'] = key
-        if 'modelType' in meta and 'type' not in meta:
-            meta['type'] = meta.pop('modelType')
-        else:
-            meta.pop('modelType', None)
-        for field in ('id', 'version', 'categoryName'):
-            meta.pop(field, None)
-
+    total = ok = failed = 0
+    for key, name, flow_dir in flows:
+        print(f'[import] 处理: {key} - {name}')
         try:
-            if key in existing:
-                model_id = existing[key]['id']
-                server_version = existing[key].get('version', '-')
-                model_detail = api_request(base_url, f'/admin-api/bpm/model/get?id={model_id}',
-                                           token=token, tenant_id=tenant_id)
-                server_bpmn = (model_detail.get('data') or {}).get('bpmnXml', '')
-                if normalize_xml(server_bpmn) == normalize_xml(local_bpmn):
-                    print(f'[import]   -> 无变化，跳过（服务端: v{server_version}）')
-                    skipped += 1
-                    continue
-                meta['id'] = model_id
-                resp = api_request(base_url, '/admin-api/bpm/model/update',
-                                   token=token, tenant_id=tenant_id, method='PUT', body=meta)
-                action = f'更新（服务端原版本: v{server_version}）'
+            if _import_flow(base_url, token, tenant_id, key, name, flow_dir,
+                            category_map, dry_run=dry_run, interactive=False):
+                ok += 1
             else:
-                resp = api_request(base_url, '/admin-api/bpm/model/create',
-                                   token=token, tenant_id=tenant_id, method='POST', body=meta)
-                action = '新建'
-
-            if resp.get('code') == 0:
-                print(f'[import]   -> {action}成功')
-                imported += 1
-            else:
-                print(f'[import]   -> {action}失败: {resp.get("msg", "unknown")}', file=sys.stderr)
                 failed += 1
         except Exception as e:
-            print(f'[import]   -> 异常: {e}', file=sys.stderr)
+            print(f'  -> 异常: {e}', file=sys.stderr)
             failed += 1
+        total += 1
 
-    print(f'\n[import] 完成：推送 {imported}，跳过 {skipped}（无变化），失败 {failed}')
+    mode_str = '（dry-run，未实际推送）' if dry_run else ''
+    print(f'\n[import] 完成{mode_str}：处理 {total}，成功 {ok}，失败 {failed}')
 
 
 def main():
     if is_interactive():
         print('=' * 44)
-        print('  BPM 流程推送')
+        print('  BPM 流程回推（import）')
         print('=' * 44)
         env = prompt_env()
-        flows = list_local_flows()
-        selected_keys = prompt_flows(flows)
+
+        cfg = get_config(env)
+        base_url, tenant_id = cfg['url'], cfg['tenant_id']
+        token = login(base_url, tenant_id, cfg['username'], cfg['password'])
+        category_map = get_category_map(base_url, token, tenant_id)
+
+        flows = list_local_flows(env)
+        if not flows:
+            print('[import] 本地无可用流程')
+            return
+
+        selected_keys = prompt_flows(flows, category_of=lambda k: next(
+            (cat for a, b, cat in flows if a == k), '未分类'))
+
+        dry_run = False
+        raw = input('\n是否只预览不推送？(y/N): ').strip().lower()
+        if raw == 'y':
+            dry_run = True
+            print('  已选择: dry-run 模式')
+
         print()
-        run(env, set(selected_keys))
+        # 交互模式下逐个处理，支持逐个分类切换
+        total = ok = failed = 0
+        for key, name, flow_dir in flows:
+            if selected_keys and key not in selected_keys:
+                continue
+            print(f'[import] 处理: {key} - {name}')
+            try:
+                if _import_flow(base_url, token, tenant_id, key, name, flow_dir,
+                                category_map, dry_run=dry_run, interactive=True):
+                    ok += 1
+                else:
+                    failed += 1
+            except Exception as e:
+                print(f'  -> 异常: {e}', file=sys.stderr)
+                failed += 1
+            total += 1
+
+        mode_str = '（dry-run，未实际推送）' if dry_run else ''
+        print(f'\n[import] 完成{mode_str}：处理 {total}，成功 {ok}，失败 {failed}')
     else:
-        parser = argparse.ArgumentParser(description='推送本地流程到 BPM')
+        parser = argparse.ArgumentParser(description='将本地 now/ 回推到 BPM')
         parser.add_argument('--env', default=os.environ.get('ENV', 'dev'))
-        parser.add_argument('keys', nargs='*')
+        parser.add_argument('--dry-run', action='store_true', help='只打印，不实际推送')
+        parser.add_argument('keys', nargs='*', help='指定流程 key，不填则处理本地全部')
         args = parser.parse_args()
-        run(args.env, set(args.keys))
+        run(args.env, set(args.keys), dry_run=args.dry_run)
 
 
 if __name__ == '__main__':
