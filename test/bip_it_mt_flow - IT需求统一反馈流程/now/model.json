@@ -1,0 +1,37 @@
+{
+  "description": "IT需求统一反馈流程",
+  "type": 10,
+  "formType": 10,
+  "formId": 42,
+  "formCustomCreatePath": "",
+  "formCustomViewPath": "",
+  "visible": true,
+  "h5Visible": true,
+  "startUserIds": [],
+  "startDeptIds": [],
+  "managerUserIds": [
+    1
+  ],
+  "sort": 1778748715010,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "key": "bip_it_mt_flow",
+  "name": "IT需求统一反馈流程",
+  "category": "IT_REQ"
+}

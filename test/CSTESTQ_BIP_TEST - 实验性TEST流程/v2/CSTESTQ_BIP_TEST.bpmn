@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/bpmn" id="diagram_CSTESTQ_BIP_TEST">
+  <process id="CSTESTQ_BIP_TEST" name="实验性TEST流程" isExecutable="true">
+    <startEvent id="Event_1675rl8" name="需求提报"></startEvent>
+    <userTask id="Activity_0j939v1" name="需求确认">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[30]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[1108]]></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_1e8zmso" sourceRef="Event_1675rl8" targetRef="Activity_0j939v1"></sequenceFlow>
+    <endEvent id="Event_1t6zixz" name="上线部署"></endEvent>
+    <sequenceFlow id="Flow_1ckknnt" sourceRef="Activity_0j939v1" targetRef="Event_1t6zixz"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_CSTESTQ_BIP_TEST">
+    <bpmndi:BPMNPlane bpmnElement="CSTESTQ_BIP_TEST" id="BPMNPlane_CSTESTQ_BIP_TEST">
+      <bpmndi:BPMNShape bpmnElement="Event_1675rl8" id="BPMNShape_Event_1675rl8">
+        <omgdc:Bounds height="36.0" width="36.0" x="182.0" y="182.0"></omgdc:Bounds>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="45.0" x="178.0" y="225.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_0j939v1" id="BPMNShape_Activity_0j939v1">
+        <omgdc:Bounds height="80.0" width="100.0" x="270.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Event_1t6zixz" id="BPMNShape_Event_1t6zixz">
+        <omgdc:Bounds height="36.0" width="36.0" x="422.0" y="182.0"></omgdc:Bounds>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="44.0" x="420.0" y="225.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="Flow_1e8zmso" id="BPMNEdge_Flow_1e8zmso">
+        <omgdi:waypoint x="218.0" y="200.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="200.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_1ckknnt" id="BPMNEdge_Flow_1ckknnt">
+        <omgdi:waypoint x="370.0" y="200.0"></omgdi:waypoint>
+        <omgdi:waypoint x="422.0" y="200.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
