@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 """
-V1 dev 回环验证脚本
+V2 dev+test 全链路验证脚本
 
 步骤：
-1. export 真实流程 test_process（动态表单流程）
-2. 本地复制造一次性流程 zzz_verify_<ts>
-3. import 创建该一次性模型（非 dry-run）
-4. export 回拉校验回环保真
-5. 清理（成败都执行）
+1. dev export 真实流程 test_process
+2. dev 本地克隆为一次性流程 zzz_verify_<ts>
+3. dev import 创建该一次性模型（非 dry-run）
+4. dev export 回拉校验回环保真
+5. 晋级：复制 dev/<verify_key>/now/ → test/<verify_key>/now/
+6. test import 创建该一次性模型（非 dry-run）
+7. test export 回拉校验与晋级前一致
+8. 清理（成败都执行）：dev+test 服务端模型 + 本地目录
 """
 
 import json
@@ -54,20 +57,22 @@ def _write_text(path, text):
         f.write(text)
 
 
+def _find_actual_dir(env, key):
+    """在 env 目录下查找以 key 开头的流程目录"""
+    base = env_dir(env)
+    for entry in os.listdir(base):
+        if entry.startswith(key + ' -'):
+            return os.path.join(base, entry)
+    return None
+
+
 def step1_export_real(env):
     """export 真实流程，断言生成 now/ 和 v*/"""
-    print('\n[Step 1] export 真实流程')
+    print(f'\n[Step 1] export 真实流程 ({env})')
     script_path = os.path.join(os.path.dirname(__file__), '..', 'scripts', 'export.py')
     _run(f'python3 {script_path} --env {env} {REAL_FLOW_KEY}', cwd=os.path.dirname(__file__))
 
-    flow_dir = os.path.join(env_dir(env), flow_dir_name(REAL_FLOW_KEY, ''))
-    # 尝试找实际目录（因为 name 可能非空）
-    base = env_dir(env)
-    actual_dir = None
-    for entry in os.listdir(base):
-        if entry.startswith(REAL_FLOW_KEY + ' -'):
-            actual_dir = os.path.join(base, entry)
-            break
+    actual_dir = _find_actual_dir(env, REAL_FLOW_KEY)
     if not actual_dir:
         raise AssertionError(f'未找到 export 生成的流程目录: {REAL_FLOW_KEY}')
 
@@ -91,7 +96,7 @@ def step1_export_real(env):
 
 def step2_clone_verify_flow(env, src_dir):
     """复制 now/ 为一次性流程，改 key/name/bpmn process id"""
-    print('\n[Step 2] 克隆并改造为一次性流程')
+    print(f'\n[Step 2] 克隆并改造为一次性流程 ({env})')
     ts = str(int(time.time()))
     verify_key = f'{VERIFY_KEY_PREFIX}{ts}'
     verify_name = f'验证临时-{verify_key}'
@@ -120,7 +125,7 @@ def step2_clone_verify_flow(env, src_dir):
 
     # 替换 <process id="..."> 中的 id
     # 先找旧 key
-    old_key_match = re.search(r'id="([^"]+)"', bpmn_text)
+    old_key_match = re.search(r'<process[^>]*id="([^"]+)"', bpmn_text)
     if old_key_match:
         old_key_in_bpmn = old_key_match.group(1)
         bpmn_text = bpmn_text.replace(f'id="{old_key_in_bpmn}"', f'id="{verify_key}"', 1)
@@ -137,7 +142,7 @@ def step2_clone_verify_flow(env, src_dir):
 
 def step3_import_create(env, verify_key):
     """import 创建一次性模型（非 dry-run）"""
-    print('\n[Step 3] import 创建一次性模型')
+    print(f'\n[Step 3] import 创建一次性模型 ({env})')
     script_path = os.path.join(os.path.dirname(__file__), '..', 'scripts', 'import.py')
     _run(f'python3 {script_path} --env {env} {verify_key}', cwd=os.path.dirname(__file__))
     print('[Step 3] OK')
@@ -145,7 +150,7 @@ def step3_import_create(env, verify_key):
 
 def step4_export_verify(env, verify_key, local_dir):
     """export 回拉，校验回环保真"""
-    print('\n[Step 4] export 回拉并校验')
+    print(f'\n[Step 4] export 回拉并校验 ({env})')
     script_path = os.path.join(os.path.dirname(__file__), '..', 'scripts', 'export.py')
     _run(f'python3 {script_path} --env {env} {verify_key}', cwd=os.path.dirname(__file__))
 
@@ -190,47 +195,136 @@ def step4_export_verify(env, verify_key, local_dir):
     print('[Step 4] OK: 回环保真校验通过')
 
 
-def step5_cleanup(env, verify_key):
-    """删除服务端模型和本地目录"""
-    print('\n[Step 5] 清理')
-    cfg = get_config(env)
-    base_url, tenant_id = cfg['url'], cfg['tenant_id']
-    token = login(base_url, tenant_id, cfg['username'], cfg['password'])
+def step5_promote(dev_dir, test_dir):
+    """晋级：复制 dev/<verify_key>/now/ → test/<verify_key>/now/"""
+    print('\n[Step 5] 晋级: dev → test')
+    now_src = os.path.join(dev_dir, 'now')
+    now_dest = os.path.join(test_dir, 'now')
 
-    model_id = resolve_model_id(base_url, token, tenant_id, verify_key)
-    if model_id:
-        try:
-            api_request(base_url, f'/admin-api/bpm/model/delete?id={model_id}',
-                        token=token, tenant_id=tenant_id, method='DELETE')
-            print(f'[cleanup] 已删除服务端模型: {verify_key} (id={model_id})')
-        except Exception as e:
-            print(f'[cleanup] 删除服务端模型失败: {e}', file=sys.stderr)
+    if os.path.exists(test_dir):
+        shutil.rmtree(test_dir)
+    os.makedirs(os.path.dirname(test_dir), exist_ok=True)
+    shutil.copytree(now_src, now_dest)
+
+    print(f'[Step 5] OK: {now_src} → {now_dest}')
+
+
+def step6_test_export_verify(verify_key, test_dir, dev_now_dir):
+    """test export 回拉，校验与晋级前一致"""
+    print('\n[Step 6] test export 回拉并校验')
+    script_path = os.path.join(os.path.dirname(__file__), '..', 'scripts', 'export.py')
+    _run(f'python3 {script_path} --env test {verify_key}', cwd=os.path.dirname(__file__))
+
+    now_dir = os.path.join(test_dir, 'now')
+
+    # 读取晋级前的 dev now/ 数据（作为基准）
+    model_baseline = _read_json(os.path.join(dev_now_dir, 'model.json'))
+    bpmn_baseline = _read_text(os.path.join(dev_now_dir, f'{verify_key}.bpmn'))
+    form_baseline = None
+    form_path_baseline = os.path.join(dev_now_dir, 'form.json')
+    if os.path.isfile(form_path_baseline):
+        form_baseline = _read_json(form_path_baseline)
+
+    # 读取 test export 后的数据
+    model_after = _read_json(os.path.join(now_dir, 'model.json'))
+    bpmn_after = _read_text(os.path.join(now_dir, f'{verify_key}.bpmn'))
+    form_after = None
+    form_path = os.path.join(now_dir, 'form.json')
+    if os.path.isfile(form_path):
+        form_after = _read_json(form_path)
+
+    # 校验 BPMN process id
+    match_after = re.search(r'<process[^>]*id="([^"]+)"', bpmn_after)
+    if match_after:
+        assert match_after.group(1) == verify_key, f'BPMN process id 不匹配: {match_after.group(1)} != {verify_key}'
     else:
-        print(f'[cleanup] 服务端未找到模型: {verify_key}')
+        print('[warn] test 回拉 BPMN 中未找到 process id', file=sys.stderr)
 
-    # 删本地目录
-    base = env_dir(env)
-    if os.path.isdir(base):
-        for entry in os.listdir(base):
-            if entry.startswith(VERIFY_KEY_PREFIX):
-                d = os.path.join(base, entry)
-                shutil.rmtree(d)
-                print(f'[cleanup] 已删除本地目录: {d}')
+    # 校验 model.json key/name/formType
+    assert model_after.get('key') == verify_key, f'key 不匹配: {model_after.get("key")} != {verify_key}'
+    assert model_after.get('name') == model_baseline.get('name'), f'name 不匹配'
+    assert model_after.get('formType') == model_baseline.get('formType'), f'formType 不匹配'
 
-    print('[Step 5] OK')
+    # 校验 form.json conf（容许服务端补充字段）
+    if form_baseline and form_after:
+        baseline_conf = form_baseline.get('conf')
+        after_conf = form_after.get('conf')
+        if baseline_conf is not None and after_conf is not None:
+            baseline_fields = set(baseline_conf.keys()) if isinstance(baseline_conf, dict) else set()
+            after_fields = set(after_conf.keys()) if isinstance(after_conf, dict) else set()
+            missing = baseline_fields - after_fields
+            assert not missing, f'form.conf 缺少字段: {missing}'
+
+    print('[Step 6] OK: test 回拉与晋级前一致')
+
+
+def step7_cleanup(verify_key, dev_dir, test_dir, real_dev_dir):
+    """删除 dev+test 服务端模型和本地目录"""
+    print('\n[Step 7] 清理')
+
+    for env in ('dev', 'test'):
+        cfg = get_config(env)
+        base_url, tenant_id = cfg['url'], cfg['tenant_id']
+        try:
+            token = login(base_url, tenant_id, cfg['username'], cfg['password'])
+            model_id = resolve_model_id(base_url, token, tenant_id, verify_key)
+            if model_id:
+                try:
+                    api_request(base_url, f'/admin-api/bpm/model/delete?id={model_id}',
+                                token=token, tenant_id=tenant_id, method='DELETE')
+                    print(f'[cleanup] 已删除 {env} 服务端模型: {verify_key} (id={model_id})')
+                except Exception as e:
+                    print(f'[cleanup] 删除 {env} 服务端模型失败: {e}', file=sys.stderr)
+            else:
+                print(f'[cleanup] {env} 服务端未找到模型: {verify_key}')
+        except Exception as e:
+            print(f'[cleanup] {env} 登录/查询失败: {e}', file=sys.stderr)
+
+    # 删本地目录（dev 和 test 下的 verify 目录）
+    for env in ('dev', 'test'):
+        base = env_dir(env)
+        if os.path.isdir(base):
+            for entry in os.listdir(base):
+                if entry.startswith(VERIFY_KEY_PREFIX):
+                    d = os.path.join(base, entry)
+                    shutil.rmtree(d)
+                    print(f'[cleanup] 已删除本地目录: {d}')
+
+    # 也删真实流程目录
+    if real_dev_dir and os.path.exists(real_dev_dir):
+        try:
+            shutil.rmtree(real_dev_dir)
+            print(f'[cleanup] 已删除真实流程目录: {real_dev_dir}')
+        except Exception as e:
+            print(f'[cleanup] 删除真实流程目录失败: {e}', file=sys.stderr)
+
+    print('[Step 7] OK')
 
 
 def main():
-    env = 'dev'
     verify_key = None
-    local_dir = None
-    src_dir = None
+    dev_local_dir = None
+    test_local_dir = None
+    real_dev_dir = None
 
     try:
-        src_dir = step1_export_real(env)
-        verify_key, local_dir = step2_clone_verify_flow(env, src_dir)
-        step3_import_create(env, verify_key)
-        step4_export_verify(env, verify_key, local_dir)
+        # ===== V1: dev 回环 =====
+        real_dev_dir = step1_export_real('dev')
+        verify_key, dev_local_dir = step2_clone_verify_flow('dev', real_dev_dir)
+        step3_import_create('dev', verify_key)
+        step4_export_verify('dev', verify_key, dev_local_dir)
+
+        # ===== V2: dev→test 晋级回环 =====
+        # 5. 晋级：dev now/ → test now/
+        test_local_dir = os.path.join(env_dir('test'), os.path.basename(dev_local_dir))
+        step5_promote(dev_local_dir, test_local_dir)
+
+        # 6. test import（非 dry-run）
+        step3_import_create('test', verify_key)
+
+        # 7. test export 回拉校验
+        step6_test_export_verify(verify_key, test_local_dir, os.path.join(dev_local_dir, 'now'))
+
         print('\n[verify_e2e] 全部通过 ✓')
         sys.exit(0)
     except AssertionError as e:
@@ -245,16 +339,9 @@ def main():
     finally:
         if verify_key:
             try:
-                step5_cleanup(env, verify_key)
+                step7_cleanup(verify_key, dev_local_dir, test_local_dir, real_dev_dir)
             except Exception as e:
                 print(f'[cleanup] 清理异常: {e}', file=sys.stderr)
-        # 也清理真实流程目录（不提交数据）
-        if src_dir and os.path.exists(src_dir):
-            try:
-                shutil.rmtree(src_dir)
-                print(f'[cleanup] 已删除真实流程目录: {src_dir}')
-            except Exception as e:
-                print(f'[cleanup] 删除真实流程目录失败: {e}', file=sys.stderr)
 
 
 if __name__ == '__main__':
