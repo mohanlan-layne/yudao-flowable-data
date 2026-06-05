@@ -1,0 +1,39 @@
+{
+  "description": "",
+  "formType": 20,
+  "formCustomCreatePath": "/pdp/plantemplate/detail/index",
+  "formCustomViewPath": "/pdp/plantemplate/detail/index",
+  "visible": true,
+  "h5Visible": true,
+  "managerUserIds": [
+    1
+  ],
+  "sort": 1776148182203,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 2,
+  "titleSetting": {
+    "enable": true,
+    "title": "{planInstance}"
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "printTemplateSetting": {
+    "enable": false,
+    "template": ""
+  },
+  "version": 3,
+  "name": "计划通用流程",
+  "key": "pdp_plan_common",
+  "category": "PDP流程",
+  "modelType": 10
+}

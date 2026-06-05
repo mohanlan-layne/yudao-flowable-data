@@ -1,0 +1,16 @@
+{
+  "type": 10,
+  "formType": 20,
+  "visible": true,
+  "h5Visible": true,
+  "startUserIds": [],
+  "managerUserIds": [
+    1
+  ],
+  "sort": 1777105201141,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "key": "pdp_plan_superior",
+  "name": "上级审核",
+  "category": "PDP流程"
+}

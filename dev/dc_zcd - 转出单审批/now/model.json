@@ -1,0 +1,40 @@
+{
+  "description": "",
+  "type": 10,
+  "formType": 20,
+  "formCustomCreatePath": "/dcprocess/transferOrder/index.vue",
+  "formCustomViewPath": "/dcprocess/transferOrder/index.vue",
+  "visible": true,
+  "h5Visible": true,
+  "startUserIds": [],
+  "startDeptIds": [],
+  "managerUserIds": [
+    1237
+  ],
+  "managerRoleIds": [
+    1,
+    804
+  ],
+  "sort": 1779767670295,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": true,
+    "title": "{zcdName} - {fbillNo} - {userName}"
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "key": "dc_zcd",
+  "name": "转出单审批",
+  "category": "test"
+}

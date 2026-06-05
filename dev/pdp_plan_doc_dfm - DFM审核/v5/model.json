@@ -1,0 +1,22 @@
+{
+  "formType": 20,
+  "formCustomCreatePath": "/pdp/plan-approval/doc/detail/index.vue",
+  "formCustomViewPath": "/pdp/plan-approval/doc/detail/index.vue",
+  "visible": true,
+  "h5Visible": true,
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1
+  ],
+  "sort": 1777105197139,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "autoApprovalType": 0,
+  "version": 5,
+  "name": "DFM审核",
+  "key": "pdp_plan_doc_dfm",
+  "category": "PDP流程",
+  "modelType": 10
+}

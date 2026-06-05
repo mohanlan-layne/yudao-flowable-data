@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:flowable="http://flowable.org/bpmn" id="diagram_test_process" targetNamespace="http://flowable.org/bpmn">
+  <bpmn2:process id="test_process" name="请假" isExecutable="true">
+    <bpmn2:startEvent id="Event_0bnhb5c">
+      <bpmn2:outgoing>Flow_1sqno72</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:userTask id="Activity_1nln8pv" name="111">
+      <bpmn2:extensionElements>
+        <flowable:copyStrategy>30</flowable:copyStrategy>
+        <flowable:copyParam>100</flowable:copyParam>
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType>1</flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="通过" />
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝" />
+        <flowable:buttonsSetting id="3" enable="true" displayName="转办" />
+        <flowable:buttonsSetting id="4" enable="true" displayName="委派" />
+        <flowable:buttonsSetting id="5" enable="true" displayName="加签" />
+        <flowable:buttonsSetting id="6" enable="true" displayName="退回" />
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
+        <flowable:fieldsPermission field="Fuovmkxm8ua6abc" title="输入框" permission="1" />
+        <flowable:fieldsPermission field="a0ec584990a3452087680db12d81f377" title="用户选择器2" permission="1" />
+        <flowable:fieldsPermission field="b7cdf79efc094857bb4a8a9920db52a9" title="用户选择器" permission="1" />
+        <flowable:fieldsPermission field="Fhozmkxndfyoazc" title="级联选择器" permission="1" />
+        <flowable:fieldsPermission field="a13b3736912f49719add6358f6048ee7" title="接口选择器" permission="1" />
+        <flowable:fieldsPermission field="00ed4a016f3c428da3224e846d4daa06" title="部门选择器" permission="1" />
+        <flowable:fieldsPermission field="Fcermkxm8wusaec" title="多行输入框" permission="1" />
+        <flowable:fieldsPermission field="Fyb8mkxm8xkuahc" title="密码输入框" permission="1" />
+        <flowable:fieldsPermission field="Fs2ymkxm8ylcakc" title="单选框" permission="1" />
+        <flowable:fieldsPermission field="F1tsmkxm902banc" title="多选框" permission="1" />
+        <flowable:fieldsPermission field="Fsd4mkxm91hvaqc" title="日期区间" permission="1" />
+        <flowable:fieldsPermission field="Fasgmlhby2rvabc" title="手写签名" permission="1" />
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1,100,103,112,114,115,117,118</flowable:candidateParam>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_1sqno72</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_0st4xpa</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="Flow_1sqno72" sourceRef="Event_0bnhb5c" targetRef="Activity_1nln8pv" />
+    <bpmn2:endEvent id="Event_101y2aq">
+      <bpmn2:incoming>Flow_0st4xpa</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="Flow_0st4xpa" sourceRef="Activity_1nln8pv" targetRef="Event_101y2aq" />
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="test_process_di" bpmnElement="test_process">
+      <bpmndi:BPMNShape id="Event_0bnhb5c_di" bpmnElement="Event_0bnhb5c">
+        <dc:Bounds x="392" y="202" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1nln8pv_di" bpmnElement="Activity_1nln8pv">
+        <dc:Bounds x="480" y="180" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_101y2aq_di" bpmnElement="Event_101y2aq">
+        <dc:Bounds x="632" y="202" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1sqno72_di" bpmnElement="Flow_1sqno72">
+        <di:waypoint x="428" y="220" />
+        <di:waypoint x="480" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0st4xpa_di" bpmnElement="Flow_0st4xpa">
+        <di:waypoint x="580" y="220" />
+        <di:waypoint x="632" y="220" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

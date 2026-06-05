@@ -1,0 +1,35 @@
+{
+  "description": "",
+  "formType": 20,
+  "formCustomCreatePath": "/pdp/plantemplate/detail/index",
+  "formCustomViewPath": "/pdp/plantemplate/detail/index",
+  "visible": true,
+  "h5Visible": true,
+  "managerUserIds": [
+    1242
+  ],
+  "sort": 1779163112418,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": true,
+    "title": "bom审核 -{executorNickname}-{PROCESS_START_TIME}"
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "version": 1,
+  "name": "pdm流程",
+  "key": "pdm_bom_enc",
+  "category": "test",
+  "modelType": 10
+}

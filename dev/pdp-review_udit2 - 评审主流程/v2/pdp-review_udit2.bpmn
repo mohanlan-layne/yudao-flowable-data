@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/bpmn" id="diagram_pdp-review_udit2">
+  <process id="pdp-review_udit2" name="评审主流程" isExecutable="true">
+    <startEvent id="Event_07r7k0z"></startEvent>
+    <userTask id="Activity_1rjbckl" name="主管审批">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[35]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_16wb7d0" sourceRef="Event_07r7k0z" targetRef="Activity_1rjbckl"></sequenceFlow>
+    <userTask id="Activity_0ebfrvl" name="召集评审">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[10]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[1]]></flowable:candidateParam>
+        <flowable:approveMethod><![CDATA[2]]></flowable:approveMethod>
+      </extensionElements>
+      <multiInstanceLoopCharacteristics isSequential="false" flowable:collection="${coll_userList}">
+        <completionCondition>${ nrOfCompletedInstances/nrOfInstances &gt;= 1}</completionCondition>
+      </multiInstanceLoopCharacteristics>
+    </userTask>
+    <sequenceFlow id="Flow_1hiwka7" sourceRef="Activity_1rjbckl" targetRef="Activity_0ebfrvl"></sequenceFlow>
+    <userTask id="Activity_1336e53" name="评审判断">
+      <extensionElements>
+        <flowable:approveMethod><![CDATA[3]]></flowable:approveMethod>
+        <flowable:candidateStrategy><![CDATA[10]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[1]]></flowable:candidateParam>
+      </extensionElements>
+      <multiInstanceLoopCharacteristics isSequential="false" flowable:collection="${coll_userList}">
+        <completionCondition>${ nrOfCompletedInstances &gt; 0 }</completionCondition>
+      </multiInstanceLoopCharacteristics>
+    </userTask>
+    <sequenceFlow id="Flow_1pjev90" sourceRef="Activity_0ebfrvl" targetRef="Activity_1336e53"></sequenceFlow>
+    <serviceTask id="Activity_0kdeurx" name="问题整改(触发)" flowable:class="cn.iocoder.yudao.module.bpm.listener.CreateSubProcessListener"></serviceTask>
+    <sequenceFlow id="Flow_1r6reuw" sourceRef="Activity_1336e53" targetRef="Activity_0kdeurx"></sequenceFlow>
+    <endEvent id="Event_0z68oec"></endEvent>
+    <sequenceFlow id="Flow_19z719y" sourceRef="Activity_0kdeurx" targetRef="Activity_0uxzs0b"></sequenceFlow>
+    <receiveTask id="Activity_0uxzs0b" name="问题整改(完成)"></receiveTask>
+    <sequenceFlow id="Flow_149icvw" sourceRef="Activity_0uxzs0b" targetRef="Event_0z68oec"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_pdp-review_udit2">
+    <bpmndi:BPMNPlane bpmnElement="pdp-review_udit2" id="BPMNPlane_pdp-review_udit2">
+      <bpmndi:BPMNShape bpmnElement="Event_07r7k0z" id="BPMNShape_Event_07r7k0z">
+        <omgdc:Bounds height="36.0" width="36.0" x="232.0" y="202.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_1rjbckl" id="BPMNShape_Activity_1rjbckl">
+        <omgdc:Bounds height="80.0" width="100.0" x="320.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_0ebfrvl" id="BPMNShape_Activity_0ebfrvl">
+        <omgdc:Bounds height="80.0" width="100.0" x="480.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_1336e53" id="BPMNShape_Activity_1336e53">
+        <omgdc:Bounds height="80.0" width="100.0" x="640.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_0kdeurx" id="BPMNShape_Activity_0kdeurx">
+        <omgdc:Bounds height="80.0" width="100.0" x="780.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Event_0z68oec" id="BPMNShape_Event_0z68oec">
+        <omgdc:Bounds height="36.0" width="36.0" x="1042.0" y="202.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_0uxzs0b" id="BPMNShape_Activity_0uxzs0b">
+        <omgdc:Bounds height="80.0" width="100.0" x="910.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="Flow_16wb7d0" id="BPMNEdge_Flow_16wb7d0">
+        <omgdi:waypoint x="268.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_1hiwka7" id="BPMNEdge_Flow_1hiwka7">
+        <omgdi:waypoint x="420.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="480.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_1pjev90" id="BPMNEdge_Flow_1pjev90">
+        <omgdi:waypoint x="580.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="640.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_1r6reuw" id="BPMNEdge_Flow_1r6reuw">
+        <omgdi:waypoint x="740.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="780.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_19z719y" id="BPMNEdge_Flow_19z719y">
+        <omgdi:waypoint x="880.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="910.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_149icvw" id="BPMNEdge_Flow_149icvw">
+        <omgdi:waypoint x="1010.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1042.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

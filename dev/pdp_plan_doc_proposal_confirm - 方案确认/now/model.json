@@ -1,0 +1,16 @@
+{
+  "type": 10,
+  "formType": 20,
+  "visible": true,
+  "h5Visible": true,
+  "startUserIds": [],
+  "managerUserIds": [
+    1
+  ],
+  "sort": 1777105199118,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "key": "pdp_plan_doc_proposal_confirm",
+  "name": "方案确认",
+  "category": "PDP流程"
+}

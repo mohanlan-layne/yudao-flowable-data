@@ -1,0 +1,37 @@
+{
+  "description": "",
+  "type": 10,
+  "formType": 10,
+  "formId": 39,
+  "formCustomCreatePath": "",
+  "formCustomViewPath": "",
+  "visible": true,
+  "h5Visible": true,
+  "startUserIds": [],
+  "startDeptIds": [],
+  "managerUserIds": [
+    1
+  ],
+  "sort": 1769580214520,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "key": "test-oa1",
+  "name": "测试流程",
+  "category": "test"
+}

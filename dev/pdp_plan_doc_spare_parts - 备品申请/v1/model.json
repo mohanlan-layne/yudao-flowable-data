@@ -1,0 +1,19 @@
+{
+  "formType": 20,
+  "formCustomCreatePath": "/pdp/plan-approval/detail/index",
+  "formCustomViewPath": "/pdp/plan-approval/detail/index",
+  "visible": true,
+  "h5Visible": true,
+  "managerUserIds": [
+    1
+  ],
+  "sort": 1777105199130,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "autoApprovalType": 0,
+  "version": 1,
+  "name": "备品申请",
+  "key": "pdp_plan_doc_spare_parts",
+  "category": "PDP流程",
+  "modelType": 10
+}

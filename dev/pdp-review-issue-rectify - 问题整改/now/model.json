@@ -1,0 +1,36 @@
+{
+  "description": "",
+  "type": 10,
+  "formType": 20,
+  "formCustomCreatePath": "/pdp/question/create",
+  "formCustomViewPath": "/pdp/question/detail/index",
+  "visible": true,
+  "h5Visible": true,
+  "startUserIds": [],
+  "startDeptIds": [],
+  "managerUserIds": [
+    1
+  ],
+  "sort": 1776331968201,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": true,
+    "title": "问题整改 - {executorNickname}-{PROCESS_START_TIME}"
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "key": "pdp-review-issue-rectify",
+  "name": "问题整改",
+  "category": "PDP流程"
+}

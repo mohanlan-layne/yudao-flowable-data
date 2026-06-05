@@ -1,0 +1,18 @@
+{
+  "type": 10,
+  "formType": 20,
+  "formCustomCreatePath": "/pdp/plan-approval/doc/detail/index.vue",
+  "formCustomViewPath": "/pdp/plan-approval/doc/detail/index.vue",
+  "visible": true,
+  "h5Visible": true,
+  "startUserIds": [],
+  "managerUserIds": [
+    1
+  ],
+  "sort": 1777105197678,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "key": "pdp_plan_doc_pqa",
+  "name": "PQA审核",
+  "category": "PDP流程"
+}

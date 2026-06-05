@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/bpmn" id="diagram_dc_zcd">
+  <process id="dc_zcd" name="转出单审批" isExecutable="true">
+    <startEvent id="Event_1aptfmb"></startEvent>
+    <userTask id="Activity_03h3imd" name="审批">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[30]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[1237]]></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_0q7px36" sourceRef="Event_1aptfmb" targetRef="Activity_03h3imd"></sequenceFlow>
+    <endEvent id="Event_00kbjl2"></endEvent>
+    <sequenceFlow id="Flow_08nmb5w" sourceRef="Activity_03h3imd" targetRef="Event_00kbjl2"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dc_zcd">
+    <bpmndi:BPMNPlane bpmnElement="dc_zcd" id="BPMNPlane_dc_zcd">
+      <bpmndi:BPMNShape bpmnElement="Event_1aptfmb" id="BPMNShape_Event_1aptfmb">
+        <omgdc:Bounds height="36.0" width="36.0" x="152.0" y="252.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_03h3imd" id="BPMNShape_Activity_03h3imd">
+        <omgdc:Bounds height="80.0" width="100.0" x="240.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Event_00kbjl2" id="BPMNShape_Event_00kbjl2">
+        <omgdc:Bounds height="36.0" width="36.0" x="392.0" y="252.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="Flow_0q7px36" id="BPMNEdge_Flow_0q7px36">
+        <omgdi:waypoint x="188.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="240.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_08nmb5w" id="BPMNEdge_Flow_08nmb5w">
+        <omgdi:waypoint x="340.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="392.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

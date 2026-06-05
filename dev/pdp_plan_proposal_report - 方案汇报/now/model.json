@@ -1,0 +1,16 @@
+{
+  "type": 10,
+  "formType": 20,
+  "visible": true,
+  "h5Visible": true,
+  "startUserIds": [],
+  "managerUserIds": [
+    1
+  ],
+  "sort": 1777105200705,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "key": "pdp_plan_proposal_report",
+  "name": "方案汇报",
+  "category": "PDP流程"
+}
