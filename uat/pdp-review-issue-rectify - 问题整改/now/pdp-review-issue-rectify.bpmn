@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:flowable="http://flowable.org/bpmn" id="diagram_pdp-review-issue-rectify" targetNamespace="http://flowable.org/bpmn">
+  <bpmn2:process id="pdp-review-issue-rectify" name="问题整改" isExecutable="true">
+    <bpmn2:startEvent id="Event_15yt4kb" name="开始">
+      <bpmn2:outgoing>Flow_038ssqg</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:userTask id="Activity_1tvb6it" name="问题整改">
+      <bpmn2:extensionElements>
+        <flowable:candidateStrategy>35</flowable:candidateStrategy>
+        <flowable:candidateParam />
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType>1</flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="通过" />
+        <flowable:buttonsSetting id="2" enable="false" displayName="拒绝" />
+        <flowable:buttonsSetting id="3" enable="false" displayName="转办" />
+        <flowable:buttonsSetting id="4" enable="true" displayName="委派" />
+        <flowable:buttonsSetting id="5" enable="true" displayName="加签" />
+        <flowable:buttonsSetting id="6" enable="false" displayName="退回" />
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_038ssqg</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_05h6jaf</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="Flow_038ssqg" sourceRef="Event_15yt4kb" targetRef="Activity_1tvb6it" />
+    <bpmn2:endEvent id="Event_0oe860d" name="完成">
+      <bpmn2:incoming>Flow_1j67pyd</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="Flow_05h6jaf" sourceRef="Activity_1tvb6it" targetRef="Activity_1kg3low" />
+    <bpmn2:userTask id="Activity_1kg3low" name="问题确认">
+      <bpmn2:extensionElements>
+        <flowable:candidateStrategy>36</flowable:candidateStrategy>
+        <flowable:candidateParam />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_05h6jaf</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_1j67pyd</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="Flow_1j67pyd" sourceRef="Activity_1kg3low" targetRef="Event_0oe860d" />
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="pdp-review-issue-rectify_di" bpmnElement="pdp-review-issue-rectify">
+      <bpmndi:BPMNShape id="Event_15yt4kb_di" bpmnElement="Event_15yt4kb">
+        <dc:Bounds x="292" y="192" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="299" y="235" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1tvb6it_di" bpmnElement="Activity_1tvb6it">
+        <dc:Bounds x="380" y="170" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0oe860d_di" bpmnElement="Event_0oe860d">
+        <dc:Bounds x="682" y="192" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="689" y="235" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1kg3low_di" bpmnElement="Activity_1kg3low">
+        <dc:Bounds x="530" y="170" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_038ssqg_di" bpmnElement="Flow_038ssqg">
+        <di:waypoint x="328" y="210" />
+        <di:waypoint x="380" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05h6jaf_di" bpmnElement="Flow_05h6jaf">
+        <di:waypoint x="480" y="210" />
+        <di:waypoint x="530" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1j67pyd_di" bpmnElement="Flow_1j67pyd">
+        <di:waypoint x="630" y="210" />
+        <di:waypoint x="682" y="210" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

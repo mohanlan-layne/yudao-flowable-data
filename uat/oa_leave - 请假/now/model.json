@@ -1,0 +1,40 @@
+{
+  "description": "",
+  "type": 10,
+  "formType": 20,
+  "formCustomCreatePath": "/bpm/oa/leave/create",
+  "formCustomViewPath": "/bpm/oa/leave/detail",
+  "visible": false,
+  "h5Visible": true,
+  "startUserIds": [],
+  "startDeptIds": [],
+  "managerUserIds": [
+    1
+  ],
+  "sort": 1769666965397,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "printTemplateSetting": {
+    "enable": false,
+    "template": ""
+  },
+  "key": "oa_leave",
+  "name": "请假",
+  "category": "test2"
+}

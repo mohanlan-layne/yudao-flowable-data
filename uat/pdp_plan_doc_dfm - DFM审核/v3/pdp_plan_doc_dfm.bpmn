@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/bpmn" id="diagram_pdp_plan_doc_dfm">
+  <process id="pdp_plan_doc_dfm" name="DFM审核" isExecutable="true">
+    <startEvent id="Event_1i0hwhw"></startEvent>
+    <userTask id="Activity_1vievjd" name="执行上传">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[60]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[${executorUserId}]]></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_0g1dnkt" sourceRef="Event_1i0hwhw" targetRef="Activity_1vievjd"></sequenceFlow>
+    <userTask id="Activity_0t0c4js" name="上级审核">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[39]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[1]]></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_0btj82y" sourceRef="Activity_1vievjd" targetRef="Activity_0t0c4js"></sequenceFlow>
+    <userTask id="Activity_1lgba1p" name="计划负责人">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[60]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[${PdpPlanChargeUser}]]></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_11a6k4a" sourceRef="Activity_0t0c4js" targetRef="Activity_1lgba1p"></sequenceFlow>
+    <endEvent id="Event_0udigib"></endEvent>
+    <sequenceFlow id="Flow_0i2c5as" sourceRef="Activity_1lgba1p" targetRef="Event_0udigib"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_pdp_plan_doc_dfm">
+    <bpmndi:BPMNPlane bpmnElement="pdp_plan_doc_dfm" id="BPMNPlane_pdp_plan_doc_dfm">
+      <bpmndi:BPMNShape bpmnElement="Event_1i0hwhw" id="BPMNShape_Event_1i0hwhw">
+        <omgdc:Bounds height="36.0" width="36.0" x="322.0" y="202.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_1vievjd" id="BPMNShape_Activity_1vievjd">
+        <omgdc:Bounds height="80.0" width="100.0" x="410.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_0t0c4js" id="BPMNShape_Activity_0t0c4js">
+        <omgdc:Bounds height="80.0" width="100.0" x="570.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_1lgba1p" id="BPMNShape_Activity_1lgba1p">
+        <omgdc:Bounds height="80.0" width="100.0" x="730.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Event_0udigib" id="BPMNShape_Event_0udigib">
+        <omgdc:Bounds height="36.0" width="36.0" x="892.0" y="202.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="Flow_0g1dnkt" id="BPMNEdge_Flow_0g1dnkt">
+        <omgdi:waypoint x="358.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="410.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_0btj82y" id="BPMNEdge_Flow_0btj82y">
+        <omgdi:waypoint x="510.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="570.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_11a6k4a" id="BPMNEdge_Flow_11a6k4a">
+        <omgdi:waypoint x="670.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="730.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_0i2c5as" id="BPMNEdge_Flow_0i2c5as">
+        <omgdi:waypoint x="830.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="892.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

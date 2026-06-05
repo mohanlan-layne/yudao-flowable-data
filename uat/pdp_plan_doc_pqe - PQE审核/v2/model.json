@@ -1,0 +1,38 @@
+{
+  "description": "",
+  "formType": 20,
+  "formCustomCreatePath": "/pdp/plantemplate/detail/index",
+  "formCustomViewPath": "/pdp/plantemplate/detail/index",
+  "visible": false,
+  "h5Visible": true,
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    807
+  ],
+  "sort": 1777451225634,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": true,
+    "title": "{planInstance}-{executorNickname}-{PROCESS_START_TIME}"
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "version": 2,
+  "name": "PQE审核",
+  "key": "pdp_plan_doc_pqe",
+  "category": "hidden",
+  "modelType": 10
+}
