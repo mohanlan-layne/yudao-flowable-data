@@ -3,9 +3,9 @@
 :: 用法:
 ::   import.bat                                       # 全量推送到 dev
 ::   import.bat --env prod                            # 全量推送到 prod
-::   import.bat pdp_plan_doc_common                  # 推送单个流程
-::   import.bat pdp_plan_doc_common pdp_plan_doc_dfm # 推送多个流程
-::   import.bat --env prod pdp_plan_doc_common        # 指定环境 + 指定流程
+::   import.bat pdp_plan_doc_common                   # 推送单个流程到 dev
+::   import.bat pdp_plan_doc_common pdp-review_udit2  # 推送多个流程到 dev
+::   import.bat --env prod --dry-run pdp_plan_doc_common   # 只预览，不实际推送
 
 setlocal
 set SCRIPT_DIR=%~dp0

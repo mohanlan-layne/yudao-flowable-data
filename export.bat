@@ -1,9 +1,9 @@
 @echo off
 :: 从 BPM 拉取流程到本地
 :: 用法:
-::   export.bat                        # 全量导出 dev 到本地
-::   export.bat --env uat --merge      # 从 UAT 拉取，只覆盖本地已有流程
-::   export.bat --env prod             # 全量导出 prod
+::   export.bat                        # 全量导出 dev
+::   export.bat --env uat              # 全量导出 uat
+::   export.bat --env dev pdp_plan_doc_common pdp-review_udit2   # 只拉取指定流程
 
 setlocal
 set SCRIPT_DIR=%~dp0

@@ -3,9 +3,9 @@
 # 用法:
 #   ./import.sh                                       # 全量推送到 dev
 #   ./import.sh --env prod                            # 全量推送到 prod
-#   ./import.sh pdp_plan_doc_common                  # 推送单个流程
-#   ./import.sh pdp_plan_doc_common pdp_plan_doc_dfm # 推送多个流程
-#   ./import.sh --env prod pdp_plan_doc_common        # 指定环境 + 指定流程
+#   ./import.sh pdp_plan_doc_common                   # 推送单个流程到 dev
+#   ./import.sh pdp_plan_doc_common pdp-review_udit2  # 推送多个流程到 dev
+#   ./import.sh --env prod --dry-run pdp_plan_doc_common   # 只预览，不实际推送
 
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

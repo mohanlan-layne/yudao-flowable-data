@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # 从 BPM 拉取流程到本地
 # 用法:
-#   ./export.sh                        # 全量导出 dev 到本地
-#   ./export.sh --env uat --merge      # 从 UAT 拉取，只覆盖本地已有流程
-#   ./export.sh --env prod             # 全量导出 prod
+#   ./export.sh                        # 全量导出 dev
+#   ./export.sh --env uat              # 全量导出 uat
+#   ./export.sh --env dev pdp_plan_doc_common pdp-review_udit2   # 只拉取指定流程
 
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

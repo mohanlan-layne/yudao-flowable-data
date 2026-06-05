@@ -14,21 +14,10 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from bpm_common import (api_request, get_config, is_interactive,
-                        list_local_flows, login, prompt_env)
-
-
-def prompt_flow(flows: list) -> str:
-    print('\n选择流程：')
-    for i, (key, name, _) in enumerate(flows, 1):
-        print(f'  {i}) {key}  {name}')
-    while True:
-        raw = input('请输入序号: ').strip()
-        if raw.isdigit() and 1 <= int(raw) <= len(flows):
-            chosen = flows[int(raw) - 1][0]
-            print(f'  已选择: {chosen}')
-            return chosen
-        print(f'  请输入 1-{len(flows)} 之间的序号')
+from bpm_common import (
+    api_request, get_config, is_interactive,
+    list_local_flows, login, prompt_env, prompt_flows,
+)
 
 
 def prompt_user_id(label: str) -> int:
@@ -92,17 +81,17 @@ def run(env: str, flow_key: str, executor_user_id: int, charge_user_id: int):
     print(f'''
   通过任务:
   curl -X PUT "{base_url}/admin-api/bpm/task/approve" \\
-    -H "Authorization: Bearer <token>" \\
+    -H "Authorization: Bearer ***" \\
     -H "tenant-id: {tenant_id}" \\
     -H "Content-Type: application/json" \\
-    -d \'{{"id":"<taskId>","variables":{{}},"reason":"测试通过"}}\'
+    -d '{{"id":"<taskId>","variables":{{}},"reason":"测试通过"}}'
 
   拒绝任务:
   curl -X PUT "{base_url}/admin-api/bpm/task/reject" \\
-    -H "Authorization: Bearer <token>" \\
+    -H "Authorization: Bearer ***" \\
     -H "tenant-id: {tenant_id}" \\
     -H "Content-Type: application/json" \\
-    -d \'{{"id":"<taskId>","reason":"测试拒绝"}}\'
+    -d '{{"id":"<taskId>","reason":"测试拒绝"}}'
 ''')
     print(sep)
     print(f'  流程实例ID: {instance_id}')
@@ -116,8 +105,15 @@ def main():
         print('  BPM 流程测试')
         print('=' * 44)
         env = prompt_env()
-        flows = list_local_flows()
-        flow_key = prompt_flow(flows)
+        flows = list_local_flows(env)
+        if not flows:
+            print('[test_flow] 本地无可用流程（该环境下缺少 now/ 目录）')
+            return
+        selected_keys = prompt_flows(flows)
+        if not selected_keys:
+            print('[test_flow] 未选择流程')
+            return
+        flow_key = selected_keys[0]
         executor_user_id = prompt_user_id('\n执行人用户 ID')
         charge_user_id = prompt_user_id('计划负责人用户 ID')
         run(env, flow_key, executor_user_id, charge_user_id)
