@@ -2,14 +2,17 @@
   "description": "",
   "type": 10,
   "formType": 20,
-  "formCustomCreatePath": "/pdp/plantemplate/detail/index",
-  "formCustomViewPath": "/pdp/plantemplate/detail/index",
+  "formCustomCreatePath": "/pdp/plan-approval/other/detail/index.vue",
+  "formCustomViewPath": "/pdp/plan-approval/other/detail/index.vue",
   "visible": false,
   "h5Visible": true,
   "startUserIds": [],
   "startDeptIds": [],
   "managerUserIds": [
     1
+  ],
+  "managerRoleIds": [
+    807
   ],
   "sort": 1776500204250,
   "allowCancelRunningProcess": true,
