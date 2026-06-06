@@ -17,8 +17,9 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from bpm_common import (
-    api_request, env_dir, get_category_map, get_config, is_interactive,
-    list_local_flows, login, prompt_env, prompt_flows, resolve_model_id,
+    api_request, env_dir, fetch_model_bpmn, get_category_map, get_config,
+    is_interactive, list_local_flows, list_models, login, looks_like_bpmn_xml,
+    prompt_env, prompt_flows,
 )
 
 
@@ -93,10 +94,37 @@ def _dry_run_summary(key, name, category, form_id, bpmn_len, is_update):
     print(f'  [dry-run] {action}: key={key}, name={name}, category={category}{form_info}, bpmnXml={bpmn_len} chars')
 
 
+def _verify_pushed_bpmn(base_url, token, tenant_id, model_id, pushed_bpmn):
+    """推送后回读服务端 BPMN，确认未被损坏（如目标环境 XSS 过滤剥除了 XML 标签）。
+    返回 True=完好，False=损坏。"""
+    try:
+        stored = fetch_model_bpmn(base_url, token, tenant_id, model_id)
+    except Exception as e:
+        print(f'  -> [警告] 推送后回读校验失败（无法获取，跳过校验）: {e}', file=sys.stderr)
+        return True
+    if not looks_like_bpmn_xml(stored):
+        print(f'  -> [严重] 服务端 BPMN 已损坏（长度 {len(stored)}，不是合法 XML）！'
+              f'\n        极可能是目标环境 yudao.xss 过滤剥除了 XML 标签。'
+              f'\n        请确认目标环境 yudao.xss.exclude-urls 包含 /admin-api/bpm/model/create|update。',
+              file=sys.stderr)
+        return False
+    if len(stored.strip()) < len(pushed_bpmn.strip()) * 0.5:
+        print(f'  -> [警告] 服务端 BPMN 长度异常缩水（推送 {len(pushed_bpmn)} → 存储 {len(stored)}）',
+              file=sys.stderr)
+    return True
+
+
 def _import_flow(base_url, token, tenant_id, key, name, flow_dir,
-                 category_map, dry_run=False, interactive=False):
-    """处理单个流程：读本地 now/ → 判断 update/create → 推送（或 dry-run 打印）。"""
+                 category_map, existing_models, dry_run=False, interactive=False):
+    """处理单个流程：读本地 now/ → 判断 update/create → 推送（或 dry-run 打印）。
+    existing_models: 预取的 {key: model_item} 映射，避免逐个拉取。"""
     model, bpmn, form = _read_now(flow_dir, key)
+
+    # 推送前校验本地 BPMN 完整性，避免把损坏数据推上去
+    if not looks_like_bpmn_xml(bpmn):
+        print(f'  -> [跳过] 本地 BPMN 不是合法 XML（长度 {len(bpmn)}），疑似文件损坏，拒绝推送',
+              file=sys.stderr)
+        return False
 
     # 当前 model.json 里的分类
     current_category = model.get('category') or ''
@@ -107,8 +135,9 @@ def _import_flow(base_url, token, tenant_id, key, name, flow_dir,
     else:
         final_category = current_category
 
-    # 判断 update 还是 create
-    model_id = resolve_model_id(base_url, token, tenant_id, key)
+    # 判断 update 还是 create（用预取映射）
+    existing = existing_models.get(key)
+    model_id = existing.get('id') if existing else None
     is_update = model_id is not None
 
     # formId：动态表单(formType==10) 且本地有 form.json 时，model.json 里应已有 formId（来自 export）
@@ -131,12 +160,18 @@ def _import_flow(base_url, token, tenant_id, key, name, flow_dir,
                            token=token, tenant_id=tenant_id, method='POST', body=body)
         action = '新建'
 
-    if resp.get('code') == 0:
-        print(f'  -> {action}成功')
-        return True
-    else:
+    if resp.get('code') != 0:
         print(f'  -> {action}失败: {resp.get("msg", "unknown")}', file=sys.stderr)
         return False
+
+    # 推送后回读校验：确认服务端 BPMN 没被损坏
+    new_model_id = model_id if is_update else resp.get('data')
+    if new_model_id and not _verify_pushed_bpmn(base_url, token, tenant_id, new_model_id, bpmn):
+        print(f'  -> {action}已提交但校验未通过（数据损坏）', file=sys.stderr)
+        return False
+
+    print(f'  -> {action}成功')
+    return True
 
 
 def run(env: str, filter_keys: set, dry_run=False):
@@ -144,8 +179,9 @@ def run(env: str, filter_keys: set, dry_run=False):
     base_url, tenant_id = cfg['url'], cfg['tenant_id']
     token = login(base_url, tenant_id, cfg['username'], cfg['password'])
 
-    # 获取目标环境分类映射（用于交互式切换）
+    # 获取目标环境分类映射（用于交互式切换）+ 预取 model 映射（判断 update/create）
     category_map = get_category_map(base_url, token, tenant_id)
+    existing_models = list_models(base_url, token, tenant_id)
 
     # 扫描本地含 now/ 的流程
     flows = list_local_flows(env)
@@ -169,7 +205,7 @@ def run(env: str, filter_keys: set, dry_run=False):
         print(f'[import] 处理: {key} - {name}')
         try:
             if _import_flow(base_url, token, tenant_id, key, name, flow_dir,
-                            category_map, dry_run=dry_run, interactive=False):
+                            category_map, existing_models, dry_run=dry_run, interactive=False):
                 ok += 1
             else:
                 failed += 1
@@ -193,6 +229,7 @@ def main():
         base_url, tenant_id = cfg['url'], cfg['tenant_id']
         token = login(base_url, tenant_id, cfg['username'], cfg['password'])
         category_map = get_category_map(base_url, token, tenant_id)
+        existing_models = list_models(base_url, token, tenant_id)
 
         flows = list_local_flows(env)
         if not flows:
@@ -217,7 +254,7 @@ def main():
             print(f'[import] 处理: {key} - {name}')
             try:
                 if _import_flow(base_url, token, tenant_id, key, name, flow_dir,
-                                category_map, dry_run=dry_run, interactive=True):
+                                category_map, existing_models, dry_run=dry_run, interactive=True):
                     ok += 1
                 else:
                     failed += 1

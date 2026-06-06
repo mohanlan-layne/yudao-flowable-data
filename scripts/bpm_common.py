@@ -158,14 +158,33 @@ def prompt_flows(flows: list, category_of=None) -> list:
     return selected_keys
 
 
-def resolve_model_id(base_url, token, tenant_id, key) -> str | None:
-    """按 key 反查 modelId（UUID），找不到返回 None"""
+def list_models(base_url, token, tenant_id) -> dict:
+    """一次性拉取全部 model，返回 {key: item} 映射，供批量判断 update/create。"""
     resp = api_request(base_url, '/admin-api/bpm/model/list', token=token, tenant_id=tenant_id)
     data = resp.get('data') or []
-    for item in data:
-        if item.get('key') == key:
-            return item.get('id')
-    return None
+    return {item.get('key'): item for item in data if item.get('key')}
+
+
+def resolve_model_id(base_url, token, tenant_id, key) -> str | None:
+    """按 key 反查 modelId（UUID），找不到返回 None"""
+    item = list_models(base_url, token, tenant_id).get(key)
+    return item.get('id') if item else None
+
+
+def fetch_model_bpmn(base_url, token, tenant_id, model_id) -> str:
+    """按 modelId 拉取服务端当前存储的 bpmnXml（用于推送后回读校验）。"""
+    resp = api_request(base_url, f'/admin-api/bpm/model/get?id={model_id}',
+                       token=token, tenant_id=tenant_id)
+    return (resp.get('data') or {}).get('bpmnXml') or ''
+
+
+def looks_like_bpmn_xml(text: str) -> bool:
+    """判断字符串是否是合法的 BPMN XML（以 < 开头且含 process 元素）。
+    服务端 XSS 过滤会把 XML 标签剥光，只剩纯文本——用此判断可识别这种损坏。"""
+    if not text:
+        return False
+    s = text.lstrip('﻿').strip()
+    return s.startswith('<') and 'process' in s.lower()
 
 
 def get_category_map(base_url, token, tenant_id) -> dict:
