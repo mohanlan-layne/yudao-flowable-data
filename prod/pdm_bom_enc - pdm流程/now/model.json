@@ -1,0 +1,39 @@
+{
+  "description": "",
+  "type": 10,
+  "formType": 20,
+  "formCustomCreatePath": "/bom/ecn/index",
+  "formCustomViewPath": "/bom/ecn/index",
+  "visible": false,
+  "h5Visible": true,
+  "startUserIds": [],
+  "startDeptIds": [],
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    807
+  ],
+  "sort": 1779418497579,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": true,
+    "title": "{workflowTypeName} -{pmbno}-{PROCESS_START_TIME}"
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "key": "pdm_bom_enc",
+  "name": "pdm流程",
+  "category": "hidden"
+}
