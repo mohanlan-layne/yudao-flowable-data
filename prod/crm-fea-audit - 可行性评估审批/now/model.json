@@ -11,6 +11,9 @@
   "managerUserIds": [
     1
   ],
+  "managerRoleIds": [
+    807
+  ],
   "sort": 1773816099150,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
