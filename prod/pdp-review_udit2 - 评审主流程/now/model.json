@@ -4,14 +4,17 @@
   "formType": 20,
   "formCustomCreatePath": "/pdp/review/create",
   "formCustomViewPath": "/pdp/review/detail/index",
-  "visible": true,
+  "visible": false,
   "h5Visible": true,
   "startUserIds": [],
   "startDeptIds": [],
   "managerUserIds": [
     1
   ],
-  "sort": 1776331895902,
+  "managerRoleIds": [
+    807
+  ],
+  "sort": 1777016895036,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {
@@ -32,5 +35,5 @@
   },
   "key": "pdp-review_udit2",
   "name": "评审主流程",
-  "category": "pdp"
+  "category": "hidden"
 }
