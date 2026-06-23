@@ -1,5 +1,5 @@
 {
-  "description": "供应商评级审批流程（采购员维度，每周期自动发起）",
+  "description": "供应商评级审批流程（按分组维度，每周期自动发起）",
   "type": 10,
   "formType": 20,
   "formCustomCreatePath": "/erp/supplier/rating/detail/index.vue",
@@ -22,8 +22,8 @@
   },
   "autoApprovalType": 0,
   "titleSetting": {
-    "enable": false,
-    "title": ""
+    "enable": true,
+    "title": "{PROCESS_DEFINITION_NAME}-{cycleMonth}-{srCategoryName}"
   },
   "summarySetting": {
     "enable": false,
