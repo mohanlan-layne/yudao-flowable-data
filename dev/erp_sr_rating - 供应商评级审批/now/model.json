@@ -2,7 +2,7 @@
   "description": "供应商评级审批流程（按分组维度，每周期自动发起）",
   "type": 10,
   "formType": 20,
-  "formCustomCreatePath": "/erp/supplier/rating/detail/index.vue",
+  "formCustomCreatePath": "/erp/supplier/rating/create-tip.vue",
   "formCustomViewPath": "/erp/supplier/rating/detail/index.vue",
   "visible": true,
   "h5Visible": false,

@@ -1,22 +1,18 @@
 {
   "description": "",
-  "type": 10,
   "formType": 20,
-  "formCustomCreatePath": "/bom/ecn/index",
-  "formCustomViewPath": "/bom/ecn/index",
+  "formCustomCreatePath": "/dcprocess/transferOrder/index.vue",
+  "formCustomViewPath": "/dcprocess/transferOrder/index.vue",
   "visible": true,
   "h5Visible": true,
-  "startUserIds": [],
-  "startDeptIds": [],
   "managerUserIds": [
-    1242
+    1237
   ],
   "managerRoleIds": [
-    null,
     1,
     804
   ],
-  "sort": 1779163112418,
+  "sort": 1779767670295,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {
@@ -29,17 +25,15 @@
   "autoApprovalType": 0,
   "titleSetting": {
     "enable": true,
-    "title": " {processName}"
+    "title": "{zcdName} - {fbillNo} - {userName}"
   },
   "summarySetting": {
     "enable": false,
     "summary": []
   },
-  "printTemplateSetting": {
-    "enable": false,
-    "template": ""
-  },
-  "key": "pdm_bom_enc",
-  "name": "pdm流程",
-  "category": "test"
+  "version": 5,
+  "name": "转出单审批",
+  "key": "dc_zcd",
+  "category": "test",
+  "modelType": 10
 }

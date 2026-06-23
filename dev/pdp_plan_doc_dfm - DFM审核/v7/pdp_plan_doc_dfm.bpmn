@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/bpmn" id="diagram_pdp_plan_doc_dfm">
+  <process id="pdp_plan_doc_dfm" name="DFM审核" isExecutable="true">
+    <startEvent id="Event_start">
+      <extensionElements>
+        <flowable:properties>
+          <flowable:property name="cancelEnable" value="false"></flowable:property>
+        </flowable:properties>
+      </extensionElements>
+    </startEvent>
+    <userTask id="Activity_execute" name="执行上传">
+      <extensionElements>
+        <flowable:executionListener event="start" delegateExpression="${bpmNodePropertyInjectListener}"></flowable:executionListener>
+        <flowable:candidateStrategy><![CDATA[60]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[${executorUserId}]]></flowable:candidateParam>
+        <flowable:properties>
+          <flowable:property name="cancelEnable" value="false"></flowable:property>
+        </flowable:properties>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_start_execute" sourceRef="Event_start" targetRef="Activity_execute"></sequenceFlow>
+    <userTask id="Activity_superior" name="上级审核">
+      <extensionElements>
+        <flowable:formData></flowable:formData>
+        <flowable:candidateStrategy><![CDATA[60]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[${executorLeaderUser}]]></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_execute_superior" sourceRef="Activity_execute" targetRef="Activity_superior"></sequenceFlow>
+    <userTask id="Activity_charge" name="计划负责人">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[60]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[${PdpPlanChargeUser}]]></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_superior_charge" sourceRef="Activity_superior" targetRef="Activity_0i2gadj"></sequenceFlow>
+    <endEvent id="Event_end"></endEvent>
+    <sequenceFlow id="Flow_charge_end" sourceRef="Activity_charge" targetRef="Event_end"></sequenceFlow>
+    <userTask id="Activity_0i2gadj" name="DFM检查">
+      <extensionElements>
+        <flowable:executionListener event="start" delegateExpression="${bpmNodePropertyInjectListener}"></flowable:executionListener>
+        <flowable:candidateStrategy><![CDATA[70]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[2]]></flowable:candidateParam>
+        <flowable:properties>
+          <flowable:property name="ocean" value="1"></flowable:property>
+          <flowable:property name="batchReview" value="1"></flowable:property>
+        </flowable:properties>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_00juxe4" sourceRef="Activity_0i2gadj" targetRef="Activity_charge"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_pdp_plan_doc_dfm">
+    <bpmndi:BPMNPlane bpmnElement="pdp_plan_doc_dfm" id="BPMNPlane_pdp_plan_doc_dfm">
+      <bpmndi:BPMNShape bpmnElement="Event_start" id="BPMNShape_Event_start">
+        <omgdc:Bounds height="36.0" width="36.0" x="162.0" y="222.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_execute" id="BPMNShape_Activity_execute">
+        <omgdc:Bounds height="80.0" width="100.0" x="250.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_superior" id="BPMNShape_Activity_superior">
+        <omgdc:Bounds height="80.0" width="100.0" x="410.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_charge" id="BPMNShape_Activity_charge">
+        <omgdc:Bounds height="80.0" width="100.0" x="780.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Event_end" id="BPMNShape_Event_end">
+        <omgdc:Bounds height="36.0" width="36.0" x="922.0" y="222.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_0i2gadj" id="BPMNShape_Activity_0i2gadj">
+        <omgdc:Bounds height="80.0" width="100.0" x="580.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="Flow_start_execute" id="BPMNEdge_Flow_start_execute">
+        <omgdi:waypoint x="198.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_execute_superior" id="BPMNEdge_Flow_execute_superior">
+        <omgdi:waypoint x="350.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="410.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_superior_charge" id="BPMNEdge_Flow_superior_charge">
+        <omgdi:waypoint x="510.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="580.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_charge_end" id="BPMNEdge_Flow_charge_end">
+        <omgdi:waypoint x="880.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="922.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_00juxe4" id="BPMNEdge_Flow_00juxe4">
+        <omgdi:waypoint x="680.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="780.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

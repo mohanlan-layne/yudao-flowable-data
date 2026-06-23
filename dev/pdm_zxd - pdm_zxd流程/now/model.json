@@ -2,21 +2,19 @@
   "description": "",
   "type": 10,
   "formType": 20,
-  "formCustomCreatePath": "/bom/ecn/index",
-  "formCustomViewPath": "/bom/ecn/index",
+  "formCustomCreatePath": "/dcprocess/executionOrder/index.vue",
+  "formCustomViewPath": "/dcprocess/executionOrder/index.vue",
   "visible": true,
   "h5Visible": true,
   "startUserIds": [],
   "startDeptIds": [],
   "managerUserIds": [
-    1242
+    1237
   ],
   "managerRoleIds": [
-    null,
-    1,
-    804
+    1
   ],
-  "sort": 1779163112418,
+  "sort": 1780974737811,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {
@@ -35,11 +33,7 @@
     "enable": false,
     "summary": []
   },
-  "printTemplateSetting": {
-    "enable": false,
-    "template": ""
-  },
-  "key": "pdm_bom_enc",
-  "name": "pdm流程",
+  "key": "pdm_zxd",
+  "name": "pdm_zxd流程",
   "category": "test"
 }

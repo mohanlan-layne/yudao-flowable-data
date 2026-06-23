@@ -16,7 +16,7 @@
 
     <bpmn2:sequenceFlow id="Flow_start_to_initiator" sourceRef="Event_start" targetRef="Activity_initiator"/>
 
-    <!-- 发起人节点（自动提交，由 XXL-Job 系统账号发起） -->
+    <!-- 发起人节点（系统自动发起） -->
     <bpmn2:userTask id="Activity_initiator" name="发起人">
       <bpmn2:extensionElements>
         <flowable:candidateStrategy>36</flowable:candidateStrategy>
@@ -28,23 +28,18 @@
         <flowable:assignEmptyUserIds/>
         <flowable:approveType>2</flowable:approveType>
         <flowable:buttonsSetting id="1" enable="true" displayName="提交"/>
-        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝"/>
-        <flowable:buttonsSetting id="3" enable="true" displayName="转办"/>
-        <flowable:buttonsSetting id="4" enable="true" displayName="委派"/>
-        <flowable:buttonsSetting id="5" enable="true" displayName="加签"/>
-        <flowable:buttonsSetting id="6" enable="true" displayName="退回"/>
         <flowable:buttonsSetting id="7" enable="true" displayName="抄送"/>
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_start_to_initiator</bpmn2:incoming>
-      <bpmn2:outgoing>Flow_initiator_to_approve</bpmn2:outgoing>
+      <bpmn2:outgoing>Flow_initiator_to_superior</bpmn2:outgoing>
     </bpmn2:userTask>
 
-    <bpmn2:sequenceFlow id="Flow_initiator_to_approve" sourceRef="Activity_initiator" targetRef="Activity_approve"/>
+    <bpmn2:sequenceFlow id="Flow_initiator_to_superior" sourceRef="Activity_initiator" targetRef="Activity_superior"/>
 
-    <!-- 审批节点（暂时全部指定王亮，上线前替换为真实审批链） -->
-    <bpmn2:userTask id="Activity_approve" name="评级审批">
+    <!-- 上级审核（暂指定王亮） -->
+    <bpmn2:userTask id="Activity_superior" name="上级审核">
       <bpmn2:extensionElements>
         <flowable:candidateStrategy>30</flowable:candidateStrategy>
         <flowable:candidateParam>1506</flowable:candidateParam>
@@ -54,7 +49,7 @@
         <flowable:assignEmptyHandlerType>2</flowable:assignEmptyHandlerType>
         <flowable:assignEmptyUserIds>1506</flowable:assignEmptyUserIds>
         <flowable:approveType>1</flowable:approveType>
-        <flowable:buttonsSetting id="1" enable="true" displayName="通过"/>
+        <flowable:buttonsSetting id="1" enable="true" displayName="同意"/>
         <flowable:buttonsSetting id="2" enable="true" displayName="拒绝"/>
         <flowable:buttonsSetting id="3" enable="true" displayName="转办"/>
         <flowable:buttonsSetting id="4" enable="true" displayName="委派"/>
@@ -64,14 +59,38 @@
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
       </bpmn2:extensionElements>
-      <bpmn2:incoming>Flow_initiator_to_approve</bpmn2:incoming>
-      <bpmn2:outgoing>Flow_approve_to_end</bpmn2:outgoing>
+      <bpmn2:incoming>Flow_initiator_to_superior</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_superior_to_ops</bpmn2:outgoing>
     </bpmn2:userTask>
 
-    <bpmn2:sequenceFlow id="Flow_approve_to_end" sourceRef="Activity_approve" targetRef="Event_end"/>
+    <bpmn2:sequenceFlow id="Flow_superior_to_ops" sourceRef="Activity_superior" targetRef="Activity_ops_head"/>
+
+    <!-- 运营最高负责人（暂指定王亮） -->
+    <bpmn2:userTask id="Activity_ops_head" name="运营最高负责人">
+      <bpmn2:extensionElements>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1506</flowable:candidateParam>
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId/>
+        <flowable:assignEmptyHandlerType>2</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds>1506</flowable:assignEmptyUserIds>
+        <flowable:approveType>1</flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="同意"/>
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝"/>
+        <flowable:buttonsSetting id="3" enable="true" displayName="转办"/>
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送"/>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_superior_to_ops</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_ops_to_end</bpmn2:outgoing>
+    </bpmn2:userTask>
+
+    <bpmn2:sequenceFlow id="Flow_ops_to_end" sourceRef="Activity_ops_head" targetRef="Event_end"/>
 
     <bpmn2:endEvent id="Event_end" name="结束">
-      <bpmn2:incoming>Flow_approve_to_end</bpmn2:incoming>
+      <bpmn2:incoming>Flow_ops_to_end</bpmn2:incoming>
     </bpmn2:endEvent>
 
   </bpmn2:process>
@@ -84,23 +103,30 @@
       <bpmndi:BPMNShape id="Activity_initiator_di" bpmnElement="Activity_initiator">
         <dc:Bounds x="240" y="60" width="100" height="80"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_approve_di" bpmnElement="Activity_approve">
+      <bpmndi:BPMNShape id="Activity_superior_di" bpmnElement="Activity_superior">
         <dc:Bounds x="400" y="60" width="100" height="80"/>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_ops_head_di" bpmnElement="Activity_ops_head">
+        <dc:Bounds x="560" y="60" width="100" height="80"/>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_end_di" bpmnElement="Event_end">
-        <dc:Bounds x="562" y="82" width="36" height="36"/>
+        <dc:Bounds x="722" y="82" width="36" height="36"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_start_to_initiator_di" bpmnElement="Flow_start_to_initiator">
         <di:waypoint x="188" y="100"/>
         <di:waypoint x="240" y="100"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_initiator_to_approve_di" bpmnElement="Flow_initiator_to_approve">
+      <bpmndi:BPMNEdge id="Flow_initiator_to_superior_di" bpmnElement="Flow_initiator_to_superior">
         <di:waypoint x="340" y="100"/>
         <di:waypoint x="400" y="100"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_approve_to_end_di" bpmnElement="Flow_approve_to_end">
+      <bpmndi:BPMNEdge id="Flow_superior_to_ops_di" bpmnElement="Flow_superior_to_ops">
         <di:waypoint x="500" y="100"/>
-        <di:waypoint x="562" y="100"/>
+        <di:waypoint x="560" y="100"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ops_to_end_di" bpmnElement="Flow_ops_to_end">
+        <di:waypoint x="660" y="100"/>
+        <di:waypoint x="722" y="100"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

@@ -1,21 +1,22 @@
 {
-  "type": 10,
   "formType": 20,
   "formCustomCreatePath": "/pdp/plan-approval/doc/detail/index.vue",
   "formCustomViewPath": "/pdp/plan-approval/doc/detail/index.vue",
   "visible": true,
   "h5Visible": true,
-  "startUserIds": [],
   "managerUserIds": [
     1
   ],
   "managerRoleIds": [
-    3
+    1
   ],
-  "sort": 1777105199118,
+  "sort": 1777105197139,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
-  "key": "pdp_plan_doc_proposal_confirm",
-  "name": "方案确认",
-  "category": "PDP流程"
+  "autoApprovalType": 0,
+  "version": 7,
+  "name": "DFM审核",
+  "key": "pdp_plan_doc_dfm",
+  "category": "PDP流程",
+  "modelType": 10
 }

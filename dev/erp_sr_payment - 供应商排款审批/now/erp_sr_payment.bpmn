@@ -16,45 +16,33 @@
 
     <bpmn2:sequenceFlow id="Flow_start_to_initiator" sourceRef="Event_start" targetRef="Activity_initiator"/>
 
-    <!-- 发起人节点（采购员手动发起） -->
     <bpmn2:userTask id="Activity_initiator" name="发起人">
       <bpmn2:extensionElements>
         <flowable:candidateStrategy>36</flowable:candidateStrategy>
         <flowable:candidateParam/>
         <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
         <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
-        <flowable:rejectReturnTaskId/>
         <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
-        <flowable:assignEmptyUserIds/>
         <flowable:approveType>2</flowable:approveType>
         <flowable:buttonsSetting id="1" enable="true" displayName="提交"/>
-        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝"/>
-        <flowable:buttonsSetting id="3" enable="true" displayName="转办"/>
-        <flowable:buttonsSetting id="4" enable="true" displayName="委派"/>
-        <flowable:buttonsSetting id="5" enable="true" displayName="加签"/>
-        <flowable:buttonsSetting id="6" enable="true" displayName="退回"/>
         <flowable:buttonsSetting id="7" enable="true" displayName="抄送"/>
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_start_to_initiator</bpmn2:incoming>
-      <bpmn2:outgoing>Flow_initiator_to_approve</bpmn2:outgoing>
+      <bpmn2:outgoing>Flow_1</bpmn2:outgoing>
     </bpmn2:userTask>
 
-    <bpmn2:sequenceFlow id="Flow_initiator_to_approve" sourceRef="Activity_initiator" targetRef="Activity_approve"/>
+    <bpmn2:sequenceFlow id="Flow_1" sourceRef="Activity_initiator" targetRef="Activity_purchase_head"/>
 
-    <!-- 审批节点（暂时全部指定王亮，上线前替换为真实审批链） -->
-    <bpmn2:userTask id="Activity_approve" name="排款审批">
+    <bpmn2:userTask id="Activity_purchase_head" name="上级采购负责人">
       <bpmn2:extensionElements>
         <flowable:candidateStrategy>30</flowable:candidateStrategy>
         <flowable:candidateParam>1506</flowable:candidateParam>
-        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
-        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
-        <flowable:rejectReturnTaskId/>
         <flowable:assignEmptyHandlerType>2</flowable:assignEmptyHandlerType>
         <flowable:assignEmptyUserIds>1506</flowable:assignEmptyUserIds>
         <flowable:approveType>1</flowable:approveType>
-        <flowable:buttonsSetting id="1" enable="true" displayName="通过"/>
+        <flowable:buttonsSetting id="1" enable="true" displayName="同意"/>
         <flowable:buttonsSetting id="2" enable="true" displayName="拒绝"/>
         <flowable:buttonsSetting id="3" enable="true" displayName="转办"/>
         <flowable:buttonsSetting id="4" enable="true" displayName="委派"/>
@@ -64,14 +52,91 @@
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
       </bpmn2:extensionElements>
-      <bpmn2:incoming>Flow_initiator_to_approve</bpmn2:incoming>
-      <bpmn2:outgoing>Flow_approve_to_end</bpmn2:outgoing>
+      <bpmn2:incoming>Flow_1</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_2</bpmn2:outgoing>
     </bpmn2:userTask>
 
-    <bpmn2:sequenceFlow id="Flow_approve_to_end" sourceRef="Activity_approve" targetRef="Event_end"/>
+    <bpmn2:sequenceFlow id="Flow_2" sourceRef="Activity_purchase_head" targetRef="Activity_director"/>
+
+    <bpmn2:userTask id="Activity_director" name="总监">
+      <bpmn2:extensionElements>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1506</flowable:candidateParam>
+        <flowable:assignEmptyHandlerType>2</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds>1506</flowable:assignEmptyUserIds>
+        <flowable:approveType>1</flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="同意"/>
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝"/>
+        <flowable:buttonsSetting id="6" enable="true" displayName="退回"/>
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送"/>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_2</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_3</bpmn2:outgoing>
+    </bpmn2:userTask>
+
+    <bpmn2:sequenceFlow id="Flow_3" sourceRef="Activity_director" targetRef="Activity_gm"/>
+
+    <bpmn2:userTask id="Activity_gm" name="总经理">
+      <bpmn2:extensionElements>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1506</flowable:candidateParam>
+        <flowable:assignEmptyHandlerType>2</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds>1506</flowable:assignEmptyUserIds>
+        <flowable:approveType>1</flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="同意"/>
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝"/>
+        <flowable:buttonsSetting id="6" enable="true" displayName="退回"/>
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送"/>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_3</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_4</bpmn2:outgoing>
+    </bpmn2:userTask>
+
+    <bpmn2:sequenceFlow id="Flow_4" sourceRef="Activity_gm" targetRef="Activity_gmo"/>
+
+    <bpmn2:userTask id="Activity_gmo" name="总经办">
+      <bpmn2:extensionElements>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1506</flowable:candidateParam>
+        <flowable:assignEmptyHandlerType>2</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds>1506</flowable:assignEmptyUserIds>
+        <flowable:approveType>1</flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="同意"/>
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝"/>
+        <flowable:buttonsSetting id="6" enable="true" displayName="退回"/>
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送"/>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_4</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_5</bpmn2:outgoing>
+    </bpmn2:userTask>
+
+    <bpmn2:sequenceFlow id="Flow_5" sourceRef="Activity_gmo" targetRef="Activity_finance_cc"/>
+
+    <bpmn2:userTask id="Activity_finance_cc" name="抄送财务">
+      <bpmn2:extensionElements>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1506</flowable:candidateParam>
+        <flowable:assignEmptyHandlerType>2</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds>1506</flowable:assignEmptyUserIds>
+        <flowable:approveType>2</flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="确认"/>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_5</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_6</bpmn2:outgoing>
+    </bpmn2:userTask>
+
+    <bpmn2:sequenceFlow id="Flow_6" sourceRef="Activity_finance_cc" targetRef="Event_end"/>
 
     <bpmn2:endEvent id="Event_end" name="结束">
-      <bpmn2:incoming>Flow_approve_to_end</bpmn2:incoming>
+      <bpmn2:incoming>Flow_6</bpmn2:incoming>
     </bpmn2:endEvent>
 
   </bpmn2:process>
@@ -79,28 +144,49 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_erp_sr_payment">
     <bpmndi:BPMNPlane id="BPMNPlane_erp_sr_payment" bpmnElement="erp_sr_payment">
       <bpmndi:BPMNShape id="Event_start_di" bpmnElement="Event_start">
-        <dc:Bounds x="152" y="82" width="36" height="36"/>
+        <dc:Bounds x="52" y="82" width="36" height="36"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_initiator_di" bpmnElement="Activity_initiator">
-        <dc:Bounds x="240" y="60" width="100" height="80"/>
+        <dc:Bounds x="130" y="60" width="100" height="80"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_approve_di" bpmnElement="Activity_approve">
-        <dc:Bounds x="400" y="60" width="100" height="80"/>
+      <bpmndi:BPMNShape id="Activity_purchase_head_di" bpmnElement="Activity_purchase_head">
+        <dc:Bounds x="280" y="60" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_director_di" bpmnElement="Activity_director">
+        <dc:Bounds x="430" y="60" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_gm_di" bpmnElement="Activity_gm">
+        <dc:Bounds x="580" y="60" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_gmo_di" bpmnElement="Activity_gmo">
+        <dc:Bounds x="730" y="60" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_finance_cc_di" bpmnElement="Activity_finance_cc">
+        <dc:Bounds x="880" y="60" width="100" height="80"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_end_di" bpmnElement="Event_end">
-        <dc:Bounds x="562" y="82" width="36" height="36"/>
+        <dc:Bounds x="1032" y="82" width="36" height="36"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_start_to_initiator_di" bpmnElement="Flow_start_to_initiator">
-        <di:waypoint x="188" y="100"/>
-        <di:waypoint x="240" y="100"/>
+      <bpmndi:BPMNEdge id="Flow_start_di" bpmnElement="Flow_start_to_initiator">
+        <di:waypoint x="88" y="100"/><di:waypoint x="130" y="100"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_initiator_to_approve_di" bpmnElement="Flow_initiator_to_approve">
-        <di:waypoint x="340" y="100"/>
-        <di:waypoint x="400" y="100"/>
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
+        <di:waypoint x="230" y="100"/><di:waypoint x="280" y="100"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_approve_to_end_di" bpmnElement="Flow_approve_to_end">
-        <di:waypoint x="500" y="100"/>
-        <di:waypoint x="562" y="100"/>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
+        <di:waypoint x="380" y="100"/><di:waypoint x="430" y="100"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3">
+        <di:waypoint x="530" y="100"/><di:waypoint x="580" y="100"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4">
+        <di:waypoint x="680" y="100"/><di:waypoint x="730" y="100"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5">
+        <di:waypoint x="830" y="100"/><di:waypoint x="880" y="100"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6">
+        <di:waypoint x="980" y="100"/><di:waypoint x="1032" y="100"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

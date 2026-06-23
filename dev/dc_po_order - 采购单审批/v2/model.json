@@ -1,22 +1,17 @@
 {
   "description": "",
-  "type": 10,
   "formType": 20,
-  "formCustomCreatePath": "/bom/ecn/index",
-  "formCustomViewPath": "/bom/ecn/index",
+  "formCustomCreatePath": "/pdp/plantemplate/detail/index",
+  "formCustomViewPath": "/pdp/plantemplate/detail/index",
   "visible": true,
   "h5Visible": true,
-  "startUserIds": [],
-  "startDeptIds": [],
   "managerUserIds": [
-    1242
+    1237
   ],
   "managerRoleIds": [
-    null,
-    1,
-    804
+    1
   ],
-  "sort": 1779163112418,
+  "sort": 1781161053120,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {
@@ -28,18 +23,16 @@
   },
   "autoApprovalType": 0,
   "titleSetting": {
-    "enable": true,
-    "title": " {processName}"
+    "enable": false,
+    "title": ""
   },
   "summarySetting": {
     "enable": false,
     "summary": []
   },
-  "printTemplateSetting": {
-    "enable": false,
-    "template": ""
-  },
-  "key": "pdm_bom_enc",
-  "name": "pdm流程",
-  "category": "test"
+  "version": 2,
+  "name": "采购单审批",
+  "key": "dc_po_order",
+  "category": "test",
+  "modelType": 10
 }

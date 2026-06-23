@@ -1,22 +1,17 @@
 {
   "description": "",
-  "type": 10,
   "formType": 20,
-  "formCustomCreatePath": "/bom/ecn/index",
-  "formCustomViewPath": "/bom/ecn/index",
+  "formCustomCreatePath": "/dcprocess/purchaseDirectDelivery/index.vue",
+  "formCustomViewPath": "/dcprocess/purchaseDirectDelivery/index.vue",
   "visible": true,
   "h5Visible": true,
-  "startUserIds": [],
-  "startDeptIds": [],
   "managerUserIds": [
-    1242
+    1237
   ],
   "managerRoleIds": [
-    null,
-    1,
-    804
+    1
   ],
-  "sort": 1779163112418,
+  "sort": 1781685428862,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {
@@ -28,18 +23,16 @@
   },
   "autoApprovalType": 0,
   "titleSetting": {
-    "enable": true,
-    "title": " {processName}"
+    "enable": false,
+    "title": ""
   },
   "summarySetting": {
     "enable": false,
     "summary": []
   },
-  "printTemplateSetting": {
-    "enable": false,
-    "template": ""
-  },
-  "key": "pdm_bom_enc",
-  "name": "pdm流程",
-  "category": "test"
+  "version": 1,
+  "name": "采购直发",
+  "key": "dc_purchase_direct_delivery",
+  "category": "test",
+  "modelType": 10
 }

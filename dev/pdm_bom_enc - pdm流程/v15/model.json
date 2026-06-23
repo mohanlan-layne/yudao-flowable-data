@@ -1,18 +1,14 @@
 {
   "description": "",
-  "type": 10,
   "formType": 20,
   "formCustomCreatePath": "/bom/ecn/index",
   "formCustomViewPath": "/bom/ecn/index",
   "visible": true,
   "h5Visible": true,
-  "startUserIds": [],
-  "startDeptIds": [],
   "managerUserIds": [
     1242
   ],
   "managerRoleIds": [
-    null,
     1,
     804
   ],
@@ -29,7 +25,7 @@
   "autoApprovalType": 0,
   "titleSetting": {
     "enable": true,
-    "title": " {processName}"
+    "title": "{workflowTypeName} -{pmbno}-{PROCESS_START_TIME}"
   },
   "summarySetting": {
     "enable": false,
@@ -39,7 +35,9 @@
     "enable": false,
     "template": ""
   },
-  "key": "pdm_bom_enc",
+  "version": 15,
   "name": "pdm流程",
-  "category": "test"
+  "key": "pdm_bom_enc",
+  "category": "test",
+  "modelType": 10
 }
