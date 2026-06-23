@@ -22,8 +22,8 @@
   },
   "autoApprovalType": 0,
   "titleSetting": {
-    "enable": false,
-    "title": ""
+    "enable": true,
+    "title": "{PROCESS_DEFINITION_NAME}-{cycleMonth}-{purchaserName}-{PROCESS_START_TIME}"
   },
   "summarySetting": {
     "enable": false,
