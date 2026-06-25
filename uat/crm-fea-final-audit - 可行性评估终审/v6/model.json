@@ -1,0 +1,38 @@
+{
+  "description": "",
+  "formType": 20,
+  "formCustomCreatePath": "/crm/feasibility/create",
+  "formCustomViewPath": "/crm/feasibility/detail/index",
+  "visible": false,
+  "h5Visible": true,
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    807
+  ],
+  "sort": 1773816200231,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": true,
+    "title": "可行性评估(终审) - {feaName}"
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "version": 6,
+  "name": "可行性评估终审",
+  "key": "crm-fea-final-audit",
+  "category": "hidden",
+  "modelType": 10
+}

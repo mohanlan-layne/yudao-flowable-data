@@ -199,9 +199,11 @@
         <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>true</flowable:reasonRequire>
+        <flowable:copyStrategy />
+        <flowable:copyParam></flowable:copyParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_01ej0k6</bpmn2:incoming>
-      <bpmn2:outgoing>Flow_0exo54c</bpmn2:outgoing>
+      <bpmn2:outgoing>Flow_0ka2rak</bpmn2:outgoing>
       <bpmn2:multiInstanceLoopCharacteristics flowable:collection="${dccUserId}">
         <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt; 0 }</bpmn2:completionCondition>
       </bpmn2:multiInstanceLoopCharacteristics>
@@ -209,16 +211,15 @@
     <bpmn2:sequenceFlow id="Flow_01ej0k6" sourceRef="Activity_17gn5sq" targetRef="Activity_1i274do" />
     <bpmn2:endEvent id="Event_15z8tvc" name="结束">
       <bpmn2:extensionElements>
-        <flowable:copyStrategy>10</flowable:copyStrategy>
-        <flowable:copyParam>1</flowable:copyParam>
+        <flowable:copyStrategy />
+        <flowable:copyParam />
       </bpmn2:extensionElements>
-      <bpmn2:incoming>Flow_0exo54c</bpmn2:incoming>
       <bpmn2:incoming>Flow_08tz1rk</bpmn2:incoming>
       <bpmn2:incoming>Flow_0rf4qoz</bpmn2:incoming>
       <bpmn2:incoming>Flow_0hxq7be</bpmn2:incoming>
       <bpmn2:incoming>Flow_1iompe2</bpmn2:incoming>
+      <bpmn2:incoming>Flow_0pjy5nj</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:sequenceFlow id="Flow_0exo54c" sourceRef="Activity_1i274do" targetRef="Event_15z8tvc" />
     <bpmn2:userTask id="Activity_1lp57gt" name="采购审核">
       <bpmn2:extensionElements>
         <flowable:candidateStrategy>60</flowable:candidateStrategy>
@@ -291,6 +292,8 @@
         <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>true</flowable:reasonRequire>
+        <flowable:copyStrategy />
+        <flowable:copyParam></flowable:copyParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_1mgj7pj</bpmn2:incoming>
       <bpmn2:outgoing>Flow_08tz1rk</bpmn2:outgoing>
@@ -344,6 +347,8 @@
         <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>true</flowable:reasonRequire>
+        <flowable:copyStrategy />
+        <flowable:copyParam></flowable:copyParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_112ya73</bpmn2:incoming>
       <bpmn2:outgoing>Flow_0rf4qoz</bpmn2:outgoing>
@@ -397,6 +402,8 @@
         <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>true</flowable:reasonRequire>
+        <flowable:copyStrategy />
+        <flowable:copyParam></flowable:copyParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_1ah4wvq</bpmn2:incoming>
       <bpmn2:outgoing>Flow_0hxq7be</bpmn2:outgoing>
@@ -426,6 +433,8 @@
         <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>true</flowable:reasonRequire>
+        <flowable:copyStrategy />
+        <flowable:copyParam></flowable:copyParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_0v3fz6i</bpmn2:incoming>
       <bpmn2:outgoing>Flow_1iompe2</bpmn2:outgoing>
@@ -435,6 +444,35 @@
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="Flow_0v3fz6i" sourceRef="Activity_1i6rpzp" targetRef="Activity_1mt0rnv" />
     <bpmn2:sequenceFlow id="Flow_1iompe2" sourceRef="Activity_1mt0rnv" targetRef="Event_15z8tvc" />
+    <bpmn2:userTask id="Activity_0s9ohfe" name="PMC审核">
+      <bpmn2:extensionElements>
+        <flowable:candidateStrategy>60</flowable:candidateStrategy>
+        <flowable:candidateParam>${pmcUsers}</flowable:candidateParam>
+        <flowable:approveMethod>3</flowable:approveMethod>
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType>1</flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="提交" />
+        <flowable:buttonsSetting id="2" enable="false" displayName="拒绝" />
+        <flowable:buttonsSetting id="3" enable="false" displayName="转办" />
+        <flowable:buttonsSetting id="4" enable="false" displayName="委派" />
+        <flowable:buttonsSetting id="5" enable="false" displayName="加签" />
+        <flowable:buttonsSetting id="6" enable="false" displayName="退回" />
+        <flowable:buttonsSetting id="7" enable="false" displayName="抄送" />
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_0ka2rak</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_0pjy5nj</bpmn2:outgoing>
+      <bpmn2:multiInstanceLoopCharacteristics flowable:collection="${coll_userList}">
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt; 0 }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="Flow_0ka2rak" sourceRef="Activity_1i274do" targetRef="Activity_0s9ohfe" />
+    <bpmn2:sequenceFlow id="Flow_0pjy5nj" sourceRef="Activity_0s9ohfe" targetRef="Event_15z8tvc" />
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="pdm_bom_enc_di" bpmnElement="pdm_bom_enc">
@@ -468,14 +506,10 @@
         <dc:Bounds x="440" y="750" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1i274do_di" bpmnElement="Activity_1i274do">
-        <dc:Bounds x="700" y="310" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_15z8tvc_di" bpmnElement="Event_15z8tvc">
         <dc:Bounds x="972" y="552" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1052" y="560" width="23" height="14" />
+          <dc:Bounds x="1053" y="560" width="22" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1lp57gt_di" bpmnElement="Activity_1lp57gt">
@@ -510,6 +544,14 @@
         <dc:Bounds x="700" y="750" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1i274do_di" bpmnElement="Activity_1i274do">
+        <dc:Bounds x="640" y="310" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0s9ohfe_di" bpmnElement="Activity_0s9ohfe">
+        <dc:Bounds x="840" y="310" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0ojtnyd_di" bpmnElement="Flow_0ojtnyd">
         <di:waypoint x="208" y="570" />
         <di:waypoint x="310" y="570" />
@@ -540,12 +582,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_01ej0k6_di" bpmnElement="Flow_01ej0k6">
         <di:waypoint x="540" y="350" />
-        <di:waypoint x="700" y="350" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0exo54c_di" bpmnElement="Flow_0exo54c">
-        <di:waypoint x="800" y="350" />
-        <di:waypoint x="990" y="350" />
-        <di:waypoint x="990" y="552" />
+        <di:waypoint x="640" y="350" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1c0wyew_di" bpmnElement="Flow_1c0wyew">
         <di:waypoint x="540" y="460" />
@@ -597,6 +634,15 @@
         <di:waypoint x="800" y="790" />
         <di:waypoint x="990" y="790" />
         <di:waypoint x="990" y="588" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ka2rak_di" bpmnElement="Flow_0ka2rak">
+        <di:waypoint x="740" y="350" />
+        <di:waypoint x="840" y="350" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pjy5nj_di" bpmnElement="Flow_0pjy5nj">
+        <di:waypoint x="940" y="350" />
+        <di:waypoint x="990" y="350" />
+        <di:waypoint x="990" y="552" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

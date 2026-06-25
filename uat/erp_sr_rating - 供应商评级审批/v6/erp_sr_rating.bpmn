@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/bpmn" id="diagram_erp_sr_rating">
+  <process id="erp_sr_rating" name="供应商评级审批" isExecutable="true">
+    <startEvent id="Event_start" name="开始"></startEvent>
+    <sequenceFlow id="Flow_start_to_initiator" sourceRef="Event_start" targetRef="Activity_initiator"></sequenceFlow>
+    <userTask id="Activity_initiator" name="发起人">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[36]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[2]]></flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="提交"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送"></flowable:buttonsSetting>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_initiator_to_superior" sourceRef="Activity_initiator" targetRef="Activity_superior"></sequenceFlow>
+    <userTask id="Activity_superior" name="上级审核">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[30]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[417,670,1237,1239,1240,1241,1242,1506]]></flowable:candidateParam>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[2]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds><![CDATA[1506]]></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[1]]></flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="同意"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="3" enable="true" displayName="转办"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="4" enable="true" displayName="委派"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="5" enable="true" displayName="加签"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="6" enable="true" displayName="退回"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送"></flowable:buttonsSetting>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+        <flowable:approveMethod><![CDATA[3]]></flowable:approveMethod>
+      </extensionElements>
+      <multiInstanceLoopCharacteristics isSequential="false" flowable:collection="${coll_userList}">
+        <completionCondition>${ nrOfCompletedInstances &gt; 0 }</completionCondition>
+      </multiInstanceLoopCharacteristics>
+    </userTask>
+    <sequenceFlow id="Flow_superior_to_ops" sourceRef="Activity_superior" targetRef="Activity_ops_head"></sequenceFlow>
+    <userTask id="Activity_ops_head" name="运营最高负责人">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[30]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[417,670,1237,1239,1240,1241,1242,1506]]></flowable:candidateParam>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[2]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds><![CDATA[1506]]></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[1]]></flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="同意"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="3" enable="true" displayName="转办"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送"></flowable:buttonsSetting>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+        <flowable:approveMethod><![CDATA[3]]></flowable:approveMethod>
+      </extensionElements>
+      <multiInstanceLoopCharacteristics isSequential="false" flowable:collection="${coll_userList}">
+        <completionCondition>${ nrOfCompletedInstances &gt; 0 }</completionCondition>
+      </multiInstanceLoopCharacteristics>
+    </userTask>
+    <sequenceFlow id="Flow_ops_to_end" sourceRef="Activity_ops_head" targetRef="Event_end"></sequenceFlow>
+    <endEvent id="Event_end" name="结束"></endEvent>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_erp_sr_rating">
+    <bpmndi:BPMNPlane bpmnElement="erp_sr_rating" id="BPMNPlane_erp_sr_rating">
+      <bpmndi:BPMNShape bpmnElement="Event_start" id="BPMNShape_Event_start">
+        <omgdc:Bounds height="36.0" width="36.0" x="152.0" y="82.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_initiator" id="BPMNShape_Activity_initiator">
+        <omgdc:Bounds height="80.0" width="100.0" x="240.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_superior" id="BPMNShape_Activity_superior">
+        <omgdc:Bounds height="80.0" width="100.0" x="400.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_ops_head" id="BPMNShape_Activity_ops_head">
+        <omgdc:Bounds height="80.0" width="100.0" x="560.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Event_end" id="BPMNShape_Event_end">
+        <omgdc:Bounds height="36.0" width="36.0" x="722.0" y="82.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="Flow_start_to_initiator" id="BPMNEdge_Flow_start_to_initiator">
+        <omgdi:waypoint x="188.0" y="100.0"></omgdi:waypoint>
+        <omgdi:waypoint x="240.0" y="100.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_initiator_to_superior" id="BPMNEdge_Flow_initiator_to_superior">
+        <omgdi:waypoint x="340.0" y="100.0"></omgdi:waypoint>
+        <omgdi:waypoint x="400.0" y="100.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_superior_to_ops" id="BPMNEdge_Flow_superior_to_ops">
+        <omgdi:waypoint x="500.0" y="100.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="100.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_ops_to_end" id="BPMNEdge_Flow_ops_to_end">
+        <omgdi:waypoint x="660.0" y="100.0"></omgdi:waypoint>
+        <omgdi:waypoint x="722.0" y="100.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

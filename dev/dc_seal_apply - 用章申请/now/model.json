@@ -1,0 +1,39 @@
+{
+  "description": "用章申请流程",
+  "type": 10,
+  "formType": 20,
+  "formCustomCreatePath": "/dcprocess/seal-apply",
+  "formCustomViewPath": "/dcprocess/sealApply/index.vue",
+  "visible": true,
+  "h5Visible": true,
+  "startUserIds": [],
+  "startDeptIds": [],
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1
+  ],
+  "sort": 1779845568000,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "key": "dc_seal_apply",
+  "name": "用章申请",
+  "category": "hrflow"
+}

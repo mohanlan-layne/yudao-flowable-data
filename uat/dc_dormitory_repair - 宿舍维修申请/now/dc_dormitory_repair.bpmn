@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" targetNamespace="http://www.flowable.org/processdef">
+  <process id="dc_dormitory_repair" name="宿舍维修申请" isExecutable="true">
+    <startEvent id="StartEvent_1" name="开始" flowable:initiator="INITIATOR">
+      <outgoing>Flow_1</outgoing>
+    </startEvent>
+    <userTask id="Activity_initiator" name="发起人">
+      <extensionElements>
+        <flowable:candidateStrategy>36</flowable:candidateStrategy>
+        <flowable:candidateParam />
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId />
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds />
+        <flowable:approveType>2</flowable:approveType>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+      </extensionElements>
+      <incoming>Flow_1</incoming>
+      <outgoing>Flow_2</outgoing>
+    </userTask>
+    <userTask id="Activity_admin_handle" name="行政处理">
+      <extensionElements>
+        <flowable:candidateStrategy>60</flowable:candidateStrategy>
+        <flowable:candidateParam>${admUserId}</flowable:candidateParam>
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId>Activity_initiator</flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds />
+        <flowable:approveType>1</flowable:approveType>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+      </extensionElements>
+      <incoming>Flow_2</incoming>
+      <outgoing>Flow_3</outgoing>
+    </userTask>
+    <exclusiveGateway id="Gateway_location" name="地点判断">
+      <incoming>Flow_3</incoming>
+      <outgoing>Flow_dongguan</outgoing>
+      <outgoing>Flow_other</outgoing>
+    </exclusiveGateway>
+    <userTask id="Activity_repair_confirm" name="维修确认">
+      <extensionElements>
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId>Activity_admin_handle</flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds />
+        <flowable:approveType>1</flowable:approveType>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+        <flowable:properties>
+          <flowable:property name="writableFields" value="afterAttachments,handleResult" />
+        </flowable:properties>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>313</flowable:candidateParam>
+      </extensionElements>
+      <incoming>Flow_dongguan</incoming>
+      <outgoing>Flow_after_confirm</outgoing>
+    </userTask>
+    <userTask id="Activity_applicant_confirm" name="申请人确认">
+      <extensionElements>
+        <flowable:candidateStrategy>60</flowable:candidateStrategy>
+        <flowable:candidateParam>${starterUserId}</flowable:candidateParam>
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId>Activity_admin_handle</flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds />
+        <flowable:approveType>1</flowable:approveType>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+        <flowable:copyStrategy>30</flowable:copyStrategy>
+        <flowable:copyParam>320</flowable:copyParam>
+      </extensionElements>
+      <incoming>Flow_after_confirm</incoming>
+      <incoming>Flow_other</incoming>
+      <outgoing>Flow_end</outgoing>
+    </userTask>
+    <endEvent id="EndEvent_1" name="结束">
+      <incoming>Flow_end</incoming>
+    </endEvent>
+    <sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="Activity_initiator" />
+    <sequenceFlow id="Flow_2" sourceRef="Activity_initiator" targetRef="Activity_admin_handle" />
+    <sequenceFlow id="Flow_3" sourceRef="Activity_admin_handle" targetRef="Gateway_location" />
+    <sequenceFlow id="Flow_dongguan" name="东莞" sourceRef="Gateway_location" targetRef="Activity_repair_confirm">
+      <conditionExpression xsi:type="tFormalExpression">${location == '东莞'}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_other" name="非东莞" sourceRef="Gateway_location" targetRef="Activity_applicant_confirm">
+      <conditionExpression xsi:type="tFormalExpression">${location != '东莞'}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_after_confirm" sourceRef="Activity_repair_confirm" targetRef="Activity_applicant_confirm" />
+    <sequenceFlow id="Flow_end" sourceRef="Activity_applicant_confirm" targetRef="EndEvent_1" />
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="dc_dormitory_repair_di" bpmnElement="dc_dormitory_repair">
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <omgdc:Bounds x="152" y="282" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_initiator_di" bpmnElement="Activity_initiator">
+        <omgdc:Bounds x="240" y="260" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_admin_handle_di" bpmnElement="Activity_admin_handle">
+        <omgdc:Bounds x="400" y="260" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_location_di" bpmnElement="Gateway_location" isMarkerVisible="true">
+        <omgdc:Bounds x="560" y="275" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="547" y="332" width="44" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_repair_confirm_di" bpmnElement="Activity_repair_confirm">
+        <omgdc:Bounds x="660" y="140" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_applicant_confirm_di" bpmnElement="Activity_applicant_confirm">
+        <omgdc:Bounds x="800" y="260" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
+        <omgdc:Bounds x="962" y="282" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
+        <omgdi:waypoint x="188" y="300" />
+        <omgdi:waypoint x="240" y="300" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
+        <omgdi:waypoint x="340" y="300" />
+        <omgdi:waypoint x="400" y="300" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3">
+        <omgdi:waypoint x="500" y="300" />
+        <omgdi:waypoint x="560" y="300" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_dongguan_di" bpmnElement="Flow_dongguan">
+        <omgdi:waypoint x="585" y="275" />
+        <omgdi:waypoint x="585" y="180" />
+        <omgdi:waypoint x="660" y="180" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="592" y="220" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_other_di" bpmnElement="Flow_other">
+        <omgdi:waypoint x="610" y="300" />
+        <omgdi:waypoint x="800" y="300" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="684" y="282" width="32" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_after_confirm_di" bpmnElement="Flow_after_confirm">
+        <omgdi:waypoint x="760" y="180" />
+        <omgdi:waypoint x="850" y="180" />
+        <omgdi:waypoint x="850" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_end_di" bpmnElement="Flow_end">
+        <omgdi:waypoint x="900" y="300" />
+        <omgdi:waypoint x="962" y="300" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

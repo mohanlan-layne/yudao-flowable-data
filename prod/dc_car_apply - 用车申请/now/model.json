@@ -1,0 +1,43 @@
+{
+  "description": "用车申请流程",
+  "type": 10,
+  "formType": 20,
+  "formCustomCreatePath": "/dcprocess/car-apply",
+  "formCustomViewPath": "/dcprocess/carApply/index.vue",
+  "visible": true,
+  "h5Visible": true,
+  "startUserIds": [],
+  "startDeptIds": [],
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1
+  ],
+  "sort": 1779845568000,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "printTemplateSetting": {
+    "enable": false,
+    "template": ""
+  },
+  "key": "dc_car_apply",
+  "name": "用车申请",
+  "category": "hrflow"
+}

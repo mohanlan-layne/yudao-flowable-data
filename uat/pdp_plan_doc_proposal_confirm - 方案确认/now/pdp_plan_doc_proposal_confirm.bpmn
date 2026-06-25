@@ -8,9 +8,9 @@
         <flowable:candidateParam>${executorUserId}</flowable:candidateParam>
         <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
         <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
-        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:rejectReturnTaskId />
         <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
-        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:assignEmptyUserIds />
         <flowable:approveType>1</flowable:approveType>
         <flowable:buttonsSetting id="1" enable="true" displayName="提交" />
         <flowable:buttonsSetting id="2" enable="false" displayName="拒绝" />
@@ -30,9 +30,9 @@
         <flowable:candidateParam>2</flowable:candidateParam>
         <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
         <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
-        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:rejectReturnTaskId />
         <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
-        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:assignEmptyUserIds />
         <flowable:approveType>1</flowable:approveType>
         <flowable:buttonsSetting id="1" enable="true" displayName="提交" />
         <flowable:buttonsSetting id="2" enable="false" displayName="拒绝" />
@@ -43,7 +43,11 @@
         <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
+        <flowable:approveMethod>3</flowable:approveMethod>
       </bpmn2:extensionElements>
+      <bpmn2:multiInstanceLoopCharacteristics flowable:collection="${coll_userList}">
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt; 0 }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="Flow_execute_tpm" sourceRef="Activity_execute" targetRef="Activity_tpm" />
     <bpmn2:endEvent id="Event_end" />

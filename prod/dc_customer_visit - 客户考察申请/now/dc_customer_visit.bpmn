@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:flowable="http://flowable.org/bpmn" id="diagram_dc_customer_visit" targetNamespace="http://flowable.org/bpmn">
+  <bpmn2:process id="dc_customer_visit" name="客户考察申请" isExecutable="true">
+    <bpmn2:startEvent id="Event_start">
+      <bpmn2:outgoing>Flow_start_to_initiator</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:userTask id="Activity_initiator" name="发起人">
+      <bpmn2:extensionElements>
+        <flowable:candidateStrategy>36</flowable:candidateStrategy>
+        <flowable:candidateParam />
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId />
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds />
+        <flowable:approveType>2</flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="提交" />
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝" />
+        <flowable:buttonsSetting id="3" enable="true" displayName="转办" />
+        <flowable:buttonsSetting id="4" enable="true" displayName="委派" />
+        <flowable:buttonsSetting id="5" enable="true" displayName="加签" />
+        <flowable:buttonsSetting id="6" enable="true" displayName="退回" />
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_start_to_initiator</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_initiator_to_approve</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:userTask id="Activity_visit_feedback" name="考察回填">
+      <bpmn2:extensionElements>
+        <flowable:candidateStrategy>36</flowable:candidateStrategy>
+        <flowable:candidateParam />
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId>Activity_initiator</flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds />
+        <flowable:approveType>2</flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="提交" />
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝" />
+        <flowable:buttonsSetting id="3" enable="true" displayName="转办" />
+        <flowable:buttonsSetting id="4" enable="true" displayName="委派" />
+        <flowable:buttonsSetting id="5" enable="true" displayName="加签" />
+        <flowable:buttonsSetting id="6" enable="true" displayName="退回" />
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_initiator_to_approve</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_feedback_to_end</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:endEvent id="Event_end" name="结束">
+      <bpmn2:incoming>Flow_feedback_to_end</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="Flow_start_to_initiator" sourceRef="Event_start" targetRef="Activity_initiator" />
+    <bpmn2:sequenceFlow id="Flow_initiator_to_approve" sourceRef="Activity_initiator" targetRef="Activity_visit_feedback" />
+    <bpmn2:sequenceFlow id="Flow_feedback_to_end" sourceRef="Activity_visit_feedback" targetRef="Event_end" />
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="dc_customer_visit_di" bpmnElement="dc_customer_visit">
+      <bpmndi:BPMNShape id="Event_start_di" bpmnElement="Event_start">
+        <dc:Bounds x="152" y="252" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_initiator_di" bpmnElement="Activity_initiator">
+        <dc:Bounds x="240" y="230" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_end_di" bpmnElement="Event_end">
+        <dc:Bounds x="722" y="252" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="729" y="295" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_visit_feedback_di" bpmnElement="Activity_visit_feedback">
+        <dc:Bounds x="470" y="230" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_start_to_initiator_di" bpmnElement="Flow_start_to_initiator">
+        <di:waypoint x="188" y="270" />
+        <di:waypoint x="240" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_initiator_to_approve_di" bpmnElement="Flow_initiator_to_approve">
+        <di:waypoint x="340" y="270" />
+        <di:waypoint x="470" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_feedback_to_end_di" bpmnElement="Flow_feedback_to_end">
+        <di:waypoint x="570" y="270" />
+        <di:waypoint x="722" y="270" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

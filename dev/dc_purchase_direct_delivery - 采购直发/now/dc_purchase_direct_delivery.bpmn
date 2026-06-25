@@ -6,6 +6,8 @@
     </bpmn2:startEvent>
     <bpmn2:userTask id="Activity_13cchdy" name="采购申请">
       <bpmn2:extensionElements>
+        <flowable:copyStrategy />
+        <flowable:copyParam />
         <flowable:candidateStrategy>36</flowable:candidateStrategy>
         <flowable:candidateParam></flowable:candidateParam>
       </bpmn2:extensionElements>

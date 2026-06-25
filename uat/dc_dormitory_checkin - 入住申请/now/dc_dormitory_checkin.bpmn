@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" targetNamespace="http://www.flowable.org/processdef">
+  <process id="dc_dormitory_checkin" name="入住申请" isExecutable="true">
+    <startEvent id="StartEvent_1" name="开始" flowable:initiator="INITIATOR">
+      <outgoing>Flow_1</outgoing>
+    </startEvent>
+    <userTask id="Activity_initiator" name="发起人">
+      <extensionElements>
+        <flowable:candidateStrategy>36</flowable:candidateStrategy>
+        <flowable:candidateParam />
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId />
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds />
+        <flowable:approveType>2</flowable:approveType>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+      </extensionElements>
+      <incoming>Flow_1</incoming>
+      <outgoing>Flow_2</outgoing>
+    </userTask>
+    <userTask id="Activity_dorm_mgr" name="宿管审核">
+      <extensionElements>
+        <flowable:candidateStrategy>60</flowable:candidateStrategy>
+        <flowable:candidateParam>${dormMgrUserId}</flowable:candidateParam>
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId>Activity_initiator</flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds />
+        <flowable:approveType>1</flowable:approveType>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+        <flowable:properties>
+          <flowable:property name="writableFields" value="actualDate,location,remark,bedNo,depositDorm,depositKey,receiptDate,paymentMethod" />
+        </flowable:properties>
+      </extensionElements>
+      <incoming>Flow_2</incoming>
+      <outgoing>Flow_3</outgoing>
+    </userTask>
+    <endEvent id="EndEvent_1" name="结束">
+      <incoming>Flow_1q9tlm5</incoming>
+    </endEvent>
+    <sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="Activity_initiator" />
+    <sequenceFlow id="Flow_2" sourceRef="Activity_initiator" targetRef="Activity_dorm_mgr" />
+    <sequenceFlow id="Flow_3" sourceRef="Activity_dorm_mgr" targetRef="Activity_1cmrv3y" />
+    <userTask id="Activity_1cmrv3y" name="申请人确认">
+      <extensionElements>
+        <flowable:candidateStrategy>36</flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+      </extensionElements>
+      <incoming>Flow_3</incoming>
+      <outgoing>Flow_1q9tlm5</outgoing>
+    </userTask>
+    <sequenceFlow id="Flow_1q9tlm5" sourceRef="Activity_1cmrv3y" targetRef="EndEvent_1" />
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="dc_dormitory_checkin_di" bpmnElement="dc_dormitory_checkin">
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <omgdc:Bounds x="152" y="202" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_initiator_di" bpmnElement="Activity_initiator">
+        <omgdc:Bounds x="240" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_dorm_mgr_di" bpmnElement="Activity_dorm_mgr">
+        <omgdc:Bounds x="400" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
+        <omgdc:Bounds x="732" y="202" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="739" y="238" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1cmrv3y_di" bpmnElement="Activity_1cmrv3y">
+        <omgdc:Bounds x="570" y="180" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
+        <omgdi:waypoint x="188" y="220" />
+        <omgdi:waypoint x="240" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
+        <omgdi:waypoint x="340" y="220" />
+        <omgdi:waypoint x="400" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3">
+        <omgdi:waypoint x="500" y="220" />
+        <omgdi:waypoint x="570" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1q9tlm5_di" bpmnElement="Flow_1q9tlm5">
+        <omgdi:waypoint x="670" y="220" />
+        <omgdi:waypoint x="732" y="220" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

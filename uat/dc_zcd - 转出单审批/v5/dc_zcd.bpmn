@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/bpmn" id="diagram_dc_zcd">
+  <process id="dc_zcd" name="转出单审批" isExecutable="true">
+    <userTask id="Activity_0s8twdc" name="转出单审批">
+      <extensionElements>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[1]]></flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="提交"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="3" enable="true" displayName="转办"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="4" enable="true" displayName="委派"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="5" enable="true" displayName="加签"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="6" enable="true" displayName="退回"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送"></flowable:buttonsSetting>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+        <flowable:formData></flowable:formData>
+        <flowable:candidateStrategy><![CDATA[30]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[670]]></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <userTask id="Activity_0cmu34s" name="转出单变更审批">
+      <extensionElements>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[1]]></flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="提交"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="3" enable="true" displayName="转办"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="4" enable="true" displayName="委派"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="5" enable="true" displayName="加签"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="6" enable="true" displayName="退回"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送"></flowable:buttonsSetting>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+        <flowable:formData></flowable:formData>
+        <flowable:candidateStrategy><![CDATA[30]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[670]]></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <endEvent id="Event_0ty1m5a" name="结束"></endEvent>
+    <sequenceFlow id="Flow_1of6so0" sourceRef="Activity_0s8twdc" targetRef="Event_0ty1m5a">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${totalAmount <= 50000}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_146iy9u" sourceRef="Activity_0cmu34s" targetRef="Event_0ty1m5a">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${totalAmount <= 50000}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="Activity_13gke6h" name="COO">
+      <extensionElements>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[1]]></flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="提交"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="3" enable="true" displayName="转办"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="4" enable="true" displayName="委派"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="5" enable="true" displayName="加签"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="6" enable="true" displayName="退回"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送"></flowable:buttonsSetting>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+        <flowable:candidateStrategy><![CDATA[30]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[670]]></flowable:candidateParam>
+        <flowable:formData></flowable:formData>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_0s9win1" sourceRef="Activity_0cmu34s" targetRef="Activity_13gke6h">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${totalAmount > 50000}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_0zdy4jz" sourceRef="Activity_0s8twdc" targetRef="Activity_13gke6h">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${totalAmount > 50000}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_1anan5e" sourceRef="Activity_13gke6h" targetRef="Event_0ty1m5a"></sequenceFlow>
+    <startEvent id="Event_0g42seu"></startEvent>
+    <userTask id="Activity_0xxdzri" name="发起人">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[36]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[2]]></flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="提交"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="3" enable="true" displayName="转办"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="4" enable="true" displayName="委派"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="5" enable="true" displayName="加签"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="6" enable="true" displayName="退回"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送"></flowable:buttonsSetting>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_0w7m6s7" sourceRef="Event_0g42seu" targetRef="Activity_0xxdzri"></sequenceFlow>
+    <sequenceFlow id="Flow_0l9oilr" sourceRef="Activity_0xxdzri" targetRef="Activity_0s8twdc">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${orderType==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_1uzl6ha" sourceRef="Activity_0xxdzri" targetRef="Activity_0cmu34s">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${orderType==2}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dc_zcd">
+    <bpmndi:BPMNPlane bpmnElement="dc_zcd" id="BPMNPlane_dc_zcd">
+      <bpmndi:BPMNShape bpmnElement="Activity_0s8twdc" id="BPMNShape_Activity_0s8twdc">
+        <omgdc:Bounds height="80.0" width="100.0" x="180.0" y="40.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_0cmu34s" id="BPMNShape_Activity_0cmu34s">
+        <omgdc:Bounds height="80.0" width="100.0" x="180.0" y="420.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Event_0ty1m5a" id="BPMNShape_Event_0ty1m5a">
+        <omgdc:Bounds height="36.0" width="36.0" x="472.0" y="252.0"></omgdc:Bounds>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="23.0" x="479.0" y="295.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_13gke6h" id="BPMNShape_Activity_13gke6h">
+        <omgdc:Bounds height="80.0" width="100.0" x="180.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Event_0g42seu" id="BPMNShape_Event_0g42seu">
+        <omgdc:Bounds height="36.0" width="36.0" x="-218.0" y="252.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_0xxdzri" id="BPMNShape_Activity_0xxdzri">
+        <omgdc:Bounds height="80.0" width="100.0" x="-130.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="Flow_1of6so0" id="BPMNEdge_Flow_1of6so0">
+        <omgdi:waypoint x="280.0" y="80.0"></omgdi:waypoint>
+        <omgdi:waypoint x="376.0" y="80.0"></omgdi:waypoint>
+        <omgdi:waypoint x="376.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="472.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_146iy9u" id="BPMNEdge_Flow_146iy9u">
+        <omgdi:waypoint x="280.0" y="460.0"></omgdi:waypoint>
+        <omgdi:waypoint x="376.0" y="460.0"></omgdi:waypoint>
+        <omgdi:waypoint x="376.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="472.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_0s9win1" id="BPMNEdge_Flow_0s9win1">
+        <omgdi:waypoint x="230.0" y="420.0"></omgdi:waypoint>
+        <omgdi:waypoint x="230.0" y="310.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_0zdy4jz" id="BPMNEdge_Flow_0zdy4jz">
+        <omgdi:waypoint x="230.0" y="120.0"></omgdi:waypoint>
+        <omgdi:waypoint x="230.0" y="230.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_1anan5e" id="BPMNEdge_Flow_1anan5e">
+        <omgdi:waypoint x="280.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="472.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_0w7m6s7" id="BPMNEdge_Flow_0w7m6s7">
+        <omgdi:waypoint x="-182.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="-130.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_0l9oilr" id="BPMNEdge_Flow_0l9oilr">
+        <omgdi:waypoint x="-30.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="80.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="80.0" y="80.0"></omgdi:waypoint>
+        <omgdi:waypoint x="180.0" y="80.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_1uzl6ha" id="BPMNEdge_Flow_1uzl6ha">
+        <omgdi:waypoint x="-30.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="80.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="80.0" y="460.0"></omgdi:waypoint>
+        <omgdi:waypoint x="180.0" y="460.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,21 @@
+{
+  "description": "客户考察申请流程",
+  "type": 10,
+  "formType": 20,
+  "formCustomCreatePath": "/dcprocess/customer-visit",
+  "formCustomViewPath": "/dcprocess/customerVisit/index.vue",
+  "visible": true,
+  "h5Visible": true,
+  "startUserIds": [],
+  "startDeptIds": [],
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1
+  ],
+  "sort": 1779845568002,
+  "key": "dc_customer_visit",
+  "name": "客户考察申请",
+  "category": "hrflow"
+}

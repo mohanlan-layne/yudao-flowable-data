@@ -6,19 +6,46 @@
     </bpmn2:startEvent>
     <bpmn2:userTask id="Activity_submit" name="需求填报">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam />
+        <flowable:formData />
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
+        <flowable:approveMethod>4</flowable:approveMethod>
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType>2</flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="提交" />
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝" />
+        <flowable:buttonsSetting id="3" enable="true" displayName="转办" />
+        <flowable:buttonsSetting id="4" enable="true" displayName="委派" />
+        <flowable:buttonsSetting id="5" enable="true" displayName="加签" />
+        <flowable:buttonsSetting id="6" enable="true" displayName="退回" />
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_start_submit</bpmn2:incoming>
       <bpmn2:outgoing>Flow_submit_review</bpmn2:outgoing>
+      <bpmn2:multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <bpmn2:loopCardinality xsi:type="bpmn2:tFormalExpression">1</bpmn2:loopCardinality>
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
     <bpmn2:userTask id="Activity_review" name="需求评审">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam />
+        <flowable:approveMethod>4</flowable:approveMethod>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
+        <flowable:formData />
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_submit_review</bpmn2:incoming>
       <bpmn2:outgoing>Flow_review_to_gateway</bpmn2:outgoing>
+      <bpmn2:multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <bpmn2:loopCardinality xsi:type="bpmn2:tFormalExpression">1</bpmn2:loopCardinality>
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
     <bpmn2:exclusiveGateway id="Gateway_review" name="评审结果">
       <bpmn2:incoming>Flow_review_to_gateway</bpmn2:incoming>
@@ -29,22 +56,32 @@
     </bpmn2:exclusiveGateway>
     <bpmn2:userTask id="Activity_reject" name="回绝确认">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam />
+        <flowable:approveMethod>4</flowable:approveMethod>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_to_reject</bpmn2:incoming>
       <bpmn2:outgoing>Flow_reject_end</bpmn2:outgoing>
+      <bpmn2:multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <bpmn2:loopCardinality xsi:type="bpmn2:tFormalExpression">1</bpmn2:loopCardinality>
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
     <bpmn2:endEvent id="Event_end_reject" name="结束">
       <bpmn2:incoming>Flow_reject_end</bpmn2:incoming>
     </bpmn2:endEvent>
     <bpmn2:userTask id="Activity_design" name="方案设计">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam />
+        <flowable:approveMethod>4</flowable:approveMethod>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_to_design</bpmn2:incoming>
       <bpmn2:outgoing>Flow_design_to_merge</bpmn2:outgoing>
+      <bpmn2:multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <bpmn2:loopCardinality xsi:type="bpmn2:tFormalExpression">1</bpmn2:loopCardinality>
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
     <bpmn2:exclusiveGateway id="Gateway_merge_approve" name="">
       <bpmn2:incoming>Flow_design_to_merge</bpmn2:incoming>
@@ -53,19 +90,28 @@
     </bpmn2:exclusiveGateway>
     <bpmn2:userTask id="Activity_plan_approve" name="方案审批">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam />
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_merge_to_approve</bpmn2:incoming>
       <bpmn2:outgoing>Flow_approve_to_confirm</bpmn2:outgoing>
+      <bpmn2:multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <bpmn2:loopCardinality xsi:type="bpmn2:tFormalExpression">1</bpmn2:loopCardinality>
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
     <bpmn2:userTask id="Activity_plan_confirm" name="方案确认">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam />
+        <flowable:approveMethod>4</flowable:approveMethod>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_approve_to_confirm</bpmn2:incoming>
       <bpmn2:outgoing>Flow_confirm_to_merge</bpmn2:outgoing>
+      <bpmn2:multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <bpmn2:loopCardinality xsi:type="bpmn2:tFormalExpression">1</bpmn2:loopCardinality>
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
     <bpmn2:exclusiveGateway id="Gateway_merge_schedule" name="">
       <bpmn2:incoming>Flow_confirm_to_merge</bpmn2:incoming>
@@ -74,11 +120,16 @@
     </bpmn2:exclusiveGateway>
     <bpmn2:userTask id="Activity_schedule" name="排期中">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam />
+        <flowable:approveMethod>4</flowable:approveMethod>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_merge_to_schedule</bpmn2:incoming>
       <bpmn2:outgoing>Flow_schedule_develop</bpmn2:outgoing>
+      <bpmn2:multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <bpmn2:loopCardinality xsi:type="bpmn2:tFormalExpression">1</bpmn2:loopCardinality>
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
     <bpmn2:userTask id="Activity_develop" name="开发中">
       <bpmn2:extensionElements>
@@ -95,28 +146,37 @@
     </bpmn2:exclusiveGateway>
     <bpmn2:userTask id="Activity_internal_test" name="内测">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam />
+        <flowable:approveMethod>4</flowable:approveMethod>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_develop_internal</bpmn2:incoming>
       <bpmn2:outgoing>Flow_internal_trial</bpmn2:outgoing>
+      <bpmn2:multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <bpmn2:loopCardinality xsi:type="bpmn2:tFormalExpression">1</bpmn2:loopCardinality>
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
     <bpmn2:userTask id="Activity_trial_test" name="试用测试">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam />
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_internal_trial</bpmn2:incoming>
       <bpmn2:outgoing>Flow_trial_deploy</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:userTask id="Activity_deploy" name="上线部署">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam />
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_trial_deploy</bpmn2:incoming>
       <bpmn2:incoming>Flow_bug_to_deploy</bpmn2:incoming>
       <bpmn2:outgoing>Flow_deploy_end</bpmn2:outgoing>
+      <bpmn2:multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <bpmn2:loopCardinality xsi:type="bpmn2:tFormalExpression">1</bpmn2:loopCardinality>
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
     <bpmn2:endEvent id="Event_end" name="结束">
       <bpmn2:incoming>Flow_deploy_end</bpmn2:incoming>
