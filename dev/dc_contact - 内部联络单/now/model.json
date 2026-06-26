@@ -4,12 +4,14 @@
   "formType": 20,
   "formCustomCreatePath": "/dcprocess/internal-memo",
   "formCustomViewPath": "/dcprocess/internalMemo/index.vue",
+  "formCustomMiniCreatePath": "/page-dcprocess/internalMemo/index",
+  "formCustomMiniViewPath": "/page-dcprocess/processInstance/detail/index",
   "visible": true,
   "h5Visible": true,
   "startUserIds": [],
   "startDeptIds": [],
   "managerUserIds": [
-    1
+    1237
   ],
   "managerRoleIds": [
     1

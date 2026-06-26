@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/bpmn" id="diagram_dc_purchase_direct_delivery">
+  <process id="dc_purchase_direct_delivery" name="采购直发" isExecutable="true">
+    <startEvent id="Event_1ud1gw7"></startEvent>
+    <userTask id="Activity_13cchdy" name="采购申请">
+      <extensionElements>
+        <flowable:copyStrategy></flowable:copyStrategy>
+        <flowable:copyParam></flowable:copyParam>
+        <flowable:candidateStrategy><![CDATA[36]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_1kq272j" sourceRef="Event_1ud1gw7" targetRef="Activity_13cchdy"></sequenceFlow>
+    <userTask id="Activity_09aaauw" name="收货确认">
+      <extensionElements>
+        <flowable:formData></flowable:formData>
+        <flowable:candidateStrategy><![CDATA[60]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[${consigneeUser}]]></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_1efe3eo" sourceRef="Activity_13cchdy" targetRef="Activity_09aaauw"></sequenceFlow>
+    <userTask id="Activity_05gw5gv" name="仓库">
+      <extensionElements>
+        <flowable:approveMethod><![CDATA[3]]></flowable:approveMethod>
+        <flowable:candidateStrategy><![CDATA[30]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[807,808,1193]]></flowable:candidateParam>
+      </extensionElements>
+      <multiInstanceLoopCharacteristics isSequential="false" flowable:collection="${coll_userList}">
+        <completionCondition>${ nrOfCompletedInstances &gt; 0 }</completionCondition>
+      </multiInstanceLoopCharacteristics>
+    </userTask>
+    <sequenceFlow id="Flow_1dybzco" sourceRef="Activity_09aaauw" targetRef="Activity_05gw5gv"></sequenceFlow>
+    <endEvent id="Event_0m7naye"></endEvent>
+    <sequenceFlow id="Flow_040wkq3" sourceRef="Activity_05gw5gv" targetRef="Event_0m7naye"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dc_purchase_direct_delivery">
+    <bpmndi:BPMNPlane bpmnElement="dc_purchase_direct_delivery" id="BPMNPlane_dc_purchase_direct_delivery">
+      <bpmndi:BPMNShape bpmnElement="Event_1ud1gw7" id="BPMNShape_Event_1ud1gw7">
+        <omgdc:Bounds height="36.0" width="36.0" x="262.0" y="252.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_13cchdy" id="BPMNShape_Activity_13cchdy">
+        <omgdc:Bounds height="80.0" width="100.0" x="350.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_09aaauw" id="BPMNShape_Activity_09aaauw">
+        <omgdc:Bounds height="80.0" width="100.0" x="510.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_05gw5gv" id="BPMNShape_Activity_05gw5gv">
+        <omgdc:Bounds height="80.0" width="100.0" x="670.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Event_0m7naye" id="BPMNShape_Event_0m7naye">
+        <omgdc:Bounds height="36.0" width="36.0" x="832.0" y="252.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="Flow_1kq272j" id="BPMNEdge_Flow_1kq272j">
+        <omgdi:waypoint x="298.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="350.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_1efe3eo" id="BPMNEdge_Flow_1efe3eo">
+        <omgdi:waypoint x="450.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="510.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_1dybzco" id="BPMNEdge_Flow_1dybzco">
+        <omgdi:waypoint x="610.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_040wkq3" id="BPMNEdge_Flow_040wkq3">
+        <omgdi:waypoint x="770.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="832.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

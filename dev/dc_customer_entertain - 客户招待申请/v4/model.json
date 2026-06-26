@@ -1,0 +1,44 @@
+{
+  "description": "客户招待申请流程",
+  "formType": 20,
+  "formCustomCreatePath": "/dcprocess/customer-entertain",
+  "formCustomViewPath": "/dcprocess/customerEntertain/index.vue",
+  "formCustomMiniCreatePath": "/page-dcprocess/customerEntertain/index",
+  "formCustomMiniViewPath": "/page-dcprocess/processInstance/detail/index",
+  "visible": true,
+  "h5Visible": true,
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1
+  ],
+  "sort": 1779845568000,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "printTemplateSetting": {
+    "enable": false,
+    "template": ""
+  },
+  "version": 4,
+  "name": "客户招待申请",
+  "key": "dc_customer_entertain",
+  "category": "hrflow",
+  "modelType": 10
+}

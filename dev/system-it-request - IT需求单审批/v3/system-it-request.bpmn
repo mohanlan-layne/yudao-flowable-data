@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/bpmn" id="diagram_system-it-request">
+  <process id="system-it-request" name="IT需求单审批" isExecutable="true">
+    <startEvent id="Event_start" name="开始"></startEvent>
+    <userTask id="Activity_submit" name="需求填报">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[35]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <userTask id="Activity_review" name="需求评审">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[35]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="Gateway_review" name="评审结果"></exclusiveGateway>
+    <userTask id="Activity_reject" name="回绝确认">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[35]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <endEvent id="Event_end_reject" name="结束"></endEvent>
+    <userTask id="Activity_design" name="方案设计">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[35]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="Gateway_merge_approve"></exclusiveGateway>
+    <userTask id="Activity_plan_approve" name="方案审批">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[35]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <userTask id="Activity_plan_confirm" name="方案确认">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[35]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="Gateway_merge_schedule"></exclusiveGateway>
+    <userTask id="Activity_schedule" name="排期中">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[35]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <userTask id="Activity_develop" name="开发中">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[35]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="Gateway_after_develop" name="开发完成"></exclusiveGateway>
+    <userTask id="Activity_internal_test" name="内测">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[35]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <userTask id="Activity_trial_test" name="试用测试">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[35]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <userTask id="Activity_deploy" name="上线部署">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[35]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <endEvent id="Event_end" name="结束"></endEvent>
+    <sequenceFlow id="Flow_start_submit" sourceRef="Event_start" targetRef="Activity_submit"></sequenceFlow>
+    <sequenceFlow id="Flow_submit_review" sourceRef="Activity_submit" targetRef="Activity_review"></sequenceFlow>
+    <sequenceFlow id="Flow_review_to_gateway" sourceRef="Activity_review" targetRef="Gateway_review"></sequenceFlow>
+    <sequenceFlow id="Flow_to_reject" name="另行处理" sourceRef="Gateway_review" targetRef="Activity_reject">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${receiveStatus == '3'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_reject_end" sourceRef="Activity_reject" targetRef="Event_end_reject"></sequenceFlow>
+    <sequenceFlow id="Flow_bug_to_schedule" name="BUG" sourceRef="Gateway_review" targetRef="Gateway_merge_schedule">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${receiveStatus == '2' and requestType == '3'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_to_design" name="需要原型设计" sourceRef="Gateway_review" targetRef="Activity_design">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${receiveStatus == '2' and requestType != '3' and needDesign == '1'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_no_prototype_to_approve" name="不需要原型" sourceRef="Gateway_review" targetRef="Gateway_merge_approve">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${receiveStatus == '2' and requestType != '3' and needDesign == '2'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_design_to_merge" sourceRef="Activity_design" targetRef="Gateway_merge_approve"></sequenceFlow>
+    <sequenceFlow id="Flow_merge_to_approve" sourceRef="Gateway_merge_approve" targetRef="Activity_plan_approve"></sequenceFlow>
+    <sequenceFlow id="Flow_approve_to_confirm" sourceRef="Activity_plan_approve" targetRef="Activity_plan_confirm"></sequenceFlow>
+    <sequenceFlow id="Flow_confirm_to_merge" sourceRef="Activity_plan_confirm" targetRef="Gateway_merge_schedule"></sequenceFlow>
+    <sequenceFlow id="Flow_merge_to_schedule" sourceRef="Gateway_merge_schedule" targetRef="Activity_schedule"></sequenceFlow>
+    <sequenceFlow id="Flow_schedule_develop" sourceRef="Activity_schedule" targetRef="Activity_develop"></sequenceFlow>
+    <sequenceFlow id="Flow_develop_to_gateway" sourceRef="Activity_develop" targetRef="Gateway_after_develop"></sequenceFlow>
+    <sequenceFlow id="Flow_bug_to_deploy" name="BUG" sourceRef="Gateway_after_develop" targetRef="Activity_deploy">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${requestType == '3'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_develop_internal" sourceRef="Gateway_after_develop" targetRef="Activity_internal_test">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${requestType != '3'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_internal_trial" sourceRef="Activity_internal_test" targetRef="Activity_trial_test"></sequenceFlow>
+    <sequenceFlow id="Flow_trial_deploy" sourceRef="Activity_trial_test" targetRef="Activity_deploy"></sequenceFlow>
+    <sequenceFlow id="Flow_deploy_end" sourceRef="Activity_deploy" targetRef="Event_end"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_system-it-request">
+    <bpmndi:BPMNPlane bpmnElement="system-it-request" id="BPMNPlane_system-it-request">
+      <bpmndi:BPMNShape bpmnElement="Event_start" id="BPMNShape_Event_start">
+        <omgdc:Bounds height="36.0" width="36.0" x="102.0" y="202.0"></omgdc:Bounds>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="22.0" x="109.0" y="245.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_submit" id="BPMNShape_Activity_submit">
+        <omgdc:Bounds height="80.0" width="100.0" x="190.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_review" id="BPMNShape_Activity_review">
+        <omgdc:Bounds height="80.0" width="100.0" x="350.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Gateway_review" id="BPMNShape_Gateway_review">
+        <omgdc:Bounds height="50.0" width="50.0" x="505.0" y="195.0"></omgdc:Bounds>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="68.0" x="496.0" y="252.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_reject" id="BPMNShape_Activity_reject">
+        <omgdc:Bounds height="80.0" width="100.0" x="480.0" y="370.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Event_end_reject" id="BPMNShape_Event_end_reject">
+        <omgdc:Bounds height="36.0" width="36.0" x="642.0" y="392.0"></omgdc:Bounds>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="22.0" x="649.0" y="435.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_design" id="BPMNShape_Activity_design">
+        <omgdc:Bounds height="80.0" width="100.0" x="560.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Gateway_merge_approve" id="BPMNShape_Gateway_merge_approve">
+        <omgdc:Bounds height="50.0" width="50.0" x="715.0" y="195.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_plan_approve" id="BPMNShape_Activity_plan_approve">
+        <omgdc:Bounds height="80.0" width="100.0" x="820.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_plan_confirm" id="BPMNShape_Activity_plan_confirm">
+        <omgdc:Bounds height="80.0" width="100.0" x="980.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Gateway_merge_schedule" id="BPMNShape_Gateway_merge_schedule">
+        <omgdc:Bounds height="50.0" width="50.0" x="1135.0" y="195.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_schedule" id="BPMNShape_Activity_schedule">
+        <omgdc:Bounds height="80.0" width="100.0" x="1240.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_develop" id="BPMNShape_Activity_develop">
+        <omgdc:Bounds height="80.0" width="100.0" x="1400.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Gateway_after_develop" id="BPMNShape_Gateway_after_develop">
+        <omgdc:Bounds height="50.0" width="50.0" x="1555.0" y="195.0"></omgdc:Bounds>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="68.0" x="1546.0" y="252.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_internal_test" id="BPMNShape_Activity_internal_test">
+        <omgdc:Bounds height="80.0" width="100.0" x="1660.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_trial_test" id="BPMNShape_Activity_trial_test">
+        <omgdc:Bounds height="80.0" width="100.0" x="1820.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_deploy" id="BPMNShape_Activity_deploy">
+        <omgdc:Bounds height="80.0" width="100.0" x="1980.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Event_end" id="BPMNShape_Event_end">
+        <omgdc:Bounds height="36.0" width="36.0" x="2142.0" y="202.0"></omgdc:Bounds>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="22.0" x="2149.0" y="245.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="Flow_start_submit" id="BPMNEdge_Flow_start_submit">
+        <omgdi:waypoint x="138.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="190.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_submit_review" id="BPMNEdge_Flow_submit_review">
+        <omgdi:waypoint x="290.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="350.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_review_to_gateway" id="BPMNEdge_Flow_review_to_gateway">
+        <omgdi:waypoint x="450.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="505.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_to_reject" id="BPMNEdge_Flow_to_reject">
+        <omgdi:waypoint x="530.0" y="245.0"></omgdi:waypoint>
+        <omgdi:waypoint x="530.0" y="370.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="44.0" x="538.0" y="300.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_reject_end" id="BPMNEdge_Flow_reject_end">
+        <omgdi:waypoint x="580.0" y="410.0"></omgdi:waypoint>
+        <omgdi:waypoint x="642.0" y="410.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_bug_to_schedule" id="BPMNEdge_Flow_bug_to_schedule">
+        <omgdi:waypoint x="530.0" y="195.0"></omgdi:waypoint>
+        <omgdi:waypoint x="530.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1160.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1160.0" y="195.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="22.0" x="820.0" y="12.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_to_design" id="BPMNEdge_Flow_to_design">
+        <omgdi:waypoint x="530.0" y="195.0"></omgdi:waypoint>
+        <omgdi:waypoint x="530.0" y="100.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="100.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="56.0" x="536.0" y="142.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_no_prototype_to_approve" id="BPMNEdge_Flow_no_prototype_to_approve">
+        <omgdi:waypoint x="555.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="715.0" y="220.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="56.0" x="596.0" y="202.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_design_to_merge" id="BPMNEdge_Flow_design_to_merge">
+        <omgdi:waypoint x="660.0" y="100.0"></omgdi:waypoint>
+        <omgdi:waypoint x="740.0" y="100.0"></omgdi:waypoint>
+        <omgdi:waypoint x="740.0" y="195.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_merge_to_approve" id="BPMNEdge_Flow_merge_to_approve">
+        <omgdi:waypoint x="765.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="820.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_approve_to_confirm" id="BPMNEdge_Flow_approve_to_confirm">
+        <omgdi:waypoint x="920.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="980.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_confirm_to_merge" id="BPMNEdge_Flow_confirm_to_merge">
+        <omgdi:waypoint x="1080.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1135.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_merge_to_schedule" id="BPMNEdge_Flow_merge_to_schedule">
+        <omgdi:waypoint x="1185.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1240.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_schedule_develop" id="BPMNEdge_Flow_schedule_develop">
+        <omgdi:waypoint x="1340.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1400.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_develop_to_gateway" id="BPMNEdge_Flow_develop_to_gateway">
+        <omgdi:waypoint x="1500.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1555.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_bug_to_deploy" id="BPMNEdge_Flow_bug_to_deploy">
+        <omgdi:waypoint x="1580.0" y="245.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1580.0" y="340.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2030.0" y="340.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2030.0" y="260.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="22.0" x="1780.0" y="322.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_develop_internal" id="BPMNEdge_Flow_develop_internal">
+        <omgdi:waypoint x="1605.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1660.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_internal_trial" id="BPMNEdge_Flow_internal_trial">
+        <omgdi:waypoint x="1760.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1820.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_trial_deploy" id="BPMNEdge_Flow_trial_deploy">
+        <omgdi:waypoint x="1920.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1980.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_deploy_end" id="BPMNEdge_Flow_deploy_end">
+        <omgdi:waypoint x="2080.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2142.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

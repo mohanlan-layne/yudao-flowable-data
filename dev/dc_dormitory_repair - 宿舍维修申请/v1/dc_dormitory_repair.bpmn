@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef">
+  <process id="dc_dormitory_repair" name="宿舍维修申请" isExecutable="true">
+    <startEvent id="StartEvent_1" name="开始" flowable:initiator="INITIATOR"></startEvent>
+    <userTask id="Activity_initiator" name="发起人">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[36]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[2]]></flowable:approveType>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+      </extensionElements>
+    </userTask>
+    <userTask id="Activity_admin_handle" name="行政处理">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[60]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[${admUserId}]]></flowable:candidateParam>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId><![CDATA[Activity_initiator]]></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[1]]></flowable:approveType>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="Gateway_location" name="地点判断"></exclusiveGateway>
+    <userTask id="Activity_repair_confirm" name="维修确认">
+      <extensionElements>
+        <flowable:executionListener event="start" delegateExpression="${bpmNodePropertyInjectListener}"></flowable:executionListener>
+        <flowable:candidateStrategy><![CDATA[60]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[${admUserId}]]></flowable:candidateParam>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId><![CDATA[Activity_admin_handle]]></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[1]]></flowable:approveType>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+        <flowable:properties>
+          <flowable:property name="writableFields" value="afterAttachments,handleResult"></flowable:property>
+        </flowable:properties>
+      </extensionElements>
+    </userTask>
+    <userTask id="Activity_applicant_confirm" name="申请人确认">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[60]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[${starterUserId}]]></flowable:candidateParam>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId><![CDATA[Activity_admin_handle]]></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[1]]></flowable:approveType>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+      </extensionElements>
+    </userTask>
+    <endEvent id="EndEvent_1" name="结束"></endEvent>
+    <sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="Activity_initiator"></sequenceFlow>
+    <sequenceFlow id="Flow_2" sourceRef="Activity_initiator" targetRef="Activity_admin_handle"></sequenceFlow>
+    <sequenceFlow id="Flow_3" sourceRef="Activity_admin_handle" targetRef="Gateway_location"></sequenceFlow>
+    <sequenceFlow id="Flow_dongguan" name="东莞" sourceRef="Gateway_location" targetRef="Activity_repair_confirm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${location == '东莞'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_other" name="非东莞" sourceRef="Gateway_location" targetRef="Activity_applicant_confirm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${location != '东莞'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_after_confirm" sourceRef="Activity_repair_confirm" targetRef="Activity_applicant_confirm"></sequenceFlow>
+    <sequenceFlow id="Flow_end" sourceRef="Activity_applicant_confirm" targetRef="EndEvent_1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dc_dormitory_repair">
+    <bpmndi:BPMNPlane bpmnElement="dc_dormitory_repair" id="BPMNPlane_dc_dormitory_repair">
+      <bpmndi:BPMNShape bpmnElement="StartEvent_1" id="BPMNShape_StartEvent_1">
+        <omgdc:Bounds height="36.0" width="36.0" x="152.0" y="282.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_initiator" id="BPMNShape_Activity_initiator">
+        <omgdc:Bounds height="80.0" width="100.0" x="240.0" y="260.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_admin_handle" id="BPMNShape_Activity_admin_handle">
+        <omgdc:Bounds height="80.0" width="100.0" x="400.0" y="260.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Gateway_location" id="BPMNShape_Gateway_location">
+        <omgdc:Bounds height="50.0" width="50.0" x="560.0" y="275.0"></omgdc:Bounds>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="44.0" x="547.0" y="332.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_repair_confirm" id="BPMNShape_Activity_repair_confirm">
+        <omgdc:Bounds height="80.0" width="100.0" x="660.0" y="140.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_applicant_confirm" id="BPMNShape_Activity_applicant_confirm">
+        <omgdc:Bounds height="80.0" width="100.0" x="800.0" y="260.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="EndEvent_1" id="BPMNShape_EndEvent_1">
+        <omgdc:Bounds height="36.0" width="36.0" x="962.0" y="282.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="Flow_1" id="BPMNEdge_Flow_1">
+        <omgdi:waypoint x="188.0" y="300.0"></omgdi:waypoint>
+        <omgdi:waypoint x="240.0" y="300.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_2" id="BPMNEdge_Flow_2">
+        <omgdi:waypoint x="340.0" y="300.0"></omgdi:waypoint>
+        <omgdi:waypoint x="400.0" y="300.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_3" id="BPMNEdge_Flow_3">
+        <omgdi:waypoint x="500.0" y="300.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="300.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_dongguan" id="BPMNEdge_Flow_dongguan">
+        <omgdi:waypoint x="585.0" y="275.0"></omgdi:waypoint>
+        <omgdi:waypoint x="585.0" y="180.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="180.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="22.0" x="592.0" y="220.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_other" id="BPMNEdge_Flow_other">
+        <omgdi:waypoint x="610.0" y="300.0"></omgdi:waypoint>
+        <omgdi:waypoint x="800.0" y="300.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="32.0" x="684.0" y="282.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_after_confirm" id="BPMNEdge_Flow_after_confirm">
+        <omgdi:waypoint x="760.0" y="180.0"></omgdi:waypoint>
+        <omgdi:waypoint x="850.0" y="180.0"></omgdi:waypoint>
+        <omgdi:waypoint x="850.0" y="260.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_end" id="BPMNEdge_Flow_end">
+        <omgdi:waypoint x="900.0" y="300.0"></omgdi:waypoint>
+        <omgdi:waypoint x="962.0" y="300.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

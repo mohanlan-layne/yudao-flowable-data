@@ -1,0 +1,34 @@
+{
+  "description": "用章申请流程",
+  "formType": 20,
+  "formCustomCreatePath": "/dcprocess/seal-apply",
+  "formCustomViewPath": "/dcprocess/sealApply/index.vue",
+  "visible": true,
+  "h5Visible": true,
+  "managerUserIds": [],
+  "managerRoleIds": [],
+  "sort": 1779845568000,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "version": 1,
+  "name": "用章申请",
+  "key": "dc_seal_apply",
+  "category": "test",
+  "modelType": 10
+}

@@ -8,8 +8,12 @@
   "h5Visible": false,
   "startUserIds": [],
   "startDeptIds": [],
-  "managerUserIds": [1506],
-  "managerRoleIds": [1],
+  "managerUserIds": [
+    1506
+  ],
+  "managerRoleIds": [
+    1
+  ],
   "sort": 1000,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,

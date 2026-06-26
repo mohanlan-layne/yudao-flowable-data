@@ -1,0 +1,25 @@
+{
+  "description": "客户考察申请流程",
+  "formType": 20,
+  "formCustomCreatePath": "/dcprocess/customer-visit",
+  "formCustomViewPath": "/dcprocess/customerVisit/index.vue",
+  "formCustomMiniCreatePath": "/page-dcprocess/customerVisit/index",
+  "formCustomMiniViewPath": "/page-dcprocess/processInstance/detail/index",
+  "visible": true,
+  "h5Visible": true,
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1
+  ],
+  "sort": 1779845568002,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "autoApprovalType": 0,
+  "version": 4,
+  "name": "客户考察申请",
+  "key": "dc_customer_visit",
+  "category": "hrflow",
+  "modelType": 10
+}

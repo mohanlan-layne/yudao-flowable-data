@@ -1,0 +1,42 @@
+{
+  "description": "入职确认申请流程",
+  "formType": 20,
+  "formCustomCreatePath": "/dcprocess/entry-confirm",
+  "formCustomViewPath": "/dcprocess/entryConfirm/index.vue",
+  "visible": true,
+  "h5Visible": true,
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1
+  ],
+  "sort": 1782350526886,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "printTemplateSetting": {
+    "enable": false,
+    "template": ""
+  },
+  "version": 1,
+  "name": "入职确认申请",
+  "key": "dc_entry_confirm",
+  "category": "hrflow",
+  "modelType": 10
+}

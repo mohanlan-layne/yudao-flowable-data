@@ -1,0 +1,42 @@
+{
+  "description": "入住申请流程",
+  "formType": 20,
+  "formCustomCreatePath": "/dcprocess/dormitory-checkin",
+  "formCustomViewPath": "/dcprocess/dormitoryCheckin/index.vue",
+  "visible": true,
+  "h5Visible": true,
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1
+  ],
+  "sort": 1779845568000,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "printTemplateSetting": {
+    "enable": false,
+    "template": ""
+  },
+  "version": 2,
+  "name": "入住申请",
+  "key": "dc_dormitory_checkin",
+  "category": "hrflow",
+  "modelType": 10
+}

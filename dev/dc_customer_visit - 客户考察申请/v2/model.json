@@ -1,0 +1,34 @@
+{
+  "description": "客户考察申请流程",
+  "formType": 20,
+  "formCustomCreatePath": "/dcprocess/customer-visit",
+  "formCustomViewPath": "/dcprocess/customerVisit/index.vue",
+  "visible": true,
+  "h5Visible": true,
+  "managerUserIds": [],
+  "managerRoleIds": [],
+  "sort": 1779845568000,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "version": 2,
+  "name": "客户考察申请",
+  "key": "dc_customer_visit",
+  "category": "test",
+  "modelType": 10
+}

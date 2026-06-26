@@ -4,6 +4,8 @@
   "formType": 20,
   "formCustomCreatePath": "/dcprocess/factory-repair",
   "formCustomViewPath": "/dcprocess/factoryRepair/index.vue",
+  "formCustomMiniCreatePath": "/page-dcprocess/factoryRepair/index",
+  "formCustomMiniViewPath": "/page-dcprocess/processInstance/detail/index",
   "visible": true,
   "h5Visible": true,
   "startUserIds": [],

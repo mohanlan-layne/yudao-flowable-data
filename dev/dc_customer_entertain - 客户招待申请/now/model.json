@@ -4,6 +4,8 @@
   "formType": 20,
   "formCustomCreatePath": "/dcprocess/customer-entertain",
   "formCustomViewPath": "/dcprocess/customerEntertain/index.vue",
+  "formCustomMiniCreatePath": "/page-dcprocess/customerEntertain/index",
+  "formCustomMiniViewPath": "/page-dcprocess/processInstance/detail/index",
   "visible": true,
   "h5Visible": true,
   "startUserIds": [],
