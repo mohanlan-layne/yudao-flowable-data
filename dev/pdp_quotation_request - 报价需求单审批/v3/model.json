@@ -1,0 +1,39 @@
+{
+  "description": "报价需求单审批流程（TPM发起，上级审批）",
+  "formType": 20,
+  "formCustomCreatePath": "/pdp/quotation-request/detail",
+  "formCustomViewPath": "/pdp/quotation-request/detail",
+  "formCustomMiniViewPath": "/pages-pdp/processInstance/detail/index",
+  "visible": true,
+  "h5Visible": false,
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1
+  ],
+  "sort": 1782454725659,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "version": 3,
+  "name": "报价需求单审批",
+  "key": "pdp_quotation_request",
+  "category": "PDP流程",
+  "modelType": 10
+}

@@ -36,5 +36,5 @@
   },
   "key": "pdp_plan_doc_common",
   "name": "通用文档审批",
-  "category": "PDP流程"
+  "category": "hidden"
 }

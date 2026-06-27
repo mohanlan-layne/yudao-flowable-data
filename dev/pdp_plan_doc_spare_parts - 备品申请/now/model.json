@@ -14,5 +14,5 @@
   "allowWithdrawTask": false,
   "key": "pdp_plan_doc_spare_parts",
   "name": "备品申请",
-  "category": "PDP流程"
+  "category": "hidden"
 }

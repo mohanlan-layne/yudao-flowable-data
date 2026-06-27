@@ -4,12 +4,16 @@
   "formType": 20,
   "formCustomCreatePath": "/pdp/plantemplate/detail/change/index",
   "formCustomViewPath": "/pdp/plantemplate/detail/change/index",
+  "formCustomMiniViewPath": "/pages-pdp/processInstance/detail/index",
   "visible": true,
   "h5Visible": true,
   "startUserIds": [],
   "startDeptIds": [],
   "managerUserIds": [
     1
+  ],
+  "managerRoleIds": [
+    807
   ],
   "sort": 1776238364274,
   "allowCancelRunningProcess": true,
@@ -32,5 +36,5 @@
   },
   "key": "pdp_ecn",
   "name": "计划变更",
-  "category": "PDP流程"
+  "category": "hidden"
 }

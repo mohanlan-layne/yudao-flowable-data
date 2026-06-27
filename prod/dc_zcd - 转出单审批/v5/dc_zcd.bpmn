@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/bpmn" id="diagram_dc_zcd">
+  <process id="dc_zcd" name="转出单审批" isExecutable="true">
+    <startEvent id="Event_1aptfmb"></startEvent>
+    <userTask id="Activity_09wsvel" name="转出单审批">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[30]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[670]]></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_0trqbba" sourceRef="Event_1aptfmb" targetRef="Activity_09wsvel">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${orderType==1}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="Activity_0h112q6" name="转出单变更审批">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[30]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[670]]></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_0npj46k" sourceRef="Event_1aptfmb" targetRef="Activity_0h112q6">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${orderType==2}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="Event_1v5utp4"></endEvent>
+    <sequenceFlow id="Flow_1t87sw9" sourceRef="Activity_09wsvel" targetRef="Event_1v5utp4"></sequenceFlow>
+    <sequenceFlow id="Flow_0o8nayf" sourceRef="Activity_0h112q6" targetRef="Event_1v5utp4"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dc_zcd">
+    <bpmndi:BPMNPlane bpmnElement="dc_zcd" id="BPMNPlane_dc_zcd">
+      <bpmndi:BPMNShape bpmnElement="Event_1aptfmb" id="BPMNShape_Event_1aptfmb">
+        <omgdc:Bounds height="36.0" width="36.0" x="92.0" y="252.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_09wsvel" id="BPMNShape_Activity_09wsvel">
+        <omgdc:Bounds height="80.0" width="100.0" x="180.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_0h112q6" id="BPMNShape_Activity_0h112q6">
+        <omgdc:Bounds height="80.0" width="100.0" x="180.0" y="340.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Event_1v5utp4" id="BPMNShape_Event_1v5utp4">
+        <omgdc:Bounds height="36.0" width="36.0" x="332.0" y="252.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="Flow_0trqbba" id="BPMNEdge_Flow_0trqbba">
+        <omgdi:waypoint x="128.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="180.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_0npj46k" id="BPMNEdge_Flow_0npj46k">
+        <omgdi:waypoint x="128.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="150.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="150.0" y="380.0"></omgdi:waypoint>
+        <omgdi:waypoint x="180.0" y="380.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_1t87sw9" id="BPMNEdge_Flow_1t87sw9">
+        <omgdi:waypoint x="280.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="332.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_0o8nayf" id="BPMNEdge_Flow_0o8nayf">
+        <omgdi:waypoint x="280.0" y="380.0"></omgdi:waypoint>
+        <omgdi:waypoint x="350.0" y="380.0"></omgdi:waypoint>
+        <omgdi:waypoint x="350.0" y="288.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

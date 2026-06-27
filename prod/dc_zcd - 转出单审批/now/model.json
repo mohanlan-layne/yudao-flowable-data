@@ -26,8 +26,8 @@
   },
   "autoApprovalType": 0,
   "titleSetting": {
-    "enable": false,
-    "title": ""
+    "enable": true,
+    "title": "{zcdName} - {fbillNo} - {userName}"
   },
   "summarySetting": {
     "enable": false,
@@ -35,5 +35,5 @@
   },
   "key": "dc_zcd",
   "name": "转出单审批",
-  "category": "hidden"
+  "category": "scmflow"
 }

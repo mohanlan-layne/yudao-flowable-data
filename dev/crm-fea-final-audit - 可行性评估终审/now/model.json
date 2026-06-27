@@ -32,5 +32,5 @@
   },
   "key": "crm-fea-final-audit",
   "name": "可行性评估终审",
-  "category": "PDP流程"
+  "category": "hidden"
 }

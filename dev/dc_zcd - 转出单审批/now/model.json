@@ -4,6 +4,7 @@
   "formType": 20,
   "formCustomCreatePath": "/dcprocess/transferOrder/index.vue",
   "formCustomViewPath": "/dcprocess/transferOrder/index.vue",
+  "formCustomMiniViewPath": "/pages-dcprocess/processInstance/detail/index",
   "visible": true,
   "h5Visible": true,
   "startUserIds": [],
@@ -36,5 +37,5 @@
   },
   "key": "dc_zcd",
   "name": "转出单审批",
-  "category": "test"
+  "category": "hidden"
 }

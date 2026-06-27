@@ -35,5 +35,5 @@
   },
   "key": "pdp_quotation",
   "name": "报价单审批",
-  "category": "PDP流程"
+  "category": "hidden"
 }

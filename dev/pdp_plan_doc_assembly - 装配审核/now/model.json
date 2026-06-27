@@ -12,5 +12,5 @@
   "allowWithdrawTask": false,
   "key": "pdp_plan_doc_assembly",
   "name": "装配审核",
-  "category": "PDP流程"
+  "category": "hidden"
 }

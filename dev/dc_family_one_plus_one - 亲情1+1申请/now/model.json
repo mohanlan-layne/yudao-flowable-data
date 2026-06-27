@@ -10,7 +10,7 @@
     1
   ],
   "managerRoleIds": [
-    1
+    807
   ],
   "sort": 1782436185151,
   "allowCancelRunningProcess": true,
@@ -33,5 +33,5 @@
   },
   "key": "dc_family_one_plus_one",
   "name": "亲情1+1申请",
-  "category": "test"
+  "category": "hrflow"
 }

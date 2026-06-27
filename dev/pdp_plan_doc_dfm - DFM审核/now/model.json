@@ -3,6 +3,7 @@
   "formType": 20,
   "formCustomCreatePath": "/pdp/plan-approval/doc/detail/index.vue",
   "formCustomViewPath": "/pdp/plan-approval/doc/detail/index.vue",
+  "formCustomMiniViewPath": "/page-pdp/processInstance/detail/index",
   "visible": true,
   "h5Visible": true,
   "startUserIds": [],
@@ -17,5 +18,5 @@
   "allowWithdrawTask": false,
   "key": "pdp_plan_doc_dfm",
   "name": "DFM审核",
-  "category": "PDP流程"
+  "category": "hidden"
 }

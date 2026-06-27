@@ -1,0 +1,38 @@
+{
+  "description": "",
+  "formType": 20,
+  "formCustomCreatePath": "/dcprocess/transferOrder/index.vue",
+  "formCustomViewPath": "/dcprocess/transferOrder/index.vue",
+  "visible": false,
+  "h5Visible": true,
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    807
+  ],
+  "sort": 1779961087592,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": true,
+    "title": "{zcdName} - {fbillNo} - {userName}"
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "version": 11,
+  "name": "转出单审批",
+  "key": "dc_zcd",
+  "category": "hidden",
+  "modelType": 10
+}

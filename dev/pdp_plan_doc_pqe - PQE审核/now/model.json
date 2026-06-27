@@ -12,5 +12,5 @@
   "allowWithdrawTask": false,
   "key": "pdp_plan_doc_pqe",
   "name": "PQE审核",
-  "category": "PDP流程"
+  "category": "hidden"
 }

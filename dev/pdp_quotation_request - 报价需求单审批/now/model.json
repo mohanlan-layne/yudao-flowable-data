@@ -2,8 +2,8 @@
   "description": "报价需求单审批流程（TPM发起，上级审批）",
   "type": 10,
   "formType": 20,
-  "formCustomCreatePath": "/pdp/quotation-request/detail",
-  "formCustomViewPath": "/pdp/quotation-request/detail",
+  "formCustomCreatePath": "/dcapp/quotation/create",
+  "formCustomViewPath": "/dcapp/quotation/create",
   "visible": true,
   "h5Visible": false,
   "startUserIds": [],
@@ -35,5 +35,5 @@
   },
   "key": "pdp_quotation_request",
   "name": "报价需求单审批",
-  "category": "PDP流程"
+  "category": "hidden"
 }
