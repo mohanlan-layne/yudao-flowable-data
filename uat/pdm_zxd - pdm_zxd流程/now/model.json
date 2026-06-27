@@ -9,7 +9,8 @@
   "startUserIds": [],
   "startDeptIds": [],
   "managerUserIds": [
-    670
+    670,
+    1
   ],
   "managerRoleIds": [
     807

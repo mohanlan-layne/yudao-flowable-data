@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:flowable="http://flowable.org/bpmn"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+             typeLanguage="http://www.w3.org/2001/XMLSchema"
+             expressionLanguage="http://www.w3.org/1999/XPath"
+             targetNamespace="http://flowable.org/bpmn"
+             id="diagram_pdp_quotation">
+  <process id="pdp_quotation" name="报价单审批" isExecutable="true">
+    <startEvent id="Event_start"></startEvent>
+    <userTask id="Activity_biz_approve" name="业务审批">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[30]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[1237]]></flowable:candidateParam>
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_start_approve" sourceRef="Event_start" targetRef="Activity_biz_approve"></sequenceFlow>
+    <endEvent id="Event_end"></endEvent>
+    <sequenceFlow id="Flow_approve_end" sourceRef="Activity_biz_approve" targetRef="Event_end"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_pdp_quotation">
+    <bpmndi:BPMNPlane bpmnElement="pdp_quotation" id="BPMNPlane_pdp_quotation">
+      <bpmndi:BPMNShape bpmnElement="Event_start" id="BPMNShape_Event_start">
+        <omgdc:Bounds height="36.0" width="36.0" x="162.0" y="222.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_biz_approve" id="BPMNShape_Activity_biz_approve">
+        <omgdc:Bounds height="80.0" width="100.0" x="250.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Event_end" id="BPMNShape_Event_end">
+        <omgdc:Bounds height="36.0" width="36.0" x="412.0" y="222.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="Flow_start_approve" id="BPMNEdge_Flow_start_approve">
+        <omgdi:waypoint x="198.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_approve_end" id="BPMNEdge_Flow_approve_end">
+        <omgdi:waypoint x="350.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="412.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

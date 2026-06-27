@@ -2,19 +2,20 @@
   "description": "",
   "type": 10,
   "formType": 20,
-  "formCustomCreatePath": "/dcapp/purchaseOrder/detail/index.vue",
-  "formCustomViewPath": "/dcapp/purchaseOrder/detail/index.vue",
+  "formCustomCreatePath": "/pdp/plantemplate/detail/index",
+  "formCustomViewPath": "/pdp/plantemplate/detail/index",
   "visible": true,
   "h5Visible": true,
   "startUserIds": [],
   "startDeptIds": [],
   "managerUserIds": [
-    1237
-  ],
-  "managerRoleIds": [
+    670,
     1
   ],
-  "sort": 1781161053120,
+  "managerRoleIds": [
+    807
+  ],
+  "sort": 1781517179279,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {

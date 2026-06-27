@@ -1,0 +1,38 @@
+{
+  "description": "报价单审批流程（报价组提交，业务审批）",
+  "formType": 20,
+  "formCustomCreatePath": "/dcapp/quotation/detail",
+  "formCustomViewPath": "/dcapp/quotation/detail",
+  "visible": true,
+  "h5Visible": false,
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1
+  ],
+  "sort": 1782545756446,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "version": 1,
+  "name": "报价单审批",
+  "key": "pdp_quotation",
+  "category": "hidden",
+  "modelType": 10
+}

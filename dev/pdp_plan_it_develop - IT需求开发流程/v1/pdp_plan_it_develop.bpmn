@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/bpmn" id="diagram_pdp_plan_it_develop">
+  <process id="pdp_plan_it_develop" name="IT需求开发流程" isExecutable="true">
+    <startEvent id="Event_07tmdqa"></startEvent>
+    <userTask id="Activity_02je5qx" name="开始">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[36]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:formData></flowable:formData>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_1jc7s0n" sourceRef="Event_07tmdqa" targetRef="Activity_02je5qx"></sequenceFlow>
+    <userTask id="Activity_0wyzxmf" name="开发处理">
+      <extensionElements>
+        <flowable:formData></flowable:formData>
+        <flowable:candidateStrategy><![CDATA[60]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[{PdpPlanChargeUser}]]></flowable:candidateParam>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_008k4yq" sourceRef="Activity_02je5qx" targetRef="Activity_0wyzxmf"></sequenceFlow>
+    <endEvent id="Event_1mgw91v"></endEvent>
+    <sequenceFlow id="Flow_16xeijr" sourceRef="Activity_0wyzxmf" targetRef="Event_1mgw91v"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_pdp_plan_it_develop">
+    <bpmndi:BPMNPlane bpmnElement="pdp_plan_it_develop" id="BPMNPlane_pdp_plan_it_develop">
+      <bpmndi:BPMNShape bpmnElement="Event_07tmdqa" id="BPMNShape_Event_07tmdqa">
+        <omgdc:Bounds height="36.0" width="36.0" x="142.0" y="192.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_02je5qx" id="BPMNShape_Activity_02je5qx">
+        <omgdc:Bounds height="80.0" width="100.0" x="230.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_0wyzxmf" id="BPMNShape_Activity_0wyzxmf">
+        <omgdc:Bounds height="80.0" width="100.0" x="390.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Event_1mgw91v" id="BPMNShape_Event_1mgw91v">
+        <omgdc:Bounds height="36.0" width="36.0" x="552.0" y="192.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="Flow_1jc7s0n" id="BPMNEdge_Flow_1jc7s0n">
+        <omgdi:waypoint x="178.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="230.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_008k4yq" id="BPMNEdge_Flow_008k4yq">
+        <omgdi:waypoint x="330.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="390.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_16xeijr" id="BPMNEdge_Flow_16xeijr">
+        <omgdi:waypoint x="490.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="552.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

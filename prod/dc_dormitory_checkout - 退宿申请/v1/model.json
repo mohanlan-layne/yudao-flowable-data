@@ -1,0 +1,42 @@
+{
+  "description": "退宿申请流程",
+  "formType": 20,
+  "formCustomCreatePath": "/dcprocess/dormitory-checkout",
+  "formCustomViewPath": "/dcprocess/dormitoryCheckout/index.vue",
+  "visible": true,
+  "h5Visible": true,
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1
+  ],
+  "sort": 1782350535463,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "printTemplateSetting": {
+    "enable": false,
+    "template": ""
+  },
+  "version": 1,
+  "name": "退宿申请",
+  "key": "dc_dormitory_checkout",
+  "category": "hrflow",
+  "modelType": 10
+}
