@@ -1,0 +1,40 @@
+{
+  "description": "",
+  "formType": 20,
+  "formCustomCreatePath": "/pdp/review/create",
+  "formCustomViewPath": "/pdp/review/detail/index",
+  "visible": false,
+  "h5Visible": true,
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1,
+    804,
+    807
+  ],
+  "sort": 1777016895036,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": true,
+    "title": "评审 - {executorNickname}-{PROCESS_START_TIME}"
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "version": 7,
+  "name": "评审主流程",
+  "key": "pdp-review_udit2",
+  "category": "hidden",
+  "modelType": 10
+}

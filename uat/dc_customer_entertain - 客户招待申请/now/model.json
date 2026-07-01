@@ -12,7 +12,9 @@
     1
   ],
   "managerRoleIds": [
-    1
+    1,
+    804,
+    807
   ],
   "sort": 1782350525726,
   "allowCancelRunningProcess": true,

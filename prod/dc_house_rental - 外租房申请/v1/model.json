@@ -1,0 +1,37 @@
+{
+  "formType": 20,
+  "formCustomCreatePath": "/dcprocess/house-rental",
+  "formCustomViewPath": "/dcprocess/houseRental/index.vue",
+  "visible": true,
+  "h5Visible": true,
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1
+  ],
+  "sort": 1782889882967,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "version": 1,
+  "name": "外租房申请",
+  "key": "dc_house_rental",
+  "category": "hrflow",
+  "modelType": 10
+}

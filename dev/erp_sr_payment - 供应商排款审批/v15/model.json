@@ -1,0 +1,42 @@
+{
+  "description": "供应商排款审批流程（采购员发起，按周期/付款组织/付款类型维度）",
+  "formType": 20,
+  "formCustomCreatePath": "/supplier-chain/payment",
+  "formCustomViewPath": "/erp/supplier/payment/detail/index.vue",
+  "formCustomMiniViewPath": "/pages-erp/processInstance/detail/index",
+  "visible": true,
+  "h5Visible": false,
+  "managerUserIds": [
+    1506,
+    1
+  ],
+  "managerRoleIds": [
+    1,
+    804,
+    807
+  ],
+  "sort": 1001,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": true,
+    "title": "{PROCESS_DEFINITION_NAME}-{cycleMonth}-{purchaserName}-{PROCESS_START_TIME}"
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "version": 15,
+  "name": "供应商排款审批",
+  "key": "erp_sr_payment",
+  "category": "scmflow",
+  "modelType": 10
+}

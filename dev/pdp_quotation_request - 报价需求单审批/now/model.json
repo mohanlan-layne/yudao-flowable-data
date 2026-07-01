@@ -12,7 +12,9 @@
     1
   ],
   "managerRoleIds": [
-    1
+    1,
+    804,
+    807
   ],
   "sort": 1000,
   "allowCancelRunningProcess": true,
@@ -35,5 +37,5 @@
   },
   "key": "pdp_quotation_request",
   "name": "报价需求单审批",
-  "category": "hidden"
+  "category": "salflow"
 }

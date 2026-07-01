@@ -1,0 +1,42 @@
+{
+  "description": "",
+  "formType": 20,
+  "formCustomCreatePath": "/pdp/plantemplate/detail/index",
+  "formCustomViewPath": "/pdp/plantemplate/detail/index",
+  "formCustomMiniViewPath": "/pages-pdp/processInstance/detail/index",
+  "visible": true,
+  "h5Visible": true,
+  "managerUserIds": [
+    670,
+    1
+  ],
+  "managerRoleIds": [
+    1,
+    804,
+    807
+  ],
+  "sort": 1781517179279,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "version": 3,
+  "name": "采购单审批",
+  "key": "dc_po_order",
+  "category": "scmflow",
+  "modelType": 10
+}

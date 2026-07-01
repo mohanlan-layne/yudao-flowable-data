@@ -4,12 +4,18 @@
   "formType": 20,
   "formCustomCreatePath": "/crm/feasibility/create",
   "formCustomViewPath": "/crm/feasibility/detail/index",
+  "formCustomMiniViewPath": "/pages-crm/processInstance/detail/index",
   "visible": false,
   "h5Visible": true,
   "startUserIds": [],
   "startDeptIds": [],
   "managerUserIds": [
     1
+  ],
+  "managerRoleIds": [
+    1,
+    804,
+    807
   ],
   "sort": 1773816200231,
   "allowCancelRunningProcess": true,

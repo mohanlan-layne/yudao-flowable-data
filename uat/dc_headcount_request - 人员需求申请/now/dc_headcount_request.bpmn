@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:flowable="http://flowable.org/bpmn"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+             typeLanguage="http://www.w3.org/2001/XMLSchema"
+             expressionLanguage="http://www.w3.org/1999/XPath"
+             targetNamespace="http://www.flowable.org/processdef">
+
+  <process id="dc_headcount_request" name="人员需求申请" isExecutable="true">
+
+    <startEvent id="StartEvent_1" name="开始" flowable:initiator="INITIATOR">
+      <outgoing>Flow_start_initiator</outgoing>
+    </startEvent>
+
+    <!-- 发起人填写 -->
+    <userTask id="Activity_initiator" name="发起人填写">
+      <extensionElements>
+        <flowable:candidateStrategy>36</flowable:candidateStrategy>
+        <flowable:candidateParam />
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId />
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds />
+        <flowable:approveType>2</flowable:approveType>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+      </extensionElements>
+      <incoming>Flow_start_initiator</incoming>
+      <outgoing>Flow_initiator_orghead</outgoing>
+    </userTask>
+
+    <!-- 所属组织最高负责人 -->
+    <userTask id="Activity_org_head" name="所属组织最高负责人">
+      <extensionElements>
+        <flowable:candidateStrategy>60</flowable:candidateStrategy>
+        <flowable:candidateParam>${orgHeadUserId}</flowable:candidateParam>
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId>Activity_initiator</flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds />
+        <flowable:approveType>1</flowable:approveType>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+      </extensionElements>
+      <incoming>Flow_initiator_orghead</incoming>
+      <outgoing>Flow_orghead_hrbp</outgoing>
+    </userTask>
+
+    <!-- HRBP经理 -->
+    <userTask id="Activity_hrbp" name="HRBP经理">
+      <extensionElements>
+        <flowable:candidateStrategy>60</flowable:candidateStrategy>
+        <flowable:candidateParam>${hrbpUserId}</flowable:candidateParam>
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId>Activity_initiator</flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds />
+        <flowable:approveType>1</flowable:approveType>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+      </extensionElements>
+      <incoming>Flow_orghead_hrbp</incoming>
+      <outgoing>Flow_hrbp_gm_gw</outgoing>
+    </userTask>
+
+    <!-- 是否需要总经理审核 -->
+    <exclusiveGateway id="Gateway_GM" name="是否需总经理审核">
+      <incoming>Flow_hrbp_gm_gw</incoming>
+      <outgoing>Flow_gw_gm</outgoing>
+      <outgoing>Flow_gw_recruiter</outgoing>
+    </exclusiveGateway>
+
+    <!-- 总经理 -->
+    <userTask id="Activity_gm" name="总经理审核">
+      <extensionElements>
+        <flowable:candidateStrategy>60</flowable:candidateStrategy>
+        <flowable:candidateParam>${gmUserId}</flowable:candidateParam>
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId>Activity_initiator</flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds />
+        <flowable:approveType>1</flowable:approveType>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+      </extensionElements>
+      <incoming>Flow_gw_gm</incoming>
+      <outgoing>Flow_gm_recruiter</outgoing>
+    </userTask>
+
+    <!-- 招聘专员（计划 + 效果） -->
+    <userTask id="Activity_recruiter" name="招聘专员填写招聘计划">
+      <extensionElements>
+        <flowable:candidateStrategy>60</flowable:candidateStrategy>
+        <flowable:candidateParam>${recruiterUserId}</flowable:candidateParam>
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId>Activity_initiator</flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds />
+        <flowable:approveType>2</flowable:approveType>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+      </extensionElements>
+      <incoming>Flow_gw_recruiter</incoming>
+      <incoming>Flow_gm_recruiter</incoming>
+      <outgoing>Flow_recruiter_effect</outgoing>
+    </userTask>
+
+    <!-- 招聘专员填写效果 -->
+    <userTask id="Activity_recruiter_effect" name="招聘专员填写招聘效果">
+      <extensionElements>
+        <flowable:candidateStrategy>60</flowable:candidateStrategy>
+        <flowable:candidateParam>${recruiterUserId}</flowable:candidateParam>
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId>Activity_initiator</flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds />
+        <flowable:approveType>2</flowable:approveType>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+      </extensionElements>
+      <incoming>Flow_recruiter_effect</incoming>
+      <outgoing>Flow_effect_end</outgoing>
+    </userTask>
+
+    <endEvent id="EndEvent_1" name="结束">
+      <incoming>Flow_effect_end</incoming>
+    </endEvent>
+
+    <sequenceFlow id="Flow_start_initiator" sourceRef="StartEvent_1" targetRef="Activity_initiator"/>
+    <sequenceFlow id="Flow_initiator_orghead" sourceRef="Activity_initiator" targetRef="Activity_org_head"/>
+    <sequenceFlow id="Flow_orghead_hrbp" sourceRef="Activity_org_head" targetRef="Activity_hrbp"/>
+    <sequenceFlow id="Flow_hrbp_gm_gw" sourceRef="Activity_hrbp" targetRef="Gateway_GM"/>
+    <sequenceFlow id="Flow_gw_gm" name="需总经理审核" sourceRef="Gateway_GM" targetRef="Activity_gm">
+      <conditionExpression xsi:type="tFormalExpression">${needGmApproval == true}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_gw_recruiter" name="跳过总经理" sourceRef="Gateway_GM" targetRef="Activity_recruiter">
+      <conditionExpression xsi:type="tFormalExpression">${needGmApproval == false}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_gm_recruiter" sourceRef="Activity_gm" targetRef="Activity_recruiter"/>
+    <sequenceFlow id="Flow_recruiter_effect" sourceRef="Activity_recruiter" targetRef="Activity_recruiter_effect"/>
+    <sequenceFlow id="Flow_effect_end" sourceRef="Activity_recruiter_effect" targetRef="EndEvent_1"/>
+
+  </process>
+
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="dc_headcount_request">
+
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <omgdc:Bounds x="182" y="82" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Activity_initiator_di" bpmnElement="Activity_initiator">
+        <omgdc:Bounds x="150" y="150" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Activity_org_head_di" bpmnElement="Activity_org_head">
+        <omgdc:Bounds x="150" y="270" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Activity_hrbp_di" bpmnElement="Activity_hrbp">
+        <omgdc:Bounds x="150" y="390" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Gateway_GM_di" bpmnElement="Gateway_GM" isMarkerVisible="true">
+        <omgdc:Bounds x="175" y="510" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Activity_gm_di" bpmnElement="Activity_gm">
+        <omgdc:Bounds x="330" y="495" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Activity_recruiter_di" bpmnElement="Activity_recruiter">
+        <omgdc:Bounds x="150" y="610" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Activity_recruiter_effect_di" bpmnElement="Activity_recruiter_effect">
+        <omgdc:Bounds x="150" y="730" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
+        <omgdc:Bounds x="182" y="852" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNEdge id="Flow_start_initiator_di" bpmnElement="Flow_start_initiator">
+        <omgdi:waypoint x="200" y="118"/><omgdi:waypoint x="200" y="150"/>
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Flow_initiator_orghead_di" bpmnElement="Flow_initiator_orghead">
+        <omgdi:waypoint x="200" y="230"/><omgdi:waypoint x="200" y="270"/>
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Flow_orghead_hrbp_di" bpmnElement="Flow_orghead_hrbp">
+        <omgdi:waypoint x="200" y="350"/><omgdi:waypoint x="200" y="390"/>
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Flow_hrbp_gm_gw_di" bpmnElement="Flow_hrbp_gm_gw">
+        <omgdi:waypoint x="200" y="470"/><omgdi:waypoint x="200" y="510"/>
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Flow_gw_gm_di" bpmnElement="Flow_gw_gm">
+        <omgdi:waypoint x="225" y="535"/><omgdi:waypoint x="330" y="535"/>
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Flow_gw_recruiter_di" bpmnElement="Flow_gw_recruiter">
+        <omgdi:waypoint x="200" y="560"/><omgdi:waypoint x="200" y="610"/>
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Flow_gm_recruiter_di" bpmnElement="Flow_gm_recruiter">
+        <omgdi:waypoint x="380" y="575"/><omgdi:waypoint x="380" y="650"/><omgdi:waypoint x="250" y="650"/>
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Flow_recruiter_effect_di" bpmnElement="Flow_recruiter_effect">
+        <omgdi:waypoint x="200" y="690"/><omgdi:waypoint x="200" y="730"/>
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Flow_effect_end_di" bpmnElement="Flow_effect_end">
+        <omgdi:waypoint x="200" y="810"/><omgdi:waypoint x="200" y="852"/>
+      </bpmndi:BPMNEdge>
+
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

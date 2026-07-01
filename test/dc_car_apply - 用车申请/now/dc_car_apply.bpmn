@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" targetNamespace="http://www.flowable.org/processdef">
+  <process id="dc_car_apply" name="用车申请" isExecutable="true">
+    <startEvent id="StartEvent_1" name="开始" flowable:initiator="INITIATOR">
+      <outgoing>Flow_1</outgoing>
+    </startEvent>
+    <userTask id="Activity_initiator" name="发起人">
+      <extensionElements>
+        <flowable:candidateStrategy>36</flowable:candidateStrategy>
+        <flowable:candidateParam />
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId />
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds />
+        <flowable:approveType>2</flowable:approveType>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+      </extensionElements>
+      <incoming>Flow_1</incoming>
+      <outgoing>Flow_2</outgoing>
+    </userTask>
+    <userTask id="Activity_car_mgr" name="车管审批">
+      <extensionElements>
+        <flowable:candidateStrategy>60</flowable:candidateStrategy>
+        <flowable:candidateParam>${carMgrUserId}</flowable:candidateParam>
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId>Activity_initiator</flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds />
+        <flowable:approveType>1</flowable:approveType>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+        <flowable:properties>
+          <flowable:property name="writableFields" value="carModel,plateNo,driver,driverDept,driverUserId" />
+        </flowable:properties>
+      </extensionElements>
+      <incoming>Flow_0li9999</incoming>
+      <outgoing>Flow_3</outgoing>
+    </userTask>
+    <userTask id="Activity_start_mileage" name="上传开始里程">
+      <extensionElements>
+        <flowable:candidateStrategy>50</flowable:candidateStrategy>
+        <flowable:candidateParam>driverUserId</flowable:candidateParam>
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId>Activity_initiator</flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds />
+        <flowable:approveType>2</flowable:approveType>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+        <flowable:properties>
+          <flowable:property name="writableFields" value="startMileage,startAttachment" />
+        </flowable:properties>
+      </extensionElements>
+      <incoming>Flow_3</incoming>
+      <outgoing>Flow_4</outgoing>
+    </userTask>
+    <userTask id="Activity_end_mileage" name="上传结束里程">
+      <extensionElements>
+        <flowable:candidateStrategy>50</flowable:candidateStrategy>
+        <flowable:candidateParam>driverUserId</flowable:candidateParam>
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId>Activity_initiator</flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds />
+        <flowable:approveType>2</flowable:approveType>
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
+        <flowable:properties>
+          <flowable:property name="writableFields" value="endMileage,endAttachment,currentMileage" />
+        </flowable:properties>
+      </extensionElements>
+      <incoming>Flow_4</incoming>
+      <outgoing>Flow_5</outgoing>
+    </userTask>
+    <endEvent id="EndEvent_1" name="结束">
+      <incoming>Flow_04voz88</incoming>
+    </endEvent>
+    <sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="Activity_initiator" />
+    <sequenceFlow id="Flow_2" sourceRef="Activity_initiator" targetRef="Activity_1ecbdxq" />
+    <sequenceFlow id="Flow_3" sourceRef="Activity_car_mgr" targetRef="Activity_start_mileage" />
+    <sequenceFlow id="Flow_4" sourceRef="Activity_start_mileage" targetRef="Activity_end_mileage" />
+    <sequenceFlow id="Flow_5" sourceRef="Activity_end_mileage" targetRef="Activity_0gd8avb" />
+    <userTask id="Activity_1ecbdxq" name="上级审核">
+      <extensionElements>
+        <flowable:candidateStrategy>39</flowable:candidateStrategy>
+        <flowable:candidateParam>1</flowable:candidateParam>
+      </extensionElements>
+      <incoming>Flow_2</incoming>
+      <outgoing>Flow_0li9999</outgoing>
+    </userTask>
+    <sequenceFlow id="Flow_0li9999" sourceRef="Activity_1ecbdxq" targetRef="Activity_car_mgr" />
+    <userTask id="Activity_0gd8avb" name="回收钥匙">
+      <extensionElements>
+        <flowable:candidateStrategy>60</flowable:candidateStrategy>
+        <flowable:candidateParam>${carMgrUserId}</flowable:candidateParam>
+      </extensionElements>
+      <incoming>Flow_5</incoming>
+      <outgoing>Flow_04voz88</outgoing>
+    </userTask>
+    <sequenceFlow id="Flow_04voz88" sourceRef="Activity_0gd8avb" targetRef="EndEvent_1" />
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="dc_car_apply_di" bpmnElement="dc_car_apply">
+      <bpmndi:BPMNShape id="Activity_car_mgr_di" bpmnElement="Activity_car_mgr">
+        <omgdc:Bounds x="400" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_start_mileage_di" bpmnElement="Activity_start_mileage">
+        <omgdc:Bounds x="560" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_end_mileage_di" bpmnElement="Activity_end_mileage">
+        <omgdc:Bounds x="720" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ecbdxq_di" bpmnElement="Activity_1ecbdxq">
+        <omgdc:Bounds x="250" y="180" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <omgdc:Bounds x="-28" y="202" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="-21" y="238" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_initiator_di" bpmnElement="Activity_initiator">
+        <omgdc:Bounds x="80" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
+        <omgdc:Bounds x="1062" y="202" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1068" y="238" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0gd8avb_di" bpmnElement="Activity_0gd8avb">
+        <omgdc:Bounds x="890" y="180" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
+        <omgdi:waypoint x="8" y="220" />
+        <omgdi:waypoint x="80" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
+        <omgdi:waypoint x="180" y="220" />
+        <omgdi:waypoint x="250" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3">
+        <omgdi:waypoint x="500" y="220" />
+        <omgdi:waypoint x="560" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4">
+        <omgdi:waypoint x="660" y="220" />
+        <omgdi:waypoint x="720" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5">
+        <omgdi:waypoint x="820" y="220" />
+        <omgdi:waypoint x="890" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0li9999_di" bpmnElement="Flow_0li9999">
+        <omgdi:waypoint x="350" y="220" />
+        <omgdi:waypoint x="400" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04voz88_di" bpmnElement="Flow_04voz88">
+        <omgdi:waypoint x="990" y="220" />
+        <omgdi:waypoint x="1062" y="220" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,23 @@
+{
+  "formType": 20,
+  "formCustomCreatePath": "/pdp/plan-approval/doc/detail/index.vue",
+  "formCustomViewPath": "/pdp/plan-approval/doc/detail/index.vue",
+  "formCustomMiniViewPath": "/pages-pdp/processInstance/detail/index",
+  "visible": true,
+  "h5Visible": true,
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    3
+  ],
+  "sort": 1782889788467,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "autoApprovalType": 0,
+  "version": 1,
+  "name": "方案确认",
+  "key": "pdp_plan_doc_proposal_confirm",
+  "category": "hidden",
+  "modelType": 10
+}

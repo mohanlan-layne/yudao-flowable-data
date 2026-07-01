@@ -13,6 +13,8 @@
     1
   ],
   "managerRoleIds": [
+    1,
+    804,
     807
   ],
   "sort": 1782545763975,
@@ -36,5 +38,5 @@
   },
   "key": "dc_po_order",
   "name": "采购单审批",
-  "category": "salflow"
+  "category": "scmflow"
 }

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef">
+  <process id="dc_family_one_plus_one" name="亲情1+1申请" isExecutable="true">
+    <startEvent id="StartEvent_1" name="开始" flowable:initiator="INITIATOR"></startEvent>
+    <userTask id="Activity_initiator" name="发起人填写">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[36]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[2]]></flowable:approveType>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="Gateway_L1" name="一级判断"></exclusiveGateway>
+    <userTask id="Activity_level1" name="一级审批">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[60]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[${level1UserId}]]></flowable:candidateParam>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId><![CDATA[Activity_initiator]]></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[1]]></flowable:approveType>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="Gateway_L2" name="二级判断"></exclusiveGateway>
+    <userTask id="Activity_level2" name="二级审批">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[60]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[${level2UserId}]]></flowable:candidateParam>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId><![CDATA[Activity_initiator]]></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[1]]></flowable:approveType>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="Gateway_L3" name="三级判断"></exclusiveGateway>
+    <userTask id="Activity_level3" name="三级审批">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[60]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[${level3UserId}]]></flowable:candidateParam>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId><![CDATA[Activity_initiator]]></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[1]]></flowable:approveType>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="Gateway_L4" name="四级判断"></exclusiveGateway>
+    <userTask id="Activity_level4" name="四级审批">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[60]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[${level4UserId}]]></flowable:candidateParam>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId><![CDATA[Activity_initiator]]></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[1]]></flowable:approveType>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+      </extensionElements>
+    </userTask>
+    <userTask id="Activity_hr_director" name="人力总监">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[60]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[${hrDirectorUserId}]]></flowable:candidateParam>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId><![CDATA[Activity_initiator]]></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[1]]></flowable:approveType>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+      </extensionElements>
+    </userTask>
+    <endEvent id="EndEvent_1" name="结束"></endEvent>
+    <sequenceFlow id="Flow_start_initiator" sourceRef="StartEvent_1" targetRef="Activity_initiator"></sequenceFlow>
+    <sequenceFlow id="Flow_initiator_gw1" sourceRef="Activity_initiator" targetRef="Gateway_L1"></sequenceFlow>
+    <sequenceFlow id="Flow_gw1_level1" name="有一级" sourceRef="Gateway_L1" targetRef="Activity_level1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approvalLevelCount >= 1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_gw1_hr" name="无一级" sourceRef="Gateway_L1" targetRef="Activity_hr_director">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approvalLevelCount < 1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_level1_gw2" sourceRef="Activity_level1" targetRef="Gateway_L2"></sequenceFlow>
+    <sequenceFlow id="Flow_gw2_level2" name="有二级" sourceRef="Gateway_L2" targetRef="Activity_level2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approvalLevelCount >= 2}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_gw2_hr" name="无二级" sourceRef="Gateway_L2" targetRef="Activity_hr_director">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approvalLevelCount < 2}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_level2_gw3" sourceRef="Activity_level2" targetRef="Gateway_L3"></sequenceFlow>
+    <sequenceFlow id="Flow_gw3_level3" name="有三级" sourceRef="Gateway_L3" targetRef="Activity_level3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approvalLevelCount >= 3}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_gw3_hr" name="无三级" sourceRef="Gateway_L3" targetRef="Activity_hr_director">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approvalLevelCount < 3}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_level3_gw4" sourceRef="Activity_level3" targetRef="Gateway_L4"></sequenceFlow>
+    <sequenceFlow id="Flow_gw4_level4" name="有四级" sourceRef="Gateway_L4" targetRef="Activity_level4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approvalLevelCount >= 4}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_gw4_hr" name="无四级" sourceRef="Gateway_L4" targetRef="Activity_hr_director">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approvalLevelCount < 4}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_level4_hr" sourceRef="Activity_level4" targetRef="Activity_hr_director"></sequenceFlow>
+    <sequenceFlow id="Flow_hr_end" sourceRef="Activity_hr_director" targetRef="EndEvent_1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dc_family_one_plus_one">
+    <bpmndi:BPMNPlane bpmnElement="dc_family_one_plus_one" id="BPMNPlane_dc_family_one_plus_one">
+      <bpmndi:BPMNShape bpmnElement="StartEvent_1" id="BPMNShape_StartEvent_1">
+        <omgdc:Bounds height="36.0" width="36.0" x="182.0" y="42.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_initiator" id="BPMNShape_Activity_initiator">
+        <omgdc:Bounds height="80.0" width="100.0" x="150.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Gateway_L1" id="BPMNShape_Gateway_L1">
+        <omgdc:Bounds height="50.0" width="50.0" x="175.0" y="220.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_level1" id="BPMNShape_Activity_level1">
+        <omgdc:Bounds height="80.0" width="100.0" x="150.0" y="300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Gateway_L2" id="BPMNShape_Gateway_L2">
+        <omgdc:Bounds height="50.0" width="50.0" x="175.0" y="410.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_level2" id="BPMNShape_Activity_level2">
+        <omgdc:Bounds height="80.0" width="100.0" x="150.0" y="490.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Gateway_L3" id="BPMNShape_Gateway_L3">
+        <omgdc:Bounds height="50.0" width="50.0" x="175.0" y="600.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_level3" id="BPMNShape_Activity_level3">
+        <omgdc:Bounds height="80.0" width="100.0" x="150.0" y="680.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Gateway_L4" id="BPMNShape_Gateway_L4">
+        <omgdc:Bounds height="50.0" width="50.0" x="175.0" y="790.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_level4" id="BPMNShape_Activity_level4">
+        <omgdc:Bounds height="80.0" width="100.0" x="150.0" y="870.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_hr_director" id="BPMNShape_Activity_hr_director">
+        <omgdc:Bounds height="80.0" width="100.0" x="360.0" y="490.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="EndEvent_1" id="BPMNShape_EndEvent_1">
+        <omgdc:Bounds height="36.0" width="36.0" x="392.0" y="612.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="Flow_start_initiator" id="BPMNEdge_Flow_start_initiator">
+        <omgdi:waypoint x="200.0" y="78.0"></omgdi:waypoint>
+        <omgdi:waypoint x="200.0" y="110.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_initiator_gw1" id="BPMNEdge_Flow_initiator_gw1">
+        <omgdi:waypoint x="200.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="200.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_gw1_level1" id="BPMNEdge_Flow_gw1_level1">
+        <omgdi:waypoint x="200.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="200.0" y="300.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_gw1_hr" id="BPMNEdge_Flow_gw1_hr">
+        <omgdi:waypoint x="225.0" y="245.0"></omgdi:waypoint>
+        <omgdi:waypoint x="360.0" y="530.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_level1_gw2" id="BPMNEdge_Flow_level1_gw2">
+        <omgdi:waypoint x="200.0" y="380.0"></omgdi:waypoint>
+        <omgdi:waypoint x="200.0" y="410.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_gw2_level2" id="BPMNEdge_Flow_gw2_level2">
+        <omgdi:waypoint x="200.0" y="460.0"></omgdi:waypoint>
+        <omgdi:waypoint x="200.0" y="490.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_gw2_hr" id="BPMNEdge_Flow_gw2_hr">
+        <omgdi:waypoint x="225.0" y="435.0"></omgdi:waypoint>
+        <omgdi:waypoint x="360.0" y="530.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_level2_gw3" id="BPMNEdge_Flow_level2_gw3">
+        <omgdi:waypoint x="200.0" y="570.0"></omgdi:waypoint>
+        <omgdi:waypoint x="200.0" y="600.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_gw3_level3" id="BPMNEdge_Flow_gw3_level3">
+        <omgdi:waypoint x="200.0" y="650.0"></omgdi:waypoint>
+        <omgdi:waypoint x="200.0" y="680.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_gw3_hr" id="BPMNEdge_Flow_gw3_hr">
+        <omgdi:waypoint x="225.0" y="625.0"></omgdi:waypoint>
+        <omgdi:waypoint x="360.0" y="530.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_level3_gw4" id="BPMNEdge_Flow_level3_gw4">
+        <omgdi:waypoint x="200.0" y="760.0"></omgdi:waypoint>
+        <omgdi:waypoint x="200.0" y="790.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_gw4_level4" id="BPMNEdge_Flow_gw4_level4">
+        <omgdi:waypoint x="200.0" y="840.0"></omgdi:waypoint>
+        <omgdi:waypoint x="200.0" y="870.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_gw4_hr" id="BPMNEdge_Flow_gw4_hr">
+        <omgdi:waypoint x="225.0" y="815.0"></omgdi:waypoint>
+        <omgdi:waypoint x="360.0" y="530.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_level4_hr" id="BPMNEdge_Flow_level4_hr">
+        <omgdi:waypoint x="250.0" y="910.0"></omgdi:waypoint>
+        <omgdi:waypoint x="410.0" y="570.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_hr_end" id="BPMNEdge_Flow_hr_end">
+        <omgdi:waypoint x="410.0" y="570.0"></omgdi:waypoint>
+        <omgdi:waypoint x="410.0" y="612.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

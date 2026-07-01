@@ -4,12 +4,18 @@
   "formType": 20,
   "formCustomCreatePath": "/pdp/question/create",
   "formCustomViewPath": "/pdp/question/detail/index",
+  "formCustomMiniViewPath": "/pages-pdp/processInstance/detail/index",
   "visible": true,
   "h5Visible": true,
   "startUserIds": [],
   "startDeptIds": [],
   "managerUserIds": [
     1
+  ],
+  "managerRoleIds": [
+    1,
+    804,
+    807
   ],
   "sort": 1776331968201,
   "allowCancelRunningProcess": true,

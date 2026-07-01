@@ -1,0 +1,41 @@
+{
+  "description": "",
+  "formType": 20,
+  "formCustomCreatePath": "/dcprocess/executionOrder/index.vue",
+  "formCustomViewPath": "/dcprocess/executionOrder/index.vue",
+  "visible": true,
+  "h5Visible": true,
+  "managerUserIds": [
+    670,
+    1
+  ],
+  "managerRoleIds": [
+    1,
+    804,
+    807
+  ],
+  "sort": 1781517081272,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": true,
+    "title": " {processName}"
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "version": 4,
+  "name": "pdm_zxd流程",
+  "key": "pdm_zxd",
+  "category": "eflow",
+  "modelType": 10
+}

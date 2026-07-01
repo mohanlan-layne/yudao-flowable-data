@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/bpmn" id="diagram_crm-fea-audit">
+  <process id="crm-fea-audit" name="可行性评估审批" isExecutable="true">
+    <startEvent id="Event_0m3k890" name="开始"></startEvent>
+    <userTask id="Activity_0rx77f4" name="审批人">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[35]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[1]]></flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="通过"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="2" enable="false" displayName="拒绝"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="3" enable="true" displayName="转办"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="4" enable="true" displayName="委派"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="5" enable="false" displayName="加签"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="6" enable="false" displayName="退回"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送"></flowable:buttonsSetting>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_08wrvyo" sourceRef="Event_0m3k890" targetRef="Activity_0rx77f4"></sequenceFlow>
+    <endEvent id="Event_0sbewao" name="结束"></endEvent>
+    <sequenceFlow id="Flow_0n47ehb" sourceRef="Activity_0rx77f4" targetRef="Event_0sbewao"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_crm-fea-audit">
+    <bpmndi:BPMNPlane bpmnElement="crm-fea-audit" id="BPMNPlane_crm-fea-audit">
+      <bpmndi:BPMNShape bpmnElement="Event_0m3k890" id="BPMNShape_Event_0m3k890">
+        <omgdc:Bounds height="36.0" width="36.0" x="242.0" y="222.0"></omgdc:Bounds>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="23.0" x="249.0" y="265.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_0rx77f4" id="BPMNShape_Activity_0rx77f4">
+        <omgdc:Bounds height="80.0" width="100.0" x="330.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Event_0sbewao" id="BPMNShape_Event_0sbewao">
+        <omgdc:Bounds height="36.0" width="36.0" x="482.0" y="222.0"></omgdc:Bounds>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="23.0" x="489.0" y="265.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="Flow_08wrvyo" id="BPMNEdge_Flow_08wrvyo">
+        <omgdi:waypoint x="278.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="330.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_0n47ehb" id="BPMNEdge_Flow_0n47ehb">
+        <omgdi:waypoint x="430.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="482.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

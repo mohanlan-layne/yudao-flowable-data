@@ -1,0 +1,37 @@
+{
+  "formType": 20,
+  "formCustomCreatePath": "/dcprocess/family-one-plus-one",
+  "formCustomViewPath": "/dcprocess/familyOnePlusOne/index.vue",
+  "visible": false,
+  "h5Visible": false,
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    807
+  ],
+  "sort": 1782436185151,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "version": 3,
+  "name": "亲情1+1申请",
+  "key": "dc_family_one_plus_one",
+  "category": "hrflow",
+  "modelType": 10
+}

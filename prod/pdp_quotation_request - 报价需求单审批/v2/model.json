@@ -1,0 +1,40 @@
+{
+  "description": "报价需求单审批流程（TPM发起，上级审批）",
+  "formType": 20,
+  "formCustomCreatePath": "/dcapp/quotation/create",
+  "formCustomViewPath": "/dcapp/quotation/create",
+  "visible": true,
+  "h5Visible": false,
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1,
+    804,
+    807
+  ],
+  "sort": 1782545753719,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "version": 2,
+  "name": "报价需求单审批",
+  "key": "pdp_quotation_request",
+  "category": "salflow",
+  "modelType": 10
+}

@@ -12,6 +12,8 @@
     1
   ],
   "managerRoleIds": [
+    1,
+    804,
     807
   ],
   "sort": 1779961087592,
@@ -35,5 +37,5 @@
   },
   "key": "dc_zcd",
   "name": "转出单审批",
-  "category": "scmflow"
+  "category": "hidden"
 }

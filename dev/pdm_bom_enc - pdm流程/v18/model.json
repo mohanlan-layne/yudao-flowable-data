@@ -1,0 +1,45 @@
+{
+  "description": "",
+  "formType": 20,
+  "formCustomCreatePath": "/bom/ecn/index",
+  "formCustomViewPath": "/bom/ecn/index",
+  "visible": true,
+  "h5Visible": true,
+  "managerUserIds": [
+    1242,
+    1
+  ],
+  "managerRoleIds": [
+    1,
+    804,
+    807
+  ],
+  "sort": 1779163112418,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": true,
+    "title": " {processName}"
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "printTemplateSetting": {
+    "enable": false,
+    "template": ""
+  },
+  "version": 18,
+  "name": "pdm流程",
+  "key": "pdm_bom_enc",
+  "category": "eflow",
+  "modelType": 10
+}

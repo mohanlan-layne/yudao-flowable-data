@@ -1,0 +1,39 @@
+{
+  "type": 10,
+  "formType": 20,
+  "formCustomCreatePath": "/dcprocess/headcount-request",
+  "formCustomViewPath": "/dcprocess/headcountRequest/index.vue",
+  "visible": true,
+  "h5Visible": true,
+  "startUserIds": [],
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1,
+    804,
+    807
+  ],
+  "sort": 1782865182027,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "key": "dc_headcount_request",
+  "name": "人员需求申请",
+  "category": "hrflow"
+}

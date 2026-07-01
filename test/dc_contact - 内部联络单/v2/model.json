@@ -1,0 +1,43 @@
+{
+  "description": "",
+  "formType": 20,
+  "formCustomCreatePath": "/dcprocess/internal-memo",
+  "formCustomViewPath": "/dcprocess/internalMemo/index.vue",
+  "formCustomMiniCreatePath": "/page-dcprocess/internalMemo/index",
+  "formCustomMiniViewPath": "/page-dcprocess/processInstance/detail/index",
+  "visible": true,
+  "h5Visible": true,
+  "managerUserIds": [
+    1237,
+    1
+  ],
+  "managerRoleIds": [
+    1,
+    804,
+    807
+  ],
+  "sort": 1779845568792,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "version": 2,
+  "name": "内部联络单",
+  "key": "dc_contact",
+  "category": "hrflow",
+  "modelType": 10
+}

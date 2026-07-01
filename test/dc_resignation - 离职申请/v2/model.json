@@ -1,0 +1,41 @@
+{
+  "formType": 20,
+  "formCustomCreatePath": "/dcprocess/resignation",
+  "formCustomViewPath": "/dcprocess/resignation/index.vue",
+  "formCustomMiniCreatePath": "/page-dcprocess/resignation/index",
+  "formCustomMiniViewPath": "/page-dcprocess/processInstance/detail/index",
+  "visible": true,
+  "h5Visible": true,
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1,
+    804,
+    807
+  ],
+  "sort": 1782374266832,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "version": 2,
+  "name": "离职申请",
+  "key": "dc_resignation",
+  "category": "hrflow",
+  "modelType": 10
+}
