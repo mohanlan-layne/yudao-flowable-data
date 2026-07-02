@@ -17,7 +17,7 @@
     804,
     807
   ],
-  "sort": 1777105197261,
+  "sort": 1777112322728,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {
@@ -35,10 +35,6 @@
   "summarySetting": {
     "enable": false,
     "summary": []
-  },
-  "printTemplateSetting": {
-    "enable": false,
-    "template": ""
   },
   "key": "pdp_plan_doc_common",
   "name": "通用文档审批",

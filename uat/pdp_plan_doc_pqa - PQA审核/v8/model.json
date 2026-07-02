@@ -1,0 +1,41 @@
+{
+  "description": "",
+  "formType": 20,
+  "formCustomCreatePath": "/pdp/plan-approval/doc/detail/index.vue",
+  "formCustomViewPath": "/pdp/plan-approval/doc/detail/index.vue",
+  "formCustomMiniViewPath": "/pages-pdp/processInstance/detail/index",
+  "visible": false,
+  "h5Visible": true,
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1,
+    804,
+    807
+  ],
+  "sort": 1777454081069,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": true,
+    "title": "{planInstance}-{executorNickname}-{PROCESS_START_TIME}"
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "version": 8,
+  "name": "PQA审核",
+  "key": "pdp_plan_doc_pqa",
+  "category": "hidden",
+  "modelType": 10
+}

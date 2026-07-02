@@ -30,13 +30,17 @@
   "autoApprovalType": 0,
   "titleSetting": {
     "enable": true,
-    "title": "问题整改 - {executorNickname}-{PROCESS_START_TIME}"
+    "title": "{issueDesc} - {executorNickname}-{PROCESS_START_TIME}"
   },
   "summarySetting": {
     "enable": false,
     "summary": []
   },
+  "printTemplateSetting": {
+    "enable": false,
+    "template": ""
+  },
   "key": "pdp-review-issue-rectify",
   "name": "问题整改",
-  "category": "pdp"
+  "category": "hidden"
 }

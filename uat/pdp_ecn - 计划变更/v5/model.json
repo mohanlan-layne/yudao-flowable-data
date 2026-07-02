@@ -1,0 +1,41 @@
+{
+  "description": "",
+  "formType": 20,
+  "formCustomCreatePath": "/pdp/plantemplate/detail/change/index",
+  "formCustomViewPath": "/pdp/plantemplate/detail/change/index",
+  "formCustomMiniViewPath": "/pages-pdp/processInstance/detail/index",
+  "visible": false,
+  "h5Visible": true,
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1,
+    804,
+    807
+  ],
+  "sort": 1777018800404,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": true,
+    "title": "计划变更 - {executorNickname}-{PROCESS_START_TIME}"
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "version": 5,
+  "name": "计划变更",
+  "key": "pdp_ecn",
+  "category": "hidden",
+  "modelType": 10
+}

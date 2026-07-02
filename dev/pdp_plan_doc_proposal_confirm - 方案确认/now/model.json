@@ -8,6 +8,7 @@
   "visible": false,
   "h5Visible": true,
   "startUserIds": [],
+  "startDeptIds": [],
   "managerUserIds": [
     1
   ],
@@ -16,7 +17,7 @@
     804,
     807
   ],
-  "sort": 1777105199118,
+  "sort": 1777452056492,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {

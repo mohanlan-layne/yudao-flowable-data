@@ -17,7 +17,7 @@
     804,
     807
   ],
-  "sort": 1776331895902,
+  "sort": 1777016895036,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {
@@ -38,5 +38,5 @@
   },
   "key": "pdp-review_udit2",
   "name": "评审主流程",
-  "category": "pdp"
+  "category": "hidden"
 }
