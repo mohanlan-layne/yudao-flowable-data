@@ -4,6 +4,7 @@
   "formType": 20,
   "formCustomCreatePath": "/supplier-chain/payment",
   "formCustomViewPath": "/erp/supplier/payment/detail/index.vue",
+  "formCustomMiniViewPath": "/pages-erp/processInstance/detail/index",
   "visible": true,
   "h5Visible": false,
   "startUserIds": [],

@@ -4,8 +4,8 @@
   "formType": 20,
   "formCustomCreatePath": "/dcprocess/seal-apply",
   "formCustomViewPath": "/dcprocess/sealApply/index.vue",
-  "formCustomMiniCreatePath": "/page-dcprocess/sealApply/index",
-  "formCustomMiniViewPath": "/page-dcprocess/processInstance/detail/index",
+  "formCustomMiniCreatePath": "/pages-dcprocess/sealApply/index",
+  "formCustomMiniViewPath": "/pages-dcprocess/processInstance/detail/index",
   "visible": true,
   "h5Visible": true,
   "startUserIds": [],
@@ -18,7 +18,7 @@
     804,
     807
   ],
-  "sort": 1782350527342,
+  "sort": 1779845568000,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {

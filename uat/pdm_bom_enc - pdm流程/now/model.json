@@ -9,6 +9,7 @@
   "startUserIds": [],
   "startDeptIds": [],
   "managerUserIds": [
+    1242,
     1
   ],
   "managerRoleIds": [
@@ -16,7 +17,7 @@
     804,
     807
   ],
-  "sort": 1779418497579,
+  "sort": 1779163112418,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {
@@ -29,11 +30,15 @@
   "autoApprovalType": 0,
   "titleSetting": {
     "enable": true,
-    "title": " {processName}"
+    "title": "{workflowTypeName} -{pmbno}-{PROCESS_START_TIME}"
   },
   "summarySetting": {
     "enable": false,
     "summary": []
+  },
+  "printTemplateSetting": {
+    "enable": false,
+    "template": ""
   },
   "key": "pdm_bom_enc",
   "name": "pdm流程",

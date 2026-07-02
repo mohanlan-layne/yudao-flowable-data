@@ -200,7 +200,7 @@
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>true</flowable:reasonRequire>
         <flowable:copyStrategy />
-        <flowable:copyParam></flowable:copyParam>
+        <flowable:copyParam />
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_01ej0k6</bpmn2:incoming>
       <bpmn2:outgoing>Flow_0ka2rak</bpmn2:outgoing>
@@ -293,7 +293,7 @@
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>true</flowable:reasonRequire>
         <flowable:copyStrategy />
-        <flowable:copyParam></flowable:copyParam>
+        <flowable:copyParam />
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_1mgj7pj</bpmn2:incoming>
       <bpmn2:outgoing>Flow_08tz1rk</bpmn2:outgoing>
@@ -348,7 +348,7 @@
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>true</flowable:reasonRequire>
         <flowable:copyStrategy />
-        <flowable:copyParam></flowable:copyParam>
+        <flowable:copyParam />
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_112ya73</bpmn2:incoming>
       <bpmn2:outgoing>Flow_0rf4qoz</bpmn2:outgoing>
@@ -403,7 +403,7 @@
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>true</flowable:reasonRequire>
         <flowable:copyStrategy />
-        <flowable:copyParam></flowable:copyParam>
+        <flowable:copyParam />
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_1ah4wvq</bpmn2:incoming>
       <bpmn2:outgoing>Flow_0hxq7be</bpmn2:outgoing>
@@ -434,7 +434,7 @@
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>true</flowable:reasonRequire>
         <flowable:copyStrategy />
-        <flowable:copyParam></flowable:copyParam>
+        <flowable:copyParam />
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_0v3fz6i</bpmn2:incoming>
       <bpmn2:outgoing>Flow_1iompe2</bpmn2:outgoing>
@@ -449,21 +449,6 @@
         <flowable:candidateStrategy>60</flowable:candidateStrategy>
         <flowable:candidateParam>${pmcUsers}</flowable:candidateParam>
         <flowable:approveMethod>3</flowable:approveMethod>
-        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
-        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
-        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
-        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
-        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
-        <flowable:approveType>1</flowable:approveType>
-        <flowable:buttonsSetting id="1" enable="true" displayName="提交" />
-        <flowable:buttonsSetting id="2" enable="false" displayName="拒绝" />
-        <flowable:buttonsSetting id="3" enable="false" displayName="转办" />
-        <flowable:buttonsSetting id="4" enable="false" displayName="委派" />
-        <flowable:buttonsSetting id="5" enable="false" displayName="加签" />
-        <flowable:buttonsSetting id="6" enable="false" displayName="退回" />
-        <flowable:buttonsSetting id="7" enable="false" displayName="抄送" />
-        <flowable:signEnable>false</flowable:signEnable>
-        <flowable:reasonRequire>false</flowable:reasonRequire>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_0ka2rak</bpmn2:incoming>
       <bpmn2:outgoing>Flow_0pjy5nj</bpmn2:outgoing>
@@ -506,6 +491,10 @@
         <dc:Bounds x="440" y="750" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1i274do_di" bpmnElement="Activity_1i274do">
+        <dc:Bounds x="640" y="310" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_15z8tvc_di" bpmnElement="Event_15z8tvc">
         <dc:Bounds x="972" y="552" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -542,10 +531,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1mt0rnv_di" bpmnElement="Activity_1mt0rnv">
         <dc:Bounds x="700" y="750" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1i274do_di" bpmnElement="Activity_1i274do">
-        <dc:Bounds x="640" y="310" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0s9ohfe_di" bpmnElement="Activity_0s9ohfe">

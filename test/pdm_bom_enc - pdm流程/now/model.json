@@ -30,7 +30,7 @@
   "autoApprovalType": 0,
   "titleSetting": {
     "enable": true,
-    "title": " {processName}"
+    "title": "{workflowTypeName} -{pmbno}-{PROCESS_START_TIME}"
   },
   "summarySetting": {
     "enable": false,
