@@ -1,13 +1,10 @@
 {
-  "description": "报价单审批流程（报价组提交，业务审批）",
-  "type": 10,
+  "description": "报价需求单审批流程（TPM发起，上级审批）",
   "formType": 20,
-  "formCustomCreatePath": "/dcapp/quotation/detail",
-  "formCustomViewPath": "/dcapp/quotation/detail",
+  "formCustomCreatePath": "/dcapp/quotation/create",
+  "formCustomViewPath": "/dcapp/quotation/create",
   "visible": true,
   "h5Visible": false,
-  "startUserIds": [],
-  "startDeptIds": [],
   "managerUserIds": [
     1
   ],
@@ -16,7 +13,7 @@
     804,
     807
   ],
-  "sort": 1782545755595,
+  "sort": 1782545751854,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {
@@ -35,7 +32,9 @@
     "enable": false,
     "summary": []
   },
-  "key": "pdp_quotation",
-  "name": "报价单审批",
-  "category": "hidden"
+  "version": 3,
+  "name": "报价需求单审批",
+  "key": "pdp_quotation_request",
+  "category": "salflow",
+  "modelType": 10
 }

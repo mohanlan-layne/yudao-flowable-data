@@ -9,7 +9,7 @@
   "startUserIds": [],
   "startDeptIds": [],
   "managerUserIds": [
-    1237,
+    670,
     1
   ],
   "managerRoleIds": [
@@ -17,7 +17,7 @@
     804,
     807
   ],
-  "sort": 1780478650468,
+  "sort": 1780650305347,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {

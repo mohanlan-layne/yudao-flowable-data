@@ -1,4 +1,5 @@
 {
+  "description": "",
   "type": 10,
   "formType": 20,
   "formCustomCreatePath": "/pdp/plan-approval/doc/detail/index.vue",
@@ -7,6 +8,7 @@
   "visible": false,
   "h5Visible": true,
   "startUserIds": [],
+  "startDeptIds": [],
   "managerUserIds": [
     1
   ],
@@ -15,9 +17,25 @@
     804,
     807
   ],
-  "sort": 1777105199130,
+  "sort": 1777453872665,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
   "key": "pdp_plan_doc_spare_parts",
   "name": "备品清单",
   "category": "hidden"

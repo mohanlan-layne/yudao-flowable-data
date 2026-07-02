@@ -8,9 +8,9 @@
         <flowable:candidateParam>${executorUserId}</flowable:candidateParam>
         <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
         <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
-        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:rejectReturnTaskId />
         <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
-        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:assignEmptyUserIds />
         <flowable:approveType>1</flowable:approveType>
         <flowable:buttonsSetting id="1" enable="true" displayName="提交" />
         <flowable:buttonsSetting id="2" enable="false" displayName="拒绝" />
@@ -31,9 +31,9 @@
         <flowable:approveMethod>3</flowable:approveMethod>
         <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
         <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
-        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:rejectReturnTaskId />
         <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
-        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:assignEmptyUserIds />
         <flowable:approveType>1</flowable:approveType>
         <flowable:buttonsSetting id="1" enable="true" displayName="提交" />
         <flowable:buttonsSetting id="2" enable="false" displayName="拒绝" />
@@ -57,9 +57,9 @@
         <flowable:candidateParam>808</flowable:candidateParam>
         <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
         <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
-        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:rejectReturnTaskId />
         <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
-        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:assignEmptyUserIds />
         <flowable:approveType>1</flowable:approveType>
         <flowable:buttonsSetting id="1" enable="true" displayName="提交" />
         <flowable:buttonsSetting id="2" enable="false" displayName="拒绝" />
@@ -78,14 +78,12 @@
     <bpmn2:sequenceFlow id="Flow_tpm_quote" sourceRef="Activity_tpm" targetRef="Activity_quote" />
     <bpmn2:userTask id="Activity_business" name="业务跟单">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>10</flowable:candidateStrategy>
-        <flowable:candidateParam>0</flowable:candidateParam>
         <flowable:approveMethod>3</flowable:approveMethod>
         <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
         <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
-        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:rejectReturnTaskId />
         <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
-        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:assignEmptyUserIds />
         <flowable:approveType>1</flowable:approveType>
         <flowable:buttonsSetting id="1" enable="true" displayName="提交" />
         <flowable:buttonsSetting id="2" enable="false" displayName="拒绝" />
@@ -96,6 +94,8 @@
         <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
+        <flowable:candidateStrategy>70</flowable:candidateStrategy>
+        <flowable:candidateParam>3</flowable:candidateParam>
       </bpmn2:extensionElements>
       <bpmn2:multiInstanceLoopCharacteristics flowable:collection="${coll_userList}">
         <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt; 0 }</bpmn2:completionCondition>

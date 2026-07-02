@@ -1,13 +1,11 @@
 {
-  "description": "报价单审批流程（报价组提交，业务审批）",
-  "type": 10,
+  "description": "",
   "formType": 20,
-  "formCustomCreatePath": "/dcapp/quotation/detail",
-  "formCustomViewPath": "/dcapp/quotation/detail",
-  "visible": true,
-  "h5Visible": false,
-  "startUserIds": [],
-  "startDeptIds": [],
+  "formCustomCreatePath": "/pdp/plan-approval/doc/detail/index.vue",
+  "formCustomViewPath": "/pdp/plan-approval/doc/detail/index.vue",
+  "formCustomMiniViewPath": "/pages-pdp/processInstance/detail/index",
+  "visible": false,
+  "h5Visible": true,
   "managerUserIds": [
     1
   ],
@@ -16,7 +14,7 @@
     804,
     807
   ],
-  "sort": 1782545755595,
+  "sort": 1777453872665,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {
@@ -35,7 +33,9 @@
     "enable": false,
     "summary": []
   },
-  "key": "pdp_quotation",
-  "name": "报价单审批",
-  "category": "hidden"
+  "version": 9,
+  "name": "备品清单",
+  "key": "pdp_plan_doc_spare_parts",
+  "category": "hidden",
+  "modelType": 10
 }

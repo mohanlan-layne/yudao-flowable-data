@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/bpmn" id="diagram_pdp_quotation_request">
+  <process id="pdp_quotation_request" name="报价需求单审批" isExecutable="true">
+    <startEvent id="Event_start"></startEvent>
+    <userTask id="Activity_initiator" name="发起人">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[36]]></flowable:candidateStrategy>
+        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[2]]></flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="提交"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送"></flowable:buttonsSetting>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="Flow_start_to_initiator" sourceRef="Event_start" targetRef="Activity_initiator"></sequenceFlow>
+    <userTask id="Activity_quotation_team_approve" name="报价组审批">
+      <extensionElements>
+        <flowable:candidateStrategy><![CDATA[10]]></flowable:candidateStrategy>
+        <flowable:candidateParam><![CDATA[808]]></flowable:candidateParam>
+        <flowable:assignStartUserHandlerType><![CDATA[1]]></flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType><![CDATA[1]]></flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType><![CDATA[1]]></flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType><![CDATA[1]]></flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="同意"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="3" enable="true" displayName="转办"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="4" enable="true" displayName="委派"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="5" enable="true" displayName="加签"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="6" enable="true" displayName="退回"></flowable:buttonsSetting>
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送"></flowable:buttonsSetting>
+        <flowable:signEnable><![CDATA[false]]></flowable:signEnable>
+        <flowable:reasonRequire><![CDATA[false]]></flowable:reasonRequire>
+        <flowable:approveMethod><![CDATA[3]]></flowable:approveMethod>
+        <flowable:copyStrategy><![CDATA[70]]></flowable:copyStrategy>
+        <flowable:copyParam><![CDATA[1]]></flowable:copyParam>
+      </extensionElements>
+      <multiInstanceLoopCharacteristics isSequential="false" flowable:collection="${coll_userList}">
+        <completionCondition>${ nrOfCompletedInstances &gt; 0 }</completionCondition>
+      </multiInstanceLoopCharacteristics>
+    </userTask>
+    <sequenceFlow id="Flow_initiator_to_team" sourceRef="Activity_initiator" targetRef="Activity_quotation_team_approve"></sequenceFlow>
+    <endEvent id="Event_end"></endEvent>
+    <sequenceFlow id="Flow_team_to_end" sourceRef="Activity_quotation_team_approve" targetRef="Event_end"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_pdp_quotation_request">
+    <bpmndi:BPMNPlane bpmnElement="pdp_quotation_request" id="BPMNPlane_pdp_quotation_request">
+      <bpmndi:BPMNShape bpmnElement="Event_start" id="BPMNShape_Event_start">
+        <omgdc:Bounds height="36.0" width="36.0" x="152.0" y="222.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_initiator" id="BPMNShape_Activity_initiator">
+        <omgdc:Bounds height="80.0" width="100.0" x="240.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_quotation_team_approve" id="BPMNShape_Activity_quotation_team_approve">
+        <omgdc:Bounds height="80.0" width="100.0" x="400.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Event_end" id="BPMNShape_Event_end">
+        <omgdc:Bounds height="36.0" width="36.0" x="562.0" y="222.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="Flow_start_to_initiator" id="BPMNEdge_Flow_start_to_initiator">
+        <omgdi:waypoint x="188.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="240.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_initiator_to_team" id="BPMNEdge_Flow_initiator_to_team">
+        <omgdi:waypoint x="340.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="400.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_team_to_end" id="BPMNEdge_Flow_team_to_end">
+        <omgdi:waypoint x="500.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="562.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
