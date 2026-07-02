@@ -5,7 +5,7 @@
   "formCustomCreatePath": "/dcprocess/entry-confirm",
   "formCustomViewPath": "/dcprocess/entryConfirm/index.vue",
   "formCustomMiniCreatePath": "/pages-dcprocess/entryConfirm/index",
-  "formCustomMiniViewPath": "/page-dcprocess/processInstance/detail/index",
+  "formCustomMiniViewPath": "/pages-dcprocess/processInstance/detail/index",
   "visible": true,
   "h5Visible": true,
   "startUserIds": [],
@@ -18,7 +18,7 @@
     804,
     807
   ],
-  "sort": 1782350526886,
+  "sort": 1779845568000,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {

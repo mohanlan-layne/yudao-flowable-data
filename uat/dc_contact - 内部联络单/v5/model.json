@@ -1,17 +1,13 @@
 {
   "description": "",
-  "type": 10,
   "formType": 20,
   "formCustomCreatePath": "/dcprocess/internal-memo",
   "formCustomViewPath": "/dcprocess/internalMemo/index.vue",
-  "formCustomMiniCreatePath": "/pages-dcprocess/internalMemo/index",
-  "formCustomMiniViewPath": "/pages-dcprocess/processInstance/detail/index",
+  "formCustomMiniCreatePath": "/page-dcprocess/internalMemo/index",
+  "formCustomMiniViewPath": "/page-dcprocess/processInstance/detail/index",
   "visible": true,
   "h5Visible": true,
-  "startUserIds": [],
-  "startDeptIds": [],
   "managerUserIds": [
-    1237,
     1
   ],
   "managerRoleIds": [
@@ -38,7 +34,9 @@
     "enable": false,
     "summary": []
   },
-  "key": "dc_contact",
+  "version": 5,
   "name": "内部联络单",
-  "category": "hrflow"
+  "key": "dc_contact",
+  "category": "hrflow",
+  "modelType": 10
 }
