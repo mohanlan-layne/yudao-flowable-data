@@ -127,14 +127,33 @@ cd yudao-flowable-data && git pull
 </definitions>
 ```
 
-### 1.4 candidateStrategy 常用值
+### 1.4 candidateStrategy 完整对照表
+
+来源：`yudao-cloud` 后端 `BpmTaskCandidateStrategyEnum`（源码为准，下表之前版本有误，30 曾被误标为"指定角色"，实际是"用户"）。
 
 | 值 | 含义 | candidateParam |
 |----|------|---------------|
-| 30 | 指定角色 | 角色 ID，多个用逗号 |
+| 1 | 审批人为空 | - |
+| 10 | 角色 | 角色 ID，多个用逗号 |
+| 20 | 部门的成员（含负责人） | 部门 ID |
+| 21 | 部门的负责人 | 部门 ID |
+| 22 | 岗位 | 岗位 ID |
+| 23 | 连续多级部门的负责人 | 部门 ID |
+| 30 | 用户 | 用户 ID，多个用逗号 |
+| 34 | 审批人自身 | 空（当前审批人可在审批时选择下一节点审批人） |
+| 35 | 发起人自选 | 空（申请人提交时自选此节点审批人） |
 | 36 | 发起人自己 | 空 |
-| 39 | 发起人的直属上级 | 空 |
-| 60 | 指定用户变量 | `${variableName}` |
+| 37 | 发起人部门负责人 | 空 |
+| 38 | 发起人连续多级部门的负责人 | 空 |
+| 39 | 直属领导 | 空 |
+| 40 | 用户组 | 用户组 ID |
+| 50 | 表单内用户字段 | 表单字段名（如 `driverUserId`） |
+| 51 | 表单内部门负责人 | 表单字段名 |
+| 60 | 流程表达式 | `${variableName}` |
+| 70 | 团队成员 | 角色字典编号（多个用逗号），按流程变量 `bizType`+`bizId` 从 `DataPermissionApi.getDataPermissionListByBizAndRole` 查团队成员；发起流程时必须已把这两个变量写进流程实例，否则查不到人、静默无候选人 |
+| 71 | 虚拟组织 | 虚拟组织相关 ID |
+
+`copyStrategy`（抄送）复用同一套编码，字段名从 `candidate*` 换成 `copy*`（如 `copyStrategy`/`copyParam`）。
 
 ### 1.5 推送命令
 
