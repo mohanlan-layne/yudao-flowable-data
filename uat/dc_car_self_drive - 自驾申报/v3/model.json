@@ -1,15 +1,12 @@
 {
   "description": "自驾申报流程",
-  "type": 10,
   "formType": 20,
   "formCustomCreatePath": "/dcprocess/car-self-drive",
   "formCustomViewPath": "/dcprocess/carSelfDrive/index.vue",
-  "formCustomMiniCreatePath": "/pages-dcprocess/carSelfDrive/index",
-  "formCustomMiniViewPath": "/pages-dcprocess/processInstance/detail/index",
+  "formCustomMiniCreatePath": "/page-dcprocess/carSelfDrive/index",
+  "formCustomMiniViewPath": "/page-dcprocess/processInstance/detail/index",
   "visible": true,
   "h5Visible": true,
-  "startUserIds": [],
-  "startDeptIds": [],
   "managerUserIds": [
     1
   ],
@@ -18,7 +15,7 @@
     804,
     807
   ],
-  "sort": 1779845568000,
+  "sort": 1782350525253,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {
@@ -41,7 +38,9 @@
     "enable": false,
     "template": ""
   },
-  "key": "dc_car_self_drive",
+  "version": 3,
   "name": "自驾申报",
-  "category": "hrflow"
+  "key": "dc_car_self_drive",
+  "category": "hrflow",
+  "modelType": 10
 }
