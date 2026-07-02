@@ -4,6 +4,7 @@
   "formType": 20,
   "formCustomCreatePath": "/pdp/plantemplate/detail/change/index",
   "formCustomViewPath": "/pdp/plantemplate/detail/change/index",
+  "formCustomMiniViewPath": "/pages-pdp/processInstance/detail/index",
   "visible": false,
   "h5Visible": true,
   "startUserIds": [],

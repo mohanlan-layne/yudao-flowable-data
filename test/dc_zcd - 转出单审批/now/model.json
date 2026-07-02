@@ -5,7 +5,7 @@
   "formCustomCreatePath": "/dcprocess/transferOrder/index.vue",
   "formCustomViewPath": "/dcprocess/transferOrder/index.vue",
   "formCustomMiniViewPath": "/pages-dcprocess/processInstance/detail/index",
-  "visible": true,
+  "visible": false,
   "h5Visible": true,
   "startUserIds": [],
   "startDeptIds": [],

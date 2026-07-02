@@ -4,6 +4,7 @@
   "formType": 20,
   "formCustomCreatePath": "/pdp/review/create",
   "formCustomViewPath": "/pdp/review/detail/index",
+  "formCustomMiniViewPath": "/pages-pdp/processInstance/detail/index",
   "visible": false,
   "h5Visible": true,
   "startUserIds": [],

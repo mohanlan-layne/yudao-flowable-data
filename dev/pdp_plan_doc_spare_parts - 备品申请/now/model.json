@@ -4,7 +4,7 @@
   "formCustomCreatePath": "/pdp/plan-approval/doc/detail/index.vue",
   "formCustomViewPath": "/pdp/plan-approval/doc/detail/index.vue",
   "formCustomMiniViewPath": "/pages-pdp/processInstance/detail/index",
-  "visible": true,
+  "visible": false,
   "h5Visible": true,
   "startUserIds": [],
   "managerUserIds": [
@@ -19,6 +19,23 @@
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "key": "pdp_plan_doc_spare_parts",
-  "name": "备品申请",
-  "category": "hidden"
+  "name": "备品清单",
+  "category": "hidden",
+  "autoApprovalType": 0,
+  "description": "",
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  }
 }

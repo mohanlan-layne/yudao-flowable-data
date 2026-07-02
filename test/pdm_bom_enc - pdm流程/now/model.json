@@ -4,7 +4,7 @@
   "formType": 20,
   "formCustomCreatePath": "/bom/ecn/index",
   "formCustomViewPath": "/bom/ecn/index",
-  "visible": true,
+  "visible": false,
   "h5Visible": true,
   "startUserIds": [],
   "startDeptIds": [],

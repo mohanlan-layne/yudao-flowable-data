@@ -4,6 +4,7 @@
   "formType": 20,
   "formCustomCreatePath": "/pdp/plan-approval/process/detail/index.vue",
   "formCustomViewPath": "/pdp/plan-approval/process/detail/index.vue",
+  "formCustomMiniViewPath": "/pages-pdp/processInstance/detail/index",
   "visible": false,
   "h5Visible": true,
   "startUserIds": [],

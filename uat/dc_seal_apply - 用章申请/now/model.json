@@ -4,6 +4,8 @@
   "formType": 20,
   "formCustomCreatePath": "/dcprocess/seal-apply",
   "formCustomViewPath": "/dcprocess/sealApply/index.vue",
+  "formCustomMiniCreatePath": "/page-dcprocess/sealApply/index",
+  "formCustomMiniViewPath": "/page-dcprocess/processInstance/detail/index",
   "visible": true,
   "h5Visible": true,
   "startUserIds": [],
