@@ -10,9 +10,9 @@
         <flowable:candidateParam />
         <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
         <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
-        <flowable:rejectReturnTaskId />
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
         <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
-        <flowable:assignEmptyUserIds />
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
         <flowable:approveType>1</flowable:approveType>
         <flowable:buttonsSetting id="1" enable="true" displayName="通过" />
         <flowable:buttonsSetting id="2" enable="false" displayName="拒绝" />
@@ -29,19 +29,9 @@
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="Flow_13nw9vq" sourceRef="Event_09b9p2g" targetRef="Activity_04f719l" />
     <bpmn2:endEvent id="Event_1rdx5no" name="结束">
-      <bpmn2:incoming>Flow_1htq1zf</bpmn2:incoming>
-    </bpmn2:endEvent>
-    <bpmn2:sequenceFlow id="Flow_13gtqnw" sourceRef="Activity_04f719l" targetRef="Activity_035pcox" />
-    <bpmn2:userTask id="Activity_035pcox" name="总经理审批">
-      <bpmn2:extensionElements>
-        <flowable:candidateStrategy>10</flowable:candidateStrategy>
-        <flowable:candidateParam>817</flowable:candidateParam>
-        <flowable:formData />
-      </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_13gtqnw</bpmn2:incoming>
-      <bpmn2:outgoing>Flow_1htq1zf</bpmn2:outgoing>
-    </bpmn2:userTask>
-    <bpmn2:sequenceFlow id="Flow_1htq1zf" sourceRef="Activity_035pcox" targetRef="Event_1rdx5no" />
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="Flow_13gtqnw" sourceRef="Activity_04f719l" targetRef="Event_1rdx5no" />
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="crm-fea-final-audit_di" bpmnElement="crm-fea-final-audit">
@@ -56,14 +46,10 @@
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1rdx5no_di" bpmnElement="Event_1rdx5no">
-        <dc:Bounds x="742" y="222" width="36" height="36" />
+        <dc:Bounds x="562" y="222" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="749" y="265" width="23" height="14" />
+          <dc:Bounds x="569" y="265" width="23" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_035pcox_di" bpmnElement="Activity_035pcox">
-        <dc:Bounds x="580" y="200" width="100" height="80" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_13nw9vq_di" bpmnElement="Flow_13nw9vq">
         <di:waypoint x="358" y="240" />
@@ -71,11 +57,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_13gtqnw_di" bpmnElement="Flow_13gtqnw">
         <di:waypoint x="510" y="240" />
-        <di:waypoint x="580" y="240" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1htq1zf_di" bpmnElement="Flow_1htq1zf">
-        <di:waypoint x="680" y="240" />
-        <di:waypoint x="742" y="240" />
+        <di:waypoint x="562" y="240" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
