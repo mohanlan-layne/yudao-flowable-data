@@ -1,4 +1,5 @@
 {
+  "description": "",
   "type": 10,
   "formType": 20,
   "formCustomCreatePath": "/pdp/plan-approval/doc/detail/index.vue",
@@ -18,11 +19,6 @@
   "sort": 1777105197139,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
-  "key": "pdp_plan_doc_dfm",
-  "name": "DFM审核",
-  "category": "hidden",
-  "autoApprovalType": 0,
-  "description": "",
   "processIdRule": {
     "enable": false,
     "prefix": "",
@@ -30,12 +26,16 @@
     "postfix": "",
     "length": 5
   },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": true,
+    "title": "{planInstance}-{executorNickname}-{PROCESS_START_TIME}"
+  },
   "summarySetting": {
     "enable": false,
     "summary": []
   },
-  "titleSetting": {
-    "enable": true,
-    "title": "{planInstance}-{executorNickname}-{PROCESS_START_TIME}"
-  }
+  "key": "pdp_plan_doc_dfm",
+  "name": "DFM审核",
+  "category": "hidden"
 }

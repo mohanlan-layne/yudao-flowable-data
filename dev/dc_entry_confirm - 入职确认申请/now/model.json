@@ -5,7 +5,7 @@
   "formCustomCreatePath": "/dcprocess/entry-confirm",
   "formCustomViewPath": "/dcprocess/entryConfirm/index.vue",
   "formCustomMiniCreatePath": "/pages-dcprocess/entryConfirm/index",
-  "formCustomMiniViewPath": "/page-dcprocess/processInstance/detail/index",
+  "formCustomMiniViewPath": "/pages-dcprocess/processInstance/detail/index",
   "visible": true,
   "h5Visible": true,
   "startUserIds": [],

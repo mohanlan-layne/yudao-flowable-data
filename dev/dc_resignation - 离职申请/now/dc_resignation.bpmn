@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" targetNamespace="http://www.flowable.org/processdef">
   <process id="dc_resignation" name="离职申请" isExecutable="true">
+    <extensionElements />
     <startEvent id="StartEvent_1" name="开始" flowable:initiator="INITIATOR">
       <outgoing>Flow_1</outgoing>
     </startEvent>
@@ -32,6 +33,9 @@
         <flowable:approveType>1</flowable:approveType>
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
+        <flowable:properties>
+          <flowable:property name="showSections" />
+        </flowable:properties>
       </extensionElements>
       <incoming>Flow_2</incoming>
       <outgoing>Flow_3</outgoing>
@@ -48,7 +52,10 @@
         <flowable:reasonRequire>false</flowable:reasonRequire>
         <flowable:formData />
         <flowable:candidateStrategy>36</flowable:candidateStrategy>
-        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:candidateParam />
+        <flowable:properties>
+          <flowable:property name="showSections" value="" />
+        </flowable:properties>
       </extensionElements>
       <incoming>Flow_3</incoming>
       <outgoing>Flow_4</outgoing>
@@ -64,7 +71,10 @@
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
         <flowable:candidateStrategy>36</flowable:candidateStrategy>
-        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:candidateParam />
+        <flowable:properties>
+          <flowable:property name="showSections" />
+        </flowable:properties>
       </extensionElements>
       <incoming>Flow_4</incoming>
       <outgoing>Flow_5</outgoing>
@@ -77,62 +87,101 @@
     </parallelGateway>
     <userTask id="Activity_admin" name="行政信息">
       <extensionElements>
+        <flowable:candidateStrategy>36</flowable:candidateStrategy>
+        <flowable:candidateParam />
+        <flowable:approveMethod>4</flowable:approveMethod>
         <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
         <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
         <flowable:rejectReturnTaskId />
         <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
         <flowable:assignEmptyUserIds />
-        <flowable:approveType>2</flowable:approveType>
+        <flowable:approveType>1</flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="提交" />
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝" />
+        <flowable:buttonsSetting id="3" enable="true" displayName="转办" />
+        <flowable:buttonsSetting id="4" enable="true" displayName="委派" />
+        <flowable:buttonsSetting id="5" enable="true" displayName="加签" />
+        <flowable:buttonsSetting id="6" enable="true" displayName="退回" />
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
         <flowable:properties>
           <flowable:property name="writableFields" value="mealCardStatus,manualStatus,badgeStatus,adminRemark" />
+          <flowable:property name="showSections" value="admin" />
         </flowable:properties>
-        <flowable:candidateStrategy>36</flowable:candidateStrategy>
-        <flowable:candidateParam></flowable:candidateParam>
       </extensionElements>
       <incoming>Flow_6a</incoming>
       <outgoing>Flow_7a</outgoing>
+      <multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <loopCardinality xsi:type="tFormalExpression">1</loopCardinality>
+        <completionCondition xsi:type="tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</completionCondition>
+      </multiInstanceLoopCharacteristics>
     </userTask>
     <userTask id="Activity_finance" name="财务部">
       <extensionElements>
+        <flowable:formData />
+        <flowable:candidateStrategy>36</flowable:candidateStrategy>
+        <flowable:candidateParam />
+        <flowable:approveMethod>4</flowable:approveMethod>
         <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
         <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
         <flowable:rejectReturnTaskId />
         <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
         <flowable:assignEmptyUserIds />
-        <flowable:approveType>2</flowable:approveType>
+        <flowable:approveType>1</flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="提交" />
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝" />
+        <flowable:buttonsSetting id="3" enable="true" displayName="转办" />
+        <flowable:buttonsSetting id="4" enable="true" displayName="委派" />
+        <flowable:buttonsSetting id="5" enable="true" displayName="加签" />
+        <flowable:buttonsSetting id="6" enable="true" displayName="退回" />
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
         <flowable:properties>
           <flowable:property name="writableFields" value="hasLoan,loanAmount,financeRemark" />
+          <flowable:property name="showSections" value="finance" />
         </flowable:properties>
-        <flowable:formData />
-        <flowable:candidateStrategy>36</flowable:candidateStrategy>
-        <flowable:candidateParam></flowable:candidateParam>
       </extensionElements>
       <incoming>Flow_6b</incoming>
       <outgoing>Flow_7b</outgoing>
+      <multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <loopCardinality xsi:type="tFormalExpression">1</loopCardinality>
+        <completionCondition xsi:type="tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</completionCondition>
+      </multiInstanceLoopCharacteristics>
     </userTask>
     <userTask id="Activity_consult" name="咨询部">
       <extensionElements>
+        <flowable:formData />
+        <flowable:candidateStrategy>36</flowable:candidateStrategy>
+        <flowable:candidateParam />
+        <flowable:approveMethod>4</flowable:approveMethod>
         <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
         <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
         <flowable:rejectReturnTaskId />
         <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
         <flowable:assignEmptyUserIds />
-        <flowable:approveType>2</flowable:approveType>
+        <flowable:approveType>1</flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="提交" />
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝" />
+        <flowable:buttonsSetting id="3" enable="true" displayName="转办" />
+        <flowable:buttonsSetting id="4" enable="true" displayName="委派" />
+        <flowable:buttonsSetting id="5" enable="true" displayName="加签" />
+        <flowable:buttonsSetting id="6" enable="true" displayName="退回" />
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
         <flowable:properties>
-          <flowable:property name="writableFields" value="pendingProcesses,assetHandled,consultRemark" />
+          <flowable:property name="writableFields" value="assetHandled,consultRemark" />
+          <flowable:property name="showSections" value="consult" />
         </flowable:properties>
-        <flowable:formData />
-        <flowable:candidateStrategy>36</flowable:candidateStrategy>
-        <flowable:candidateParam></flowable:candidateParam>
       </extensionElements>
       <incoming>Flow_6c</incoming>
       <outgoing>Flow_7c</outgoing>
+      <multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <loopCardinality xsi:type="tFormalExpression">1</loopCardinality>
+        <completionCondition xsi:type="tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</completionCondition>
+      </multiInstanceLoopCharacteristics>
     </userTask>
     <parallelGateway id="ParallelJoin" name="并行汇聚">
       <incoming>Flow_7a</incoming>
@@ -157,7 +206,11 @@
     <userTask id="Activity_0cdrwdw" name="EHR确认">
       <extensionElements>
         <flowable:candidateStrategy>36</flowable:candidateStrategy>
-        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:candidateParam />
+        <flowable:properties>
+          <flowable:property name="showSections" value="admin,finance,consult" />
+          <flowable:property name="writableFields" />
+        </flowable:properties>
       </extensionElements>
       <incoming>Flow_1v4pc07</incoming>
       <outgoing>Flow_0i6o7om</outgoing>
@@ -200,15 +253,15 @@
           <omgdc:Bounds x="1215" y="383" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0cdrwdw_di" bpmnElement="Activity_0cdrwdw">
-        <omgdc:Bounds x="1290" y="350" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
         <omgdc:Bounds x="1482" y="372" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <omgdc:Bounds x="1489" y="408" width="22" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0cdrwdw_di" bpmnElement="Activity_0cdrwdw">
+        <omgdc:Bounds x="1290" y="350" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
         <omgdi:waypoint x="188" y="390" />

@@ -1,12 +1,11 @@
 {
-  "type": 10,
+  "description": "",
   "formType": 20,
-  "formCustomCreatePath": "/pdp/plan-approval/doc/detail/index.vue",
-  "formCustomViewPath": "/pdp/plan-approval/doc/detail/index.vue",
+  "formCustomCreatePath": "/pdp/plantemplate/detail/change/index",
+  "formCustomViewPath": "/pdp/plantemplate/detail/change/index",
   "formCustomMiniViewPath": "/pages-pdp/processInstance/detail/index",
   "visible": false,
   "h5Visible": true,
-  "startUserIds": [],
   "managerUserIds": [
     1
   ],
@@ -15,14 +14,9 @@
     804,
     807
   ],
-  "sort": 1777105199130,
+  "sort": 1776238364274,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
-  "key": "pdp_plan_doc_spare_parts",
-  "name": "备品清单",
-  "category": "hidden",
-  "autoApprovalType": 0,
-  "description": "",
   "processIdRule": {
     "enable": false,
     "prefix": "",
@@ -30,12 +24,18 @@
     "postfix": "",
     "length": 5
   },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
   "summarySetting": {
     "enable": false,
     "summary": []
   },
-  "titleSetting": {
-    "enable": false,
-    "title": ""
-  }
+  "version": 6,
+  "name": "计划变更",
+  "key": "pdp_ecn",
+  "category": "hidden",
+  "modelType": 10
 }
