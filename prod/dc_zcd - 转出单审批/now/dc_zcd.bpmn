@@ -54,7 +54,7 @@
       <bpmn2:outgoing>Flow_0zdy4jz</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="Flow_0dr0agc" sourceRef="Activity_180o6gf" targetRef="Activity_0s8twdc">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(orderType==1)</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${orderType==1}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:userTask id="Activity_0cmu34s" name="转出单变更审批">
       <bpmn2:extensionElements>
@@ -81,7 +81,7 @@
       <bpmn2:outgoing>Flow_0s9win1</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="Flow_1ho9dvd" sourceRef="Activity_180o6gf" targetRef="Activity_0cmu34s">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(orderType==2)</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${orderType==2}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:endEvent id="Event_0ty1m5a" name="结束">
       <bpmn2:incoming>Flow_1of6so0</bpmn2:incoming>
@@ -89,10 +89,10 @@
       <bpmn2:incoming>Flow_1anan5e</bpmn2:incoming>
     </bpmn2:endEvent>
     <bpmn2:sequenceFlow id="Flow_1of6so0" sourceRef="Activity_0s8twdc" targetRef="Event_0ty1m5a">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(totalAmount &lt;= 50000)</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${totalAmount &lt;= 50000}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="Flow_146iy9u" sourceRef="Activity_0cmu34s" targetRef="Event_0ty1m5a">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(totalAmount &lt;= 50000)</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${totalAmount &lt;= 50000}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:userTask id="Activity_13gke6h" name="COO">
       <bpmn2:extensionElements>
@@ -119,10 +119,10 @@
       <bpmn2:outgoing>Flow_1anan5e</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="Flow_0s9win1" sourceRef="Activity_0cmu34s" targetRef="Activity_13gke6h">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(totalAmount &gt; 50000)</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${totalAmount &gt; 50000}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="Flow_0zdy4jz" sourceRef="Activity_0s8twdc" targetRef="Activity_13gke6h">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(totalAmount &gt; 50000)</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${totalAmount &gt; 50000}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="Flow_1anan5e" sourceRef="Activity_13gke6h" targetRef="Event_0ty1m5a" />
   </bpmn2:process>
