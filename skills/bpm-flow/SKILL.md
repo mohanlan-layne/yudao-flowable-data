@@ -249,4 +249,19 @@ git push origin dev     # 当前工作分支是 dev
 **Q: check-refs 报某 ID 缺失/名称不一致** —— 该环境没有这个角色/用户/岗位，或是不同实体；
 同步前先在目标环境补/改，或调整流程里的引用，别硬推。
 
+**Q: check-refs 报某 ID「不存在」，但怀疑只是被删了想知道它原本是谁** ——
+系统列表/详情 API 默认过滤软删除记录（`deleted=1`），所以查不到不等于从没存在过。
+去数据库直接查（不带 deleted 过滤）就能看到真身：
+- 连接信息在后端仓库 `yudao-cloud/nacos-config/{env}/yudao-{env}.yaml` 的 `spring.datasource.dynamic.datasource.master`
+  （四环境同一 MySQL 实例，库名 `yudao_dev/test/uat/prod`）；账号也在该文件，勿硬编码进本仓库。
+- 用 Python `pymysql` 查对应表：用户 `system_users`、角色 `system_role`、岗位 `system_post`。
+  ```python
+  import pymysql
+  conn = pymysql.connect(host='192.168.1.190', port=3306, user='<见nacos>', password='<见nacos>',
+                         database='yudao_prod', charset='utf8mb4')
+  conn.cursor().execute("SELECT id,username,nickname,status,deleted FROM system_users WHERE id=100")
+  ```
+  实战：抄送目标用户 100 查库发现是框架自带初始账号"芋道"(username=yudao)、四环境均 `deleted=1`，
+  据此判定为失效遗留并清理。本机无 mysql 客户端时 `pip3 install pymysql` 即可，或 `brew install mysql-client`。
+
 **Q: export/import 频繁超时** —— `bpm_common.api_request` 已内置超时+重试；仍失败就单个重试。
