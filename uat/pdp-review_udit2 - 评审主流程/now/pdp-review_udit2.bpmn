@@ -52,8 +52,6 @@
         <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
-        <flowable:copyStrategy>30</flowable:copyStrategy>
-        <flowable:copyParam>100</flowable:copyParam>
         <flowable:formData />
         <flowable:candidateStrategy>10</flowable:candidateStrategy>
         <flowable:candidateParam>805</flowable:candidateParam>
