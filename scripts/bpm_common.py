@@ -5,6 +5,7 @@ import glob
 import json
 import os
 import sys
+import time
 import urllib.error
 import urllib.request
 
@@ -45,20 +46,40 @@ def get_config(env):
     return cfg
 
 
-def api_request(base_url, path, token=None, tenant_id='1', method='GET', body=None):
+def api_request(base_url, path, token=None, tenant_id='1', method='GET', body=None,
+                timeout=30, retries=2):
+    """发起 BPM API 请求。
+
+    timeout: 单次请求超时秒数（默认 30）。
+    retries: 网络异常/超时时的额外重试次数（默认 2，即最多尝试 3 次）；
+             HTTP 错误码(4xx/5xx，业务/校验失败) 不重试、直接抛出。
+    """
     url = f'{base_url}{path}'
     headers = {'Content-Type': 'application/json', 'tenant-id': tenant_id}
     if token:
         headers['Authorization'] = f'Bearer {token}'
     data = json.dumps(body, ensure_ascii=False).encode('utf-8') if body is not None else None
-    req = urllib.request.Request(url, data=data, headers=headers, method=method)
-    try:
-        with urllib.request.urlopen(req) as resp:
-            return json.loads(resp.read().decode('utf-8'))
-    except urllib.error.HTTPError as e:
-        body_text = e.read().decode('utf-8', errors='replace')
-        print(f'[http] {method} {url} -> {e.code}: {body_text}', file=sys.stderr)
-        raise
+    last_err = None
+    for attempt in range(retries + 1):
+        req = urllib.request.Request(url, data=data, headers=headers, method=method)
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                return json.loads(resp.read().decode('utf-8'))
+        except urllib.error.HTTPError as e:
+            # HTTP 错误码通常不是瞬时问题，不重试
+            body_text = e.read().decode('utf-8', errors='replace')
+            print(f'[http] {method} {url} -> {e.code}: {body_text}', file=sys.stderr)
+            raise
+        except (urllib.error.URLError, TimeoutError, OSError) as e:
+            last_err = e
+            if attempt < retries:
+                wait = 2 * (attempt + 1)
+                print(f'[http] {method} {url} 网络异常({e})，{wait}s 后重试 '
+                      f'({attempt + 1}/{retries})', file=sys.stderr)
+                time.sleep(wait)
+            else:
+                print(f'[http] {method} {url} 网络异常，重试耗尽: {e}', file=sys.stderr)
+    raise last_err
 
 
 def is_interactive() -> bool:
@@ -211,3 +232,151 @@ def login(base_url, tenant_id, username, password):
     except Exception as e:
         print(f'[login] 登录异常: {e}', file=sys.stderr)
         sys.exit(1)
+
+
+# ======================================================================
+# 流程模型共享工具（compare.py / check_refs.py / sync.py 复用）
+# ======================================================================
+
+# model.json 里的派生/运行时/已拆分字段：export 已剥离，比较/覆盖时应忽略
+DERIVED_FIELDS = {
+    'id', 'modelId', 'categoryName', 'formName', 'deploymentTime',
+    'suspensionState', 'createTime', 'processDefinition', 'startUsers',
+    'startDepts', 'bpmnXml', 'simpleModel', 'formConf', 'formFields',
+}
+
+# model.json 里引用「实体 ID」的字段（跨环境同步前需核对这些 ID 一致存在）
+ID_REF_FIELDS = {
+    'managerUserIds': 'user', 'startUserIds': 'user',
+    'managerRoleIds': 'role', 'startDeptIds': 'dept',
+}
+
+# candidateStrategy / copyStrategy 编码 -> (名称, 参数引用的实体类型)
+# 实体类型: role/user/post/dept/group 需按 ID 核对；
+#          expr(${var})/form(表单字段)/none(无参) 不核对 ID。
+# 来源：yudao-cloud BpmTaskCandidateStrategyEnum（与 SKILL.md 对照表一致）。
+CANDIDATE_STRATEGY = {
+    1:  ('审批人为空', 'none'),
+    10: ('角色', 'role'),
+    20: ('部门成员(含负责人)', 'dept'),
+    21: ('部门负责人', 'dept'),
+    22: ('岗位', 'post'),
+    23: ('连续多级部门负责人', 'dept'),
+    30: ('用户', 'user'),
+    34: ('审批人自身', 'none'),
+    35: ('发起人自选', 'none'),
+    36: ('发起人自己', 'none'),
+    37: ('发起人部门负责人', 'none'),
+    38: ('发起人连续多级部门负责人', 'none'),
+    39: ('直属领导', 'none'),
+    40: ('用户组', 'group'),
+    50: ('表单内用户字段', 'form'),
+    51: ('表单内部门负责人', 'form'),
+    60: ('流程表达式', 'expr'),
+    70: ('团队成员(角色字典)', 'role'),
+    71: ('虚拟组织', 'none'),
+}
+
+
+def bpmn_semantics(xml: str):
+    """把 BPMN 解析成规范化语义节点列表（忽略序列化风格/图形坐标/元素顺序）。
+    返回排序后的字符串列表；解析失败返回 [('PARSE_ERR', ...)]。
+    用于判断两份 BPMN 是否「语义等价」（文本 diff 不可靠，风格差异会误报）。"""
+    import re
+    import xml.etree.ElementTree as ET
+    try:
+        t = re.sub(r'xmlns(:\w+)?="[^"]*"', '', xml)       # 去命名空间声明
+        t = re.sub(r'(</?)[A-Za-z_][\w.-]*:', r'\1', t)    # 去元素前缀
+        t = re.sub(r'(\s)[A-Za-z_][\w.-]*:', r'\1', t)     # 去属性前缀
+        proc = ET.fromstring(t).find('.//process')
+        out = []
+        for el in proc:
+            tag = re.sub(r'\{[^}]*\}', '', el.tag)
+            if tag == 'extensionElements':
+                continue
+            if tag == 'sequenceFlow':
+                out.append(f"F:{el.get('sourceRef')}>{el.get('targetRef')}")
+                continue
+            ex = ''
+            if tag in ('userTask', 'serviceTask', 'receiveTask'):
+                e = el.find('extensionElements')
+                if e is not None:
+                    for tn in ['candidateStrategy', 'candidateParam', 'approveMethod',
+                               'approveType', 'copyStrategy', 'copyParam']:
+                        n = e.find(tn)
+                        if n is not None and (n.text or '').strip():
+                            ex += f" {tn}={n.text.strip()}"
+            out.append(f"{tag}:{el.get('name') or el.get('id')}{ex}")
+        return sorted(out)
+    except Exception as ex:
+        return [('PARSE_ERR', str(ex))]
+
+
+def extract_bpmn_refs(xml: str):
+    """提取 BPMN 里所有节点的候选人/抄送引用。
+    返回 [(node_name, kind, strategy, entity_type, param), ...]
+      kind: 'candidate' | 'copy'
+      entity_type: role/user/post/dept/group/form/expr/none/unknown
+    仅保留 entity_type 属于 role/user/post/dept/group 的（需核对 ID 的）由调用方过滤。"""
+    import re
+    import xml.etree.ElementTree as ET
+    t = re.sub(r'xmlns(:\w+)?="[^"]*"', '', xml)
+    t = re.sub(r'(</?)[A-Za-z_][\w.-]*:', r'\1', t)
+    t = re.sub(r'(\s)[A-Za-z_][\w.-]*:', r'\1', t)
+    proc = ET.fromstring(t).find('.//process')
+    refs = []
+    for el in proc:
+        e = el.find('extensionElements')
+        if e is None:
+            continue
+        name = el.get('name') or el.get('id')
+        for kind, sfield, pfield in [('candidate', 'candidateStrategy', 'candidateParam'),
+                                     ('copy', 'copyStrategy', 'copyParam')]:
+            sn = e.find(sfield)
+            if sn is None or not (sn.text or '').strip():
+                continue
+            try:
+                strat = int(sn.text.strip())
+            except ValueError:
+                continue
+            pn = e.find(pfield)
+            param = (pn.text or '').strip() if pn is not None else ''
+            etype = CANDIDATE_STRATEGY.get(strat, ('未知', 'unknown'))[1]
+            refs.append((name, kind, strat, etype, param))
+    return refs
+
+
+# 各实体类型 -> (拉取列表的候选 API 路径, 该实体在返回项里的显示名字段)
+ENTITY_API = {
+    'role': (['/admin-api/system/role/list',
+              '/admin-api/system/role/page?pageNo=1&pageSize=500'], 'name'),
+    'user': (['/admin-api/system/user/simple-list',
+              '/admin-api/system/user/list-all-simple',
+              '/admin-api/system/user/page?pageNo=1&pageSize=1000'], 'nickname'),
+    'post': (['/admin-api/system/post/list-all-simple',
+              '/admin-api/system/post/simple-list',
+              '/admin-api/system/post/page?pageNo=1&pageSize=300'], 'name'),
+    'dept': (['/admin-api/system/dept/list',
+              '/admin-api/system/dept/simple-list'], 'name'),
+    'group': (['/admin-api/bpm/user-group/simple-list',
+               '/admin-api/bpm/user-group/list'], 'name'),
+}
+
+
+def fetch_entity_map(base_url, token, tenant_id, etype):
+    """拉取某类实体的 {id(str): name} 映射。用于跨环境核对 ID 引用。"""
+    paths, name_field = ENTITY_API.get(etype, (None, None))
+    if not paths:
+        return {}
+    for p in paths:
+        try:
+            resp = api_request(base_url, p, token=token, tenant_id=tenant_id)
+            data = resp.get('data')
+            if isinstance(data, dict):
+                data = data.get('list')
+            if data:
+                return {str(x.get('id')): (x.get(name_field) or x.get('name')
+                                           or x.get('nickname')) for x in data}
+        except Exception:
+            continue
+    return {}

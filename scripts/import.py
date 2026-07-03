@@ -174,7 +174,26 @@ def _import_flow(base_url, token, tenant_id, key, name, flow_dir,
     return True
 
 
-def run(env: str, filter_keys: set, dry_run=False):
+def _deploy_keys(base_url, token, tenant_id, keys):
+    """推送成功后自动部署这些 key（激活为可发起的流程定义）。"""
+    if not keys:
+        return
+    print(f'\n[import] 自动部署 {len(keys)} 个流程...')
+    models = list_models(base_url, token, tenant_id)
+    for k in keys:
+        it = models.get(k)
+        if not it:
+            print(f'  -> {k}: 部署跳过（找不到 model）', file=sys.stderr)
+            continue
+        resp = api_request(base_url, f"/admin-api/bpm/model/deploy?id={it['id']}",
+                           token=token, tenant_id=tenant_id, method='POST')
+        if resp.get('code') == 0:
+            print(f'  -> {k}: 部署成功')
+        else:
+            print(f'  -> {k}: 部署失败 {resp.get("msg")}', file=sys.stderr)
+
+
+def run(env: str, filter_keys: set, dry_run=False, deploy=False):
     cfg = get_config(env)
     base_url, tenant_id = cfg['url'], cfg['tenant_id']
     token = login(base_url, tenant_id, cfg['username'], cfg['password'])
@@ -201,12 +220,14 @@ def run(env: str, filter_keys: set, dry_run=False):
         return
 
     total = ok = failed = 0
+    ok_keys = []
     for key, name, flow_dir in flows:
         print(f'[import] 处理: {key} - {name}')
         try:
             if _import_flow(base_url, token, tenant_id, key, name, flow_dir,
                             category_map, existing_models, dry_run=dry_run, interactive=False):
                 ok += 1
+                ok_keys.append(key)
             else:
                 failed += 1
         except Exception as e:
@@ -216,6 +237,9 @@ def run(env: str, filter_keys: set, dry_run=False):
 
     mode_str = '（dry-run，未实际推送）' if dry_run else ''
     print(f'\n[import] 完成{mode_str}：处理 {total}，成功 {ok}，失败 {failed}')
+
+    if deploy and not dry_run:
+        _deploy_keys(base_url, token, tenant_id, ok_keys)
 
 
 def main():
@@ -245,9 +269,15 @@ def main():
             dry_run = True
             print('  已选择: dry-run 模式')
 
+        deploy = False
+        if not dry_run:
+            raw = input('推送成功后自动部署？(Y/n): ').strip().lower()
+            deploy = raw != 'n'
+
         print()
         # 交互模式下逐个处理，支持逐个分类切换
         total = ok = failed = 0
+        ok_keys = []
         for key, name, flow_dir in flows:
             if selected_keys and key not in selected_keys:
                 continue
@@ -256,6 +286,7 @@ def main():
                 if _import_flow(base_url, token, tenant_id, key, name, flow_dir,
                                 category_map, existing_models, dry_run=dry_run, interactive=True):
                     ok += 1
+                    ok_keys.append(key)
                 else:
                     failed += 1
             except Exception as e:
@@ -265,13 +296,17 @@ def main():
 
         mode_str = '（dry-run，未实际推送）' if dry_run else ''
         print(f'\n[import] 完成{mode_str}：处理 {total}，成功 {ok}，失败 {failed}')
+
+        if deploy and not dry_run:
+            _deploy_keys(base_url, token, tenant_id, ok_keys)
     else:
         parser = argparse.ArgumentParser(description='将本地 now/ 回推到 BPM')
         parser.add_argument('--env', default=os.environ.get('ENV', 'dev'))
         parser.add_argument('--dry-run', action='store_true', help='只打印，不实际推送')
+        parser.add_argument('--deploy', action='store_true', help='推送成功后自动部署')
         parser.add_argument('keys', nargs='*', help='指定流程 key，不填则处理本地全部')
         args = parser.parse_args()
-        run(args.env, set(args.keys), dry_run=args.dry_run)
+        run(args.env, set(args.keys), dry_run=args.dry_run, deploy=args.deploy)
 
 
 if __name__ == '__main__':
