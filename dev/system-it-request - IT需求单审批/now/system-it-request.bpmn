@@ -1,41 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL"
-                   xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
-                   xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
-                   xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
-                   xmlns:flowable="http://flowable.org/bpmn"
-                   id="diagram_system-it-request"
-                   targetNamespace="http://flowable.org/bpmn">
-
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:flowable="http://flowable.org/bpmn" id="diagram_system-it-request" targetNamespace="http://flowable.org/bpmn">
   <bpmn2:process id="system-it-request" name="IT需求单审批" isExecutable="true">
-
-    <!-- ===== 开始 ===== -->
     <bpmn2:startEvent id="Event_start" name="开始">
       <bpmn2:outgoing>Flow_start_submit</bpmn2:outgoing>
     </bpmn2:startEvent>
-
-    <!-- ===== 需求填报 ===== -->
     <bpmn2:userTask id="Activity_submit" name="需求填报">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:formData />
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
+        <flowable:approveMethod>4</flowable:approveMethod>
+        <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
+        <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
+        <flowable:rejectReturnTaskId></flowable:rejectReturnTaskId>
+        <flowable:assignEmptyHandlerType>1</flowable:assignEmptyHandlerType>
+        <flowable:assignEmptyUserIds></flowable:assignEmptyUserIds>
+        <flowable:approveType>2</flowable:approveType>
+        <flowable:buttonsSetting id="1" enable="true" displayName="提交" />
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝" />
+        <flowable:buttonsSetting id="3" enable="true" displayName="转办" />
+        <flowable:buttonsSetting id="4" enable="true" displayName="委派" />
+        <flowable:buttonsSetting id="5" enable="true" displayName="加签" />
+        <flowable:buttonsSetting id="6" enable="true" displayName="退回" />
+        <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
+        <flowable:signEnable>false</flowable:signEnable>
+        <flowable:reasonRequire>false</flowable:reasonRequire>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_start_submit</bpmn2:incoming>
       <bpmn2:outgoing>Flow_submit_review</bpmn2:outgoing>
+      <bpmn2:multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <bpmn2:loopCardinality xsi:type="bpmn2:tFormalExpression">1</bpmn2:loopCardinality>
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
-
-    <!-- ===== 需求评审 ===== -->
     <bpmn2:userTask id="Activity_review" name="需求评审">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:approveMethod>4</flowable:approveMethod>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
+        <flowable:formData />
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_submit_review</bpmn2:incoming>
       <bpmn2:outgoing>Flow_review_to_gateway</bpmn2:outgoing>
+      <bpmn2:multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <bpmn2:loopCardinality xsi:type="bpmn2:tFormalExpression">1</bpmn2:loopCardinality>
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
-
-    <!-- ===== 评审分支网关 ===== -->
     <bpmn2:exclusiveGateway id="Gateway_review" name="评审结果">
       <bpmn2:incoming>Flow_review_to_gateway</bpmn2:incoming>
       <bpmn2:outgoing>Flow_to_reject</bpmn2:outgoing>
@@ -43,370 +54,338 @@
       <bpmn2:outgoing>Flow_to_design</bpmn2:outgoing>
       <bpmn2:outgoing>Flow_no_prototype_to_approve</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
-
-    <!-- ===== 分支1: 另行处理 → 回绝确认 → 结束 ===== -->
     <bpmn2:userTask id="Activity_reject" name="回绝确认">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:approveMethod>4</flowable:approveMethod>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_to_reject</bpmn2:incoming>
       <bpmn2:outgoing>Flow_reject_end</bpmn2:outgoing>
+      <bpmn2:multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <bpmn2:loopCardinality xsi:type="bpmn2:tFormalExpression">1</bpmn2:loopCardinality>
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
     <bpmn2:endEvent id="Event_end_reject" name="结束">
       <bpmn2:incoming>Flow_reject_end</bpmn2:incoming>
     </bpmn2:endEvent>
-
-    <!-- ===== 分支3: 需要原型 → 方案设计 ===== -->
     <bpmn2:userTask id="Activity_design" name="方案设计">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:approveMethod>4</flowable:approveMethod>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_to_design</bpmn2:incoming>
       <bpmn2:outgoing>Flow_design_to_merge</bpmn2:outgoing>
+      <bpmn2:multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <bpmn2:loopCardinality xsi:type="bpmn2:tFormalExpression">1</bpmn2:loopCardinality>
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
-
-    <!-- ===== 合并网关（方案审批前：原型完成 or 无需原型） ===== -->
     <bpmn2:exclusiveGateway id="Gateway_merge_approve" name="">
       <bpmn2:incoming>Flow_design_to_merge</bpmn2:incoming>
       <bpmn2:incoming>Flow_no_prototype_to_approve</bpmn2:incoming>
       <bpmn2:outgoing>Flow_merge_to_approve</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
-
-    <!-- ===== 方案审批 ===== -->
     <bpmn2:userTask id="Activity_plan_approve" name="方案审批">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_merge_to_approve</bpmn2:incoming>
       <bpmn2:outgoing>Flow_approve_to_confirm</bpmn2:outgoing>
+      <bpmn2:multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <bpmn2:loopCardinality xsi:type="bpmn2:tFormalExpression">1</bpmn2:loopCardinality>
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
-
-    <!-- ===== 方案确认 ===== -->
     <bpmn2:userTask id="Activity_plan_confirm" name="方案确认">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:approveMethod>4</flowable:approveMethod>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_approve_to_confirm</bpmn2:incoming>
       <bpmn2:outgoing>Flow_confirm_to_merge</bpmn2:outgoing>
+      <bpmn2:multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <bpmn2:loopCardinality xsi:type="bpmn2:tFormalExpression">1</bpmn2:loopCardinality>
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
-
-    <!-- ===== 合并网关（排期前：方案确认完成 or BUG直接跳入） ===== -->
     <bpmn2:exclusiveGateway id="Gateway_merge_schedule" name="">
       <bpmn2:incoming>Flow_confirm_to_merge</bpmn2:incoming>
       <bpmn2:incoming>Flow_bug_to_schedule</bpmn2:incoming>
       <bpmn2:outgoing>Flow_merge_to_schedule</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
-
-    <!-- ===== 排期中 ===== -->
     <bpmn2:userTask id="Activity_schedule" name="排期中">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:approveMethod>4</flowable:approveMethod>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_merge_to_schedule</bpmn2:incoming>
       <bpmn2:outgoing>Flow_schedule_develop</bpmn2:outgoing>
+      <bpmn2:multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <bpmn2:loopCardinality xsi:type="bpmn2:tFormalExpression">1</bpmn2:loopCardinality>
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
-
-    <!-- ===== 开发中 ===== -->
     <bpmn2:userTask id="Activity_develop" name="开发中">
       <bpmn2:extensionElements>
         <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:candidateParam />
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_schedule_develop</bpmn2:incoming>
       <bpmn2:outgoing>Flow_develop_to_gateway</bpmn2:outgoing>
     </bpmn2:userTask>
-
-    <!-- ===== 开发完成分支网关（BUG直接上线 / 新需求走内测） ===== -->
     <bpmn2:exclusiveGateway id="Gateway_after_develop" name="开发完成">
       <bpmn2:incoming>Flow_develop_to_gateway</bpmn2:incoming>
       <bpmn2:outgoing>Flow_bug_to_deploy</bpmn2:outgoing>
       <bpmn2:outgoing>Flow_develop_internal</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
-
-    <!-- ===== 内测 ===== -->
     <bpmn2:userTask id="Activity_internal_test" name="内测">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:approveMethod>4</flowable:approveMethod>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_develop_internal</bpmn2:incoming>
       <bpmn2:outgoing>Flow_internal_trial</bpmn2:outgoing>
+      <bpmn2:multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <bpmn2:loopCardinality xsi:type="bpmn2:tFormalExpression">1</bpmn2:loopCardinality>
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
-
-    <!-- ===== 试用测试 ===== -->
     <bpmn2:userTask id="Activity_trial_test" name="试用测试">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_internal_trial</bpmn2:incoming>
       <bpmn2:outgoing>Flow_trial_deploy</bpmn2:outgoing>
     </bpmn2:userTask>
-
-    <!-- ===== 上线部署 ===== -->
     <bpmn2:userTask id="Activity_deploy" name="上线部署">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>35</flowable:candidateStrategy>
-        <flowable:candidateParam></flowable:candidateParam>
+        <flowable:candidateStrategy>30</flowable:candidateStrategy>
+        <flowable:candidateParam>1240</flowable:candidateParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_trial_deploy</bpmn2:incoming>
       <bpmn2:incoming>Flow_bug_to_deploy</bpmn2:incoming>
       <bpmn2:outgoing>Flow_deploy_end</bpmn2:outgoing>
+      <bpmn2:multiInstanceLoopCharacteristics isSequential="true" flowable:collection="${coll_userList}">
+        <bpmn2:loopCardinality xsi:type="bpmn2:tFormalExpression">1</bpmn2:loopCardinality>
+        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt;= nrOfInstances }</bpmn2:completionCondition>
+      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
-
-    <!-- ===== 结束 ===== -->
     <bpmn2:endEvent id="Event_end" name="结束">
       <bpmn2:incoming>Flow_deploy_end</bpmn2:incoming>
     </bpmn2:endEvent>
-
-    <!-- ===== 顺序流 ===== -->
     <bpmn2:sequenceFlow id="Flow_start_submit" sourceRef="Event_start" targetRef="Activity_submit" />
     <bpmn2:sequenceFlow id="Flow_submit_review" sourceRef="Activity_submit" targetRef="Activity_review" />
     <bpmn2:sequenceFlow id="Flow_review_to_gateway" sourceRef="Activity_review" targetRef="Gateway_review" />
-
-    <!-- 分支1: 另行处理 (dc_it_status=3) -->
     <bpmn2:sequenceFlow id="Flow_to_reject" name="另行处理" sourceRef="Gateway_review" targetRef="Activity_reject">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${receiveStatus == '3'}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="Flow_reject_end" sourceRef="Activity_reject" targetRef="Event_end_reject" />
-
-    <!-- 分支2: BUG直接排期 (dc_it_status=2已接受, dc_it_requirement_type=3系统BUG) -->
     <bpmn2:sequenceFlow id="Flow_bug_to_schedule" name="BUG" sourceRef="Gateway_review" targetRef="Gateway_merge_schedule">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${receiveStatus == '2' and requestType == '3'}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-
-    <!-- 分支3: 已接收+需要原型设计 (dc_it_status=2, requestType!=3, dc_it_design=1需要) -->
     <bpmn2:sequenceFlow id="Flow_to_design" name="需要原型设计" sourceRef="Gateway_review" targetRef="Activity_design">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${receiveStatus == '2' and requestType != '3' and needDesign == '1'}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-
-    <!-- 分支4: 已接收+不需要原型设计 (dc_it_status=2, requestType!=3, dc_it_design=2不需要) -->
     <bpmn2:sequenceFlow id="Flow_no_prototype_to_approve" name="不需要原型" sourceRef="Gateway_review" targetRef="Gateway_merge_approve">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${receiveStatus == '2' and requestType != '3' and needDesign == '2'}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-
-    <!-- 方案设计 → 合并 → 方案审批 → 方案确认 -->
-    <bpmn2:sequenceFlow id="Flow_design_to_merge"    sourceRef="Activity_design"       targetRef="Gateway_merge_approve" />
-    <bpmn2:sequenceFlow id="Flow_merge_to_approve"   sourceRef="Gateway_merge_approve"  targetRef="Activity_plan_approve" />
-    <bpmn2:sequenceFlow id="Flow_approve_to_confirm" sourceRef="Activity_plan_approve"  targetRef="Activity_plan_confirm" />
-    <bpmn2:sequenceFlow id="Flow_confirm_to_merge"   sourceRef="Activity_plan_confirm"  targetRef="Gateway_merge_schedule" />
-
-    <!-- 排期中 → 开发中 → 网关 -->
-    <bpmn2:sequenceFlow id="Flow_merge_to_schedule"  sourceRef="Gateway_merge_schedule"  targetRef="Activity_schedule" />
-    <bpmn2:sequenceFlow id="Flow_schedule_develop"   sourceRef="Activity_schedule"       targetRef="Activity_develop" />
-    <bpmn2:sequenceFlow id="Flow_develop_to_gateway" sourceRef="Activity_develop"        targetRef="Gateway_after_develop" />
-
-    <!-- BUG → 直接上线部署 (dc_it_requirement_type=3系统BUG) -->
+    <bpmn2:sequenceFlow id="Flow_design_to_merge" sourceRef="Activity_design" targetRef="Gateway_merge_approve" />
+    <bpmn2:sequenceFlow id="Flow_merge_to_approve" sourceRef="Gateway_merge_approve" targetRef="Activity_plan_approve" />
+    <bpmn2:sequenceFlow id="Flow_approve_to_confirm" sourceRef="Activity_plan_approve" targetRef="Activity_plan_confirm" />
+    <bpmn2:sequenceFlow id="Flow_confirm_to_merge" sourceRef="Activity_plan_confirm" targetRef="Gateway_merge_schedule" />
+    <bpmn2:sequenceFlow id="Flow_merge_to_schedule" sourceRef="Gateway_merge_schedule" targetRef="Activity_schedule" />
+    <bpmn2:sequenceFlow id="Flow_schedule_develop" sourceRef="Activity_schedule" targetRef="Activity_develop" />
+    <bpmn2:sequenceFlow id="Flow_develop_to_gateway" sourceRef="Activity_develop" targetRef="Gateway_after_develop" />
     <bpmn2:sequenceFlow id="Flow_bug_to_deploy" name="BUG" sourceRef="Gateway_after_develop" targetRef="Activity_deploy">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${requestType == '3'}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-
-    <!-- 新需求 → 内测 → 试用测试 → 上线部署 (非BUG) -->
-    <bpmn2:sequenceFlow id="Flow_develop_internal"   sourceRef="Gateway_after_develop"   targetRef="Activity_internal_test">
+    <bpmn2:sequenceFlow id="Flow_develop_internal" sourceRef="Gateway_after_develop" targetRef="Activity_internal_test">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${requestType != '3'}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-    <bpmn2:sequenceFlow id="Flow_internal_trial"     sourceRef="Activity_internal_test"  targetRef="Activity_trial_test" />
-    <bpmn2:sequenceFlow id="Flow_trial_deploy"       sourceRef="Activity_trial_test"     targetRef="Activity_deploy" />
-    <bpmn2:sequenceFlow id="Flow_deploy_end"         sourceRef="Activity_deploy"         targetRef="Event_end" />
-
+    <bpmn2:sequenceFlow id="Flow_internal_trial" sourceRef="Activity_internal_test" targetRef="Activity_trial_test" />
+    <bpmn2:sequenceFlow id="Flow_trial_deploy" sourceRef="Activity_trial_test" targetRef="Activity_deploy" />
+    <bpmn2:sequenceFlow id="Flow_deploy_end" sourceRef="Activity_deploy" targetRef="Event_end" />
   </bpmn2:process>
-
-  <!-- ===== 布局 ===== -->
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="system-it-request_di" bpmnElement="system-it-request">
-
-      <!-- 主流程行 y=220 -->
       <bpmndi:BPMNShape id="Event_start_di" bpmnElement="Event_start">
         <dc:Bounds x="102" y="202" width="36" height="36" />
-        <bpmndi:BPMNLabel><dc:Bounds x="109" y="245" width="22" height="14" /></bpmndi:BPMNLabel>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="109" y="245" width="22" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-
       <bpmndi:BPMNShape id="Activity_submit_di" bpmnElement="Activity_submit">
         <dc:Bounds x="190" y="180" width="100" height="80" />
       </bpmndi:BPMNShape>
-
       <bpmndi:BPMNShape id="Activity_review_di" bpmnElement="Activity_review">
         <dc:Bounds x="350" y="180" width="100" height="80" />
       </bpmndi:BPMNShape>
-
       <bpmndi:BPMNShape id="Gateway_review_di" bpmnElement="Gateway_review" isMarkerVisible="true">
         <dc:Bounds x="505" y="195" width="50" height="50" />
-        <bpmndi:BPMNLabel><dc:Bounds x="496" y="252" width="68" height="14" /></bpmndi:BPMNLabel>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="496" y="252" width="68" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-
-      <!-- 方案设计（上方行 y=80） -->
-      <bpmndi:BPMNShape id="Activity_design_di" bpmnElement="Activity_design">
-        <dc:Bounds x="560" y="60" width="100" height="80" />
-      </bpmndi:BPMNShape>
-
-      <bpmndi:BPMNShape id="Gateway_merge_approve_di" bpmnElement="Gateway_merge_approve" isMarkerVisible="true">
-        <dc:Bounds x="715" y="195" width="50" height="50" />
-      </bpmndi:BPMNShape>
-
-      <bpmndi:BPMNShape id="Activity_plan_approve_di" bpmnElement="Activity_plan_approve">
-        <dc:Bounds x="820" y="180" width="100" height="80" />
-      </bpmndi:BPMNShape>
-
-      <bpmndi:BPMNShape id="Activity_plan_confirm_di" bpmnElement="Activity_plan_confirm">
-        <dc:Bounds x="980" y="180" width="100" height="80" />
-      </bpmndi:BPMNShape>
-
-      <bpmndi:BPMNShape id="Gateway_merge_schedule_di" bpmnElement="Gateway_merge_schedule" isMarkerVisible="true">
-        <dc:Bounds x="1135" y="195" width="50" height="50" />
-      </bpmndi:BPMNShape>
-
-      <bpmndi:BPMNShape id="Activity_schedule_di" bpmnElement="Activity_schedule">
-        <dc:Bounds x="1240" y="180" width="100" height="80" />
-      </bpmndi:BPMNShape>
-
-      <bpmndi:BPMNShape id="Activity_develop_di" bpmnElement="Activity_develop">
-        <dc:Bounds x="1400" y="180" width="100" height="80" />
-      </bpmndi:BPMNShape>
-
-      <bpmndi:BPMNShape id="Gateway_after_develop_di" bpmnElement="Gateway_after_develop" isMarkerVisible="true">
-        <dc:Bounds x="1555" y="195" width="50" height="50" />
-        <bpmndi:BPMNLabel><dc:Bounds x="1546" y="252" width="68" height="14" /></bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-
-      <bpmndi:BPMNShape id="Activity_internal_test_di" bpmnElement="Activity_internal_test">
-        <dc:Bounds x="1660" y="180" width="100" height="80" />
-      </bpmndi:BPMNShape>
-
-      <bpmndi:BPMNShape id="Activity_trial_test_di" bpmnElement="Activity_trial_test">
-        <dc:Bounds x="1820" y="180" width="100" height="80" />
-      </bpmndi:BPMNShape>
-
-      <bpmndi:BPMNShape id="Activity_deploy_di" bpmnElement="Activity_deploy">
-        <dc:Bounds x="1980" y="180" width="100" height="80" />
-      </bpmndi:BPMNShape>
-
-      <bpmndi:BPMNShape id="Event_end_di" bpmnElement="Event_end">
-        <dc:Bounds x="2142" y="202" width="36" height="36" />
-        <bpmndi:BPMNLabel><dc:Bounds x="2149" y="245" width="22" height="14" /></bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-
-      <!-- 回绝确认（下方行 y=380） -->
       <bpmndi:BPMNShape id="Activity_reject_di" bpmnElement="Activity_reject">
         <dc:Bounds x="480" y="370" width="100" height="80" />
       </bpmndi:BPMNShape>
-
       <bpmndi:BPMNShape id="Event_end_reject_di" bpmnElement="Event_end_reject">
         <dc:Bounds x="642" y="392" width="36" height="36" />
-        <bpmndi:BPMNLabel><dc:Bounds x="649" y="435" width="22" height="14" /></bpmndi:BPMNLabel>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="649" y="435" width="22" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-
-      <!-- ===== 连线 ===== -->
+      <bpmndi:BPMNShape id="Activity_design_di" bpmnElement="Activity_design">
+        <dc:Bounds x="560" y="60" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_merge_approve_di" bpmnElement="Gateway_merge_approve" isMarkerVisible="true">
+        <dc:Bounds x="715" y="195" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_plan_approve_di" bpmnElement="Activity_plan_approve">
+        <dc:Bounds x="820" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_plan_confirm_di" bpmnElement="Activity_plan_confirm">
+        <dc:Bounds x="980" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_merge_schedule_di" bpmnElement="Gateway_merge_schedule" isMarkerVisible="true">
+        <dc:Bounds x="1135" y="195" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_schedule_di" bpmnElement="Activity_schedule">
+        <dc:Bounds x="1240" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_develop_di" bpmnElement="Activity_develop">
+        <dc:Bounds x="1400" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_after_develop_di" bpmnElement="Gateway_after_develop" isMarkerVisible="true">
+        <dc:Bounds x="1555" y="195" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1546" y="252" width="68" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_internal_test_di" bpmnElement="Activity_internal_test">
+        <dc:Bounds x="1660" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_trial_test_di" bpmnElement="Activity_trial_test">
+        <dc:Bounds x="1820" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_deploy_di" bpmnElement="Activity_deploy">
+        <dc:Bounds x="1980" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_end_di" bpmnElement="Event_end">
+        <dc:Bounds x="2142" y="202" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2149" y="245" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_start_submit_di" bpmnElement="Flow_start_submit">
-        <di:waypoint x="138" y="220" /><di:waypoint x="190" y="220" />
+        <di:waypoint x="138" y="220" />
+        <di:waypoint x="190" y="220" />
       </bpmndi:BPMNEdge>
-
       <bpmndi:BPMNEdge id="Flow_submit_review_di" bpmnElement="Flow_submit_review">
-        <di:waypoint x="290" y="220" /><di:waypoint x="350" y="220" />
+        <di:waypoint x="290" y="220" />
+        <di:waypoint x="350" y="220" />
       </bpmndi:BPMNEdge>
-
       <bpmndi:BPMNEdge id="Flow_review_to_gateway_di" bpmnElement="Flow_review_to_gateway">
-        <di:waypoint x="450" y="220" /><di:waypoint x="505" y="220" />
+        <di:waypoint x="450" y="220" />
+        <di:waypoint x="505" y="220" />
       </bpmndi:BPMNEdge>
-
-      <!-- 另行处理 → 下方 → 回绝确认 -->
       <bpmndi:BPMNEdge id="Flow_to_reject_di" bpmnElement="Flow_to_reject">
-        <di:waypoint x="530" y="245" /><di:waypoint x="530" y="370" />
-        <bpmndi:BPMNLabel><dc:Bounds x="538" y="300" width="44" height="14" /></bpmndi:BPMNLabel>
+        <di:waypoint x="530" y="245" />
+        <di:waypoint x="530" y="370" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="538" y="300" width="44" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-
       <bpmndi:BPMNEdge id="Flow_reject_end_di" bpmnElement="Flow_reject_end">
-        <di:waypoint x="580" y="410" /><di:waypoint x="642" y="410" />
+        <di:waypoint x="580" y="410" />
+        <di:waypoint x="642" y="410" />
       </bpmndi:BPMNEdge>
-
-      <!-- BUG → 顶部弧线 → 合并排期网关 -->
       <bpmndi:BPMNEdge id="Flow_bug_to_schedule_di" bpmnElement="Flow_bug_to_schedule">
         <di:waypoint x="530" y="195" />
         <di:waypoint x="530" y="30" />
         <di:waypoint x="1160" y="30" />
         <di:waypoint x="1160" y="195" />
-        <bpmndi:BPMNLabel><dc:Bounds x="820" y="12" width="22" height="14" /></bpmndi:BPMNLabel>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="820" y="12" width="22" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-
-      <!-- 需要原型 → 上方 → 方案设计 -->
       <bpmndi:BPMNEdge id="Flow_to_design_di" bpmnElement="Flow_to_design">
         <di:waypoint x="530" y="195" />
         <di:waypoint x="530" y="100" />
         <di:waypoint x="560" y="100" />
-        <bpmndi:BPMNLabel><dc:Bounds x="536" y="142" width="56" height="14" /></bpmndi:BPMNLabel>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="536" y="142" width="56" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-
-      <!-- 不需要原型 → 直接到合并网关 -->
       <bpmndi:BPMNEdge id="Flow_no_prototype_to_approve_di" bpmnElement="Flow_no_prototype_to_approve">
-        <di:waypoint x="555" y="220" /><di:waypoint x="715" y="220" />
-        <bpmndi:BPMNLabel><dc:Bounds x="596" y="202" width="56" height="14" /></bpmndi:BPMNLabel>
+        <di:waypoint x="555" y="220" />
+        <di:waypoint x="715" y="220" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="596" y="202" width="56" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-
-      <!-- 方案设计 → 合并网关 -->
       <bpmndi:BPMNEdge id="Flow_design_to_merge_di" bpmnElement="Flow_design_to_merge">
         <di:waypoint x="660" y="100" />
         <di:waypoint x="740" y="100" />
         <di:waypoint x="740" y="195" />
       </bpmndi:BPMNEdge>
-
-      <!-- 合并 → 方案审批 → 方案确认 → 合并排期 -->
       <bpmndi:BPMNEdge id="Flow_merge_to_approve_di" bpmnElement="Flow_merge_to_approve">
-        <di:waypoint x="765" y="220" /><di:waypoint x="820" y="220" />
+        <di:waypoint x="765" y="220" />
+        <di:waypoint x="820" y="220" />
       </bpmndi:BPMNEdge>
-
       <bpmndi:BPMNEdge id="Flow_approve_to_confirm_di" bpmnElement="Flow_approve_to_confirm">
-        <di:waypoint x="920" y="220" /><di:waypoint x="980" y="220" />
+        <di:waypoint x="920" y="220" />
+        <di:waypoint x="980" y="220" />
       </bpmndi:BPMNEdge>
-
       <bpmndi:BPMNEdge id="Flow_confirm_to_merge_di" bpmnElement="Flow_confirm_to_merge">
-        <di:waypoint x="1080" y="220" /><di:waypoint x="1135" y="220" />
+        <di:waypoint x="1080" y="220" />
+        <di:waypoint x="1135" y="220" />
       </bpmndi:BPMNEdge>
-
-      <!-- 排期 → 开发 → 内测 → 试用测试 → 上线 → 结束 -->
       <bpmndi:BPMNEdge id="Flow_merge_to_schedule_di" bpmnElement="Flow_merge_to_schedule">
-        <di:waypoint x="1185" y="220" /><di:waypoint x="1240" y="220" />
+        <di:waypoint x="1185" y="220" />
+        <di:waypoint x="1240" y="220" />
       </bpmndi:BPMNEdge>
-
       <bpmndi:BPMNEdge id="Flow_schedule_develop_di" bpmnElement="Flow_schedule_develop">
-        <di:waypoint x="1340" y="220" /><di:waypoint x="1400" y="220" />
+        <di:waypoint x="1340" y="220" />
+        <di:waypoint x="1400" y="220" />
       </bpmndi:BPMNEdge>
-
-      <!-- 开发中 → 网关 -->
       <bpmndi:BPMNEdge id="Flow_develop_to_gateway_di" bpmnElement="Flow_develop_to_gateway">
-        <di:waypoint x="1500" y="220" /><di:waypoint x="1555" y="220" />
+        <di:waypoint x="1500" y="220" />
+        <di:waypoint x="1555" y="220" />
       </bpmndi:BPMNEdge>
-
-      <!-- BUG → 下弧 → 上线部署 -->
       <bpmndi:BPMNEdge id="Flow_bug_to_deploy_di" bpmnElement="Flow_bug_to_deploy">
         <di:waypoint x="1580" y="245" />
         <di:waypoint x="1580" y="340" />
         <di:waypoint x="2030" y="340" />
         <di:waypoint x="2030" y="260" />
-        <bpmndi:BPMNLabel><dc:Bounds x="1780" y="322" width="22" height="14" /></bpmndi:BPMNLabel>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1780" y="322" width="22" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-
-      <!-- 非BUG → 内测 → 试用测试 → 上线部署 -->
       <bpmndi:BPMNEdge id="Flow_develop_internal_di" bpmnElement="Flow_develop_internal">
-        <di:waypoint x="1605" y="220" /><di:waypoint x="1660" y="220" />
+        <di:waypoint x="1605" y="220" />
+        <di:waypoint x="1660" y="220" />
       </bpmndi:BPMNEdge>
-
       <bpmndi:BPMNEdge id="Flow_internal_trial_di" bpmnElement="Flow_internal_trial">
-        <di:waypoint x="1760" y="220" /><di:waypoint x="1820" y="220" />
+        <di:waypoint x="1760" y="220" />
+        <di:waypoint x="1820" y="220" />
       </bpmndi:BPMNEdge>
-
       <bpmndi:BPMNEdge id="Flow_trial_deploy_di" bpmnElement="Flow_trial_deploy">
-        <di:waypoint x="1920" y="220" /><di:waypoint x="1980" y="220" />
+        <di:waypoint x="1920" y="220" />
+        <di:waypoint x="1980" y="220" />
       </bpmndi:BPMNEdge>
-
       <bpmndi:BPMNEdge id="Flow_deploy_end_di" bpmnElement="Flow_deploy_end">
-        <di:waypoint x="2080" y="220" /><di:waypoint x="2142" y="220" />
+        <di:waypoint x="2080" y="220" />
+        <di:waypoint x="2142" y="220" />
       </bpmndi:BPMNEdge>
-
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
-
 </bpmn2:definitions>
