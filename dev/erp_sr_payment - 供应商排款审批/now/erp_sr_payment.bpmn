@@ -24,8 +24,8 @@
     <bpmn2:sequenceFlow id="Flow_1" sourceRef="Activity_initiator" targetRef="Activity_purchase_head" />
     <bpmn2:userTask id="Activity_purchase_head" name="上级采购负责人">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>30</flowable:candidateStrategy>
-        <flowable:candidateParam>417,670,1237,1239,1240,1241,1242,1506</flowable:candidateParam>
+        <flowable:candidateStrategy>39</flowable:candidateStrategy>
+        <flowable:candidateParam>1</flowable:candidateParam>
         <flowable:assignEmptyHandlerType>2</flowable:assignEmptyHandlerType>
         <flowable:assignEmptyUserIds>1506</flowable:assignEmptyUserIds>
         <flowable:approveType>1</flowable:approveType>
@@ -38,19 +38,15 @@
         <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
-        <flowable:approveMethod>3</flowable:approveMethod>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_1</bpmn2:incoming>
       <bpmn2:outgoing>Flow_2</bpmn2:outgoing>
-      <bpmn2:multiInstanceLoopCharacteristics flowable:collection="${coll_userList}">
-        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt; 0 }</bpmn2:completionCondition>
-      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="Flow_2" sourceRef="Activity_purchase_head" targetRef="Activity_director" />
     <bpmn2:userTask id="Activity_director" name="总监">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>30</flowable:candidateStrategy>
-        <flowable:candidateParam>417,670,1237,1239,1240,1241,1242,1506</flowable:candidateParam>
+        <flowable:candidateStrategy>10</flowable:candidateStrategy>
+        <flowable:candidateParam>821</flowable:candidateParam>
         <flowable:assignEmptyHandlerType>2</flowable:assignEmptyHandlerType>
         <flowable:assignEmptyUserIds>1506</flowable:assignEmptyUserIds>
         <flowable:approveType>1</flowable:approveType>
@@ -60,19 +56,15 @@
         <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
-        <flowable:approveMethod>3</flowable:approveMethod>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_2</bpmn2:incoming>
       <bpmn2:outgoing>Flow_3</bpmn2:outgoing>
-      <bpmn2:multiInstanceLoopCharacteristics flowable:collection="${coll_userList}">
-        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt; 0 }</bpmn2:completionCondition>
-      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="Flow_3" sourceRef="Activity_director" targetRef="Activity_gm" />
     <bpmn2:userTask id="Activity_gm" name="总经理">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>30</flowable:candidateStrategy>
-        <flowable:candidateParam>417,670,1237,1239,1240,1241,1242,1506</flowable:candidateParam>
+        <flowable:candidateStrategy>10</flowable:candidateStrategy>
+        <flowable:candidateParam>835</flowable:candidateParam>
         <flowable:assignEmptyHandlerType>2</flowable:assignEmptyHandlerType>
         <flowable:assignEmptyUserIds>1506</flowable:assignEmptyUserIds>
         <flowable:approveType>1</flowable:approveType>
@@ -82,19 +74,15 @@
         <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
-        <flowable:approveMethod>3</flowable:approveMethod>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_3</bpmn2:incoming>
       <bpmn2:outgoing>Flow_4</bpmn2:outgoing>
-      <bpmn2:multiInstanceLoopCharacteristics flowable:collection="${coll_userList}">
-        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt; 0 }</bpmn2:completionCondition>
-      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="Flow_4" sourceRef="Activity_gm" targetRef="Activity_gmo" />
     <bpmn2:userTask id="Activity_gmo" name="总经办">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>30</flowable:candidateStrategy>
-        <flowable:candidateParam>417,670,1237,1239,1240,1241,1242,1506</flowable:candidateParam>
+        <flowable:candidateStrategy>10</flowable:candidateStrategy>
+        <flowable:candidateParam>836</flowable:candidateParam>
         <flowable:assignEmptyHandlerType>2</flowable:assignEmptyHandlerType>
         <flowable:assignEmptyUserIds>1506</flowable:assignEmptyUserIds>
         <flowable:approveType>1</flowable:approveType>
@@ -104,36 +92,15 @@
         <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
-        <flowable:approveMethod>3</flowable:approveMethod>
+        <flowable:copyStrategy>10</flowable:copyStrategy>
+        <flowable:copyParam>837</flowable:copyParam>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_4</bpmn2:incoming>
       <bpmn2:outgoing>Flow_5</bpmn2:outgoing>
-      <bpmn2:multiInstanceLoopCharacteristics flowable:collection="${coll_userList}">
-        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt; 0 }</bpmn2:completionCondition>
-      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
-    <bpmn2:sequenceFlow id="Flow_5" sourceRef="Activity_gmo" targetRef="Activity_finance_cc" />
-    <bpmn2:userTask id="Activity_finance_cc" name="抄送财务">
-      <bpmn2:extensionElements>
-        <flowable:candidateStrategy>30</flowable:candidateStrategy>
-        <flowable:candidateParam>417,670,1237,1239,1240,1241,1242,1506</flowable:candidateParam>
-        <flowable:assignEmptyHandlerType>2</flowable:assignEmptyHandlerType>
-        <flowable:assignEmptyUserIds>1506</flowable:assignEmptyUserIds>
-        <flowable:approveType>2</flowable:approveType>
-        <flowable:buttonsSetting id="1" enable="true" displayName="确认" />
-        <flowable:signEnable>false</flowable:signEnable>
-        <flowable:reasonRequire>false</flowable:reasonRequire>
-        <flowable:approveMethod>3</flowable:approveMethod>
-      </bpmn2:extensionElements>
-      <bpmn2:incoming>Flow_5</bpmn2:incoming>
-      <bpmn2:outgoing>Flow_6</bpmn2:outgoing>
-      <bpmn2:multiInstanceLoopCharacteristics flowable:collection="${coll_userList}">
-        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt; 0 }</bpmn2:completionCondition>
-      </bpmn2:multiInstanceLoopCharacteristics>
-    </bpmn2:userTask>
-    <bpmn2:sequenceFlow id="Flow_6" sourceRef="Activity_finance_cc" targetRef="Event_end" />
+    <bpmn2:sequenceFlow id="Flow_5" sourceRef="Activity_gmo" targetRef="Event_end" />
     <bpmn2:endEvent id="Event_end" name="结束">
-      <bpmn2:incoming>Flow_6</bpmn2:incoming>
+      <bpmn2:incoming>Flow_5</bpmn2:incoming>
     </bpmn2:endEvent>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_erp_sr_payment">
@@ -156,11 +123,8 @@
       <bpmndi:BPMNShape id="Activity_gmo_di" bpmnElement="Activity_gmo">
         <dc:Bounds x="730" y="60" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_finance_cc_di" bpmnElement="Activity_finance_cc">
-        <dc:Bounds x="880" y="60" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_end_di" bpmnElement="Event_end">
-        <dc:Bounds x="1032" y="82" width="36" height="36" />
+        <dc:Bounds x="880" y="82" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_start_di" bpmnElement="Flow_start_to_initiator">
         <di:waypoint x="88" y="100" />
@@ -185,10 +149,6 @@
       <bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5">
         <di:waypoint x="830" y="100" />
         <di:waypoint x="880" y="100" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6">
-        <di:waypoint x="980" y="100" />
-        <di:waypoint x="1032" y="100" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

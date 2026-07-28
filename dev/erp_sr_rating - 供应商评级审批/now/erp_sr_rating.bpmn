@@ -26,8 +26,8 @@
     <bpmn2:sequenceFlow id="Flow_initiator_to_superior" sourceRef="Activity_initiator" targetRef="Activity_superior" />
     <bpmn2:userTask id="Activity_superior" name="上级审核">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>30</flowable:candidateStrategy>
-        <flowable:candidateParam>417,670,1237,1239,1240,1241,1242,1506</flowable:candidateParam>
+        <flowable:candidateStrategy>39</flowable:candidateStrategy>
+        <flowable:candidateParam>1</flowable:candidateParam>
         <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
         <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
         <flowable:rejectReturnTaskId />
@@ -43,19 +43,15 @@
         <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
-        <flowable:approveMethod>3</flowable:approveMethod>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_initiator_to_superior</bpmn2:incoming>
       <bpmn2:outgoing>Flow_superior_to_ops</bpmn2:outgoing>
-      <bpmn2:multiInstanceLoopCharacteristics flowable:collection="${coll_userList}">
-        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt; 0 }</bpmn2:completionCondition>
-      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="Flow_superior_to_ops" sourceRef="Activity_superior" targetRef="Activity_ops_head" />
     <bpmn2:userTask id="Activity_ops_head" name="运营最高负责人">
       <bpmn2:extensionElements>
-        <flowable:candidateStrategy>30</flowable:candidateStrategy>
-        <flowable:candidateParam>417,670,1237,1239,1240,1241,1242,1506</flowable:candidateParam>
+        <flowable:candidateStrategy>10</flowable:candidateStrategy>
+        <flowable:candidateParam>821</flowable:candidateParam>
         <flowable:assignStartUserHandlerType>1</flowable:assignStartUserHandlerType>
         <flowable:rejectHandlerType>1</flowable:rejectHandlerType>
         <flowable:rejectReturnTaskId />
@@ -68,13 +64,9 @@
         <flowable:buttonsSetting id="7" enable="true" displayName="抄送" />
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
-        <flowable:approveMethod>3</flowable:approveMethod>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_superior_to_ops</bpmn2:incoming>
       <bpmn2:outgoing>Flow_ops_to_end</bpmn2:outgoing>
-      <bpmn2:multiInstanceLoopCharacteristics flowable:collection="${coll_userList}">
-        <bpmn2:completionCondition xsi:type="bpmn2:tFormalExpression">${ nrOfCompletedInstances &gt; 0 }</bpmn2:completionCondition>
-      </bpmn2:multiInstanceLoopCharacteristics>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="Flow_ops_to_end" sourceRef="Activity_ops_head" targetRef="Event_end" />
     <bpmn2:endEvent id="Event_end" name="结束">

@@ -28,8 +28,8 @@
   },
   "autoApprovalType": 0,
   "titleSetting": {
-    "enable": false,
-    "title": ""
+    "enable": true,
+    "title": "{PROCESS_DEFINITION_NAME}-{PROCESS_START_USER_ID}-{PROCESS_START_TIME}"
   },
   "summarySetting": {
     "enable": false,
@@ -37,5 +37,5 @@
   },
   "key": "pdp_quotation",
   "name": "报价单审批",
-  "category": "hidden"
+  "category": "salflow"
 }

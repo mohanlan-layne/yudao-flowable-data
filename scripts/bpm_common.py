@@ -10,10 +10,10 @@ import urllib.error
 import urllib.request
 
 CONFIGS = {
-    'dev':  {'url': 'http://192.168.1.182:30080', 'tenant_id': '1', 'username': 'admin', 'password': 'admin123'},
-    'test': {'url': 'http://192.168.1.182:30082', 'tenant_id': '1', 'username': 'admin', 'password': 'admin123'},
-    'uat':  {'url': 'http://192.168.1.182:30084', 'tenant_id': '1', 'username': 'admin', 'password': 'admin123'},
-    'prod': {'url': 'http://192.168.1.182:30086', 'tenant_id': '1', 'username': 'admin', 'password': 'admin123'},
+    'dev':  {'url': 'http://192.168.1.182:30080', 'tenant_id': '1', 'username': 'admin', 'password': 'Ew#Bip2026@K9xQ!'},
+    'test': {'url': 'http://192.168.1.182:30082', 'tenant_id': '1', 'username': 'admin', 'password': 'Ew#Bip2026@K9xQ!'},
+    'uat':  {'url': 'http://192.168.1.182:30084', 'tenant_id': '1', 'username': 'admin', 'password': 'Ew#Bip2026@K9xQ!'},
+    'prod': {'url': 'http://192.168.1.182:30086', 'tenant_id': '1', 'username': 'admin', 'password': 'Ew#Bip2026@K9xQ!'},
 }
 
 ENVS = list(CONFIGS.keys())

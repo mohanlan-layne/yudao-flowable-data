@@ -1,14 +1,11 @@
 {
   "description": "供应商评级审批流程（按分组维度，每周期自动发起）",
-  "type": 10,
   "formType": 20,
   "formCustomCreatePath": "/supplier-chain/rating",
   "formCustomViewPath": "/erp/supplier/rating/detail/index.vue",
   "formCustomMiniViewPath": "/pages-erp/processInstance/detail/index",
   "visible": false,
   "h5Visible": false,
-  "startUserIds": [],
-  "startDeptIds": [],
   "managerUserIds": [
     1506,
     1
@@ -37,7 +34,9 @@
     "enable": false,
     "summary": []
   },
-  "key": "erp_sr_rating",
+  "version": 22,
   "name": "供应商评级审批",
-  "category": "scmflow"
+  "key": "erp_sr_rating",
+  "category": "scmflow",
+  "modelType": 10
 }

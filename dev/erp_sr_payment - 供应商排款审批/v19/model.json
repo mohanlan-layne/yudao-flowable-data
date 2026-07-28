@@ -1,14 +1,11 @@
 {
-  "description": "供应商评级审批流程（按分组维度，每周期自动发起）",
-  "type": 10,
+  "description": "供应商排款审批流程（采购员发起，按周期/付款组织/付款类型维度）",
   "formType": 20,
-  "formCustomCreatePath": "/supplier-chain/rating",
-  "formCustomViewPath": "/erp/supplier/rating/detail/index.vue",
+  "formCustomCreatePath": "/supplier-chain/payment",
+  "formCustomViewPath": "/erp/supplier/payment/detail/index.vue",
   "formCustomMiniViewPath": "/pages-erp/processInstance/detail/index",
   "visible": false,
   "h5Visible": false,
-  "startUserIds": [],
-  "startDeptIds": [],
   "managerUserIds": [
     1506,
     1
@@ -18,7 +15,7 @@
     804,
     807
   ],
-  "sort": 1000,
+  "sort": 1001,
   "allowCancelRunningProcess": true,
   "allowWithdrawTask": false,
   "processIdRule": {
@@ -31,13 +28,15 @@
   "autoApprovalType": 0,
   "titleSetting": {
     "enable": true,
-    "title": "{PROCESS_DEFINITION_NAME}-{cycleMonth}-{srCategoryName}"
+    "title": "{PROCESS_DEFINITION_NAME}-{cycleMonth}-{purchaserName}-{PROCESS_START_TIME}"
   },
   "summarySetting": {
     "enable": false,
     "summary": []
   },
-  "key": "erp_sr_rating",
-  "name": "供应商评级审批",
-  "category": "scmflow"
+  "version": 19,
+  "name": "供应商排款审批",
+  "key": "erp_sr_payment",
+  "category": "scmflow",
+  "modelType": 10
 }

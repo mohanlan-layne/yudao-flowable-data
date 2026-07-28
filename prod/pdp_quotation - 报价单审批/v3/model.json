@@ -1,13 +1,10 @@
 {
   "description": "报价单审批流程（报价组提交，业务审批）",
-  "type": 10,
   "formType": 20,
   "formCustomCreatePath": "/dcapp/quotation/detail",
   "formCustomViewPath": "/dcapp/quotation/detail",
   "visible": true,
   "h5Visible": false,
-  "startUserIds": [],
-  "startDeptIds": [],
   "managerUserIds": [
     1
   ],
@@ -35,7 +32,9 @@
     "enable": false,
     "summary": []
   },
-  "key": "pdp_quotation",
+  "version": 3,
   "name": "报价单审批",
-  "category": "salflow"
+  "key": "pdp_quotation",
+  "category": "hidden",
+  "modelType": 10
 }
