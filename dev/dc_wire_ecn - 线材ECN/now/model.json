@@ -1,0 +1,39 @@
+{
+  "description": "线材ECN流程：工程对已审核BOM发起变更（变更明细=新增/删除/修改，修改仅单位用量；勾选影响未完工单），DCC审批通过后BOM明细原地更新、受影响工单用料清单回写",
+  "type": 10,
+  "formType": 20,
+  "formCustomCreatePath": "/dc/wire/ecn/flow",
+  "formCustomViewPath": "/dc/wire/ecn/flow",
+  "visible": true,
+  "h5Visible": false,
+  "startUserIds": [],
+  "startDeptIds": [],
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1
+  ],
+  "sort": 1002,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "key": "dc_wire_ecn",
+  "name": "线材ECN",
+  "category": "scmflow"
+}
