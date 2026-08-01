@@ -1,0 +1,39 @@
+{
+  "description": "线材BOM确认流程：同父项已有BOM且无在途流程时，执行单发起自动新建，工程确认BOM沿用（要改走线材ECN），确认通过后关联工单解锁",
+  "type": 10,
+  "formType": 20,
+  "formCustomCreatePath": "/dc/wire/bom/confirm",
+  "formCustomViewPath": "/dc/wire/bom/confirm",
+  "visible": true,
+  "h5Visible": false,
+  "startUserIds": [],
+  "startDeptIds": [],
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1
+  ],
+  "sort": 1001,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "key": "dc_wire_bom_confirm",
+  "name": "线材BOM确认",
+  "category": "scmflow"
+}
