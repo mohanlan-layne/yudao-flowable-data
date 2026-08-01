@@ -53,9 +53,10 @@ def cmd_start(args):
     base_url, tenant_id = cfg['url'], cfg['tenant_id']
     token = login(base_url, tenant_id, cfg['username'], cfg['password'])
 
-    resp = api_request(base_url, f'/admin-api/bpm/process-definition/list?key={args.key}',
+    # 服务端要求必传 suspensionState，且 key 参数不过滤（返回全量），需客户端按 key 过滤
+    resp = api_request(base_url, '/admin-api/bpm/process-definition/list?suspensionState=1',
                        token=token, tenant_id=tenant_id)
-    defs = resp.get('data') or []
+    defs = [d for d in (resp.get('data') or []) if d.get('key') == args.key]
     if not defs:
         print(f'[start] 错误: 找不到流程定义 key={args.key}（请先 deploy）', file=sys.stderr)
         sys.exit(1)

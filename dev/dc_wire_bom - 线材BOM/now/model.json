@@ -1,0 +1,39 @@
+{
+  "description": "线材BOM搭建流程：无BOM物料发起执行单时自动发起，工程补录BOM明细并上传图档，DCC审核通过后BOM生效、关联工单解锁",
+  "type": 10,
+  "formType": 20,
+  "formCustomCreatePath": "/dc/wire/bom/flow",
+  "formCustomViewPath": "/dc/wire/bom/flow",
+  "visible": true,
+  "h5Visible": false,
+  "startUserIds": [],
+  "startDeptIds": [],
+  "managerUserIds": [
+    1
+  ],
+  "managerRoleIds": [
+    1
+  ],
+  "sort": 1000,
+  "allowCancelRunningProcess": true,
+  "allowWithdrawTask": false,
+  "processIdRule": {
+    "enable": false,
+    "prefix": "",
+    "infix": "",
+    "postfix": "",
+    "length": 5
+  },
+  "autoApprovalType": 0,
+  "titleSetting": {
+    "enable": false,
+    "title": ""
+  },
+  "summarySetting": {
+    "enable": false,
+    "summary": []
+  },
+  "key": "dc_wire_bom",
+  "name": "线材BOM",
+  "category": "scmflow"
+}
