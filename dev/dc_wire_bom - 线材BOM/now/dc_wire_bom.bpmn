@@ -16,6 +16,13 @@
         <flowable:approveType>1</flowable:approveType>
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
+        <flowable:buttonsSetting id="1" enable="true" displayName="提交" />
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝" />
+        <flowable:buttonsSetting id="3" enable="false" displayName="转办" />
+        <flowable:buttonsSetting id="4" enable="false" displayName="委派" />
+        <flowable:buttonsSetting id="5" enable="false" displayName="加签" />
+        <flowable:buttonsSetting id="6" enable="false" displayName="退回" />
+        <flowable:buttonsSetting id="7" enable="false" displayName="抄送" />
       </bpmn2:extensionElements>
     </bpmn2:userTask>
     <bpmn2:userTask id="Activity_dcc_approve" name="DCC审批">
@@ -30,6 +37,13 @@
         <flowable:approveType>1</flowable:approveType>
         <flowable:signEnable>false</flowable:signEnable>
         <flowable:reasonRequire>false</flowable:reasonRequire>
+        <flowable:buttonsSetting id="1" enable="true" displayName="通过" />
+        <flowable:buttonsSetting id="2" enable="true" displayName="拒绝" />
+        <flowable:buttonsSetting id="3" enable="false" displayName="转办" />
+        <flowable:buttonsSetting id="4" enable="false" displayName="委派" />
+        <flowable:buttonsSetting id="5" enable="false" displayName="加签" />
+        <flowable:buttonsSetting id="6" enable="true" displayName="退回" />
+        <flowable:buttonsSetting id="7" enable="false" displayName="抄送" />
       </bpmn2:extensionElements>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="Flow_1" sourceRef="Event_start" targetRef="Activity_eng_build"/>

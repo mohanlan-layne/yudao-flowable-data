@@ -15,7 +15,7 @@
     1
   ],
   "sort": 1002,
-  "allowCancelRunningProcess": true,
+  "allowCancelRunningProcess": false,
   "allowWithdrawTask": false,
   "processIdRule": {
     "enable": false,
